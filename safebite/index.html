@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — Know What You Eat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">SAFEBITE<span class="nav-logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="#hero"><span class="nav-frame"><img src="assets/appy/static/eat.png" alt=""></span>Home</a></li>
+      <li class="nav-item"><a href="#how-it-works"><span class="nav-frame"><img src="assets/appy/static/read.png" alt=""></span>How It Works</a></li>
+      <li class="nav-item"><a href="#verdict"><span class="nav-frame"><img src="assets/appy/static/think.png" alt=""></span>Verdict</a></li>
+      <li class="nav-item"><a href="#swaps"><span class="nav-frame"><img src="assets/appy/static/drinkwalk.png" alt=""></span>Swaps</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero" data-color="#6B66A6">
+  <div class="hero-inner">
+    <h1 class="hero-title split-title">
+      SAFEBITE:<br>
+      <span class="hero-title-outline">KNOW WHAT</span><br>
+      YOU EAT <span class="hero-title-sprite" id="hero-walker"></span>
+    </h1>
+    <a href="#how-it-works" class="brutal-btn brutal-btn--yellow hero-cta">SCAN YOUR FIRST BITE →</a>
+  </div>
+</header>
+
+
+
+<!-- ============ HOW IT WORKS — swipeable card-stack carousel ============ -->
+<section class="how-it-works" id="how-it-works" data-color="#BD3647">
+  <p class="section-kicker" style="color:var(--yellow)">HOW IT WORKS</p>
+  <h2 class="section-title split-title" style="color:var(--cream)">SNAP. KNOW. SWAP.</h2>
+
+  <div class="swiper hiw-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide hiw-slide">
+        <span class="hiw-slide-num">01 / SNAP</span>
+        <div class="hiw-sprite" id="hiw-sprite-1" style="background-image:url('assets/appy/sprite-read.png')"></div>
+        <h3>SNAP</h3>
+        <p>Point, scan, done. SafeBite reads the barcode and pulls the full ingredient list before you've put the item back on the shelf.</p>
+      </div>
+      <div class="swiper-slide hiw-slide">
+        <span class="hiw-slide-num">02 / KNOW</span>
+        <div class="hiw-sprite" id="hiw-sprite-2" style="background-image:url('assets/appy/sprite-meditate.png')"></div>
+        <h3>KNOW</h3>
+        <p>Every additive, sweetener and hidden preservative gets unmasked in plain language. No guesswork, no fine print.</p>
+      </div>
+      <div class="swiper-slide hiw-slide">
+        <span class="hiw-slide-num">03 / SWAP</span>
+        <div class="hiw-sprite" id="hiw-sprite-3" style="background-image:url('assets/appy/sprite-eat.png')"></div>
+        <h3>SWAP</h3>
+        <p>Not great news? SafeBite lines up a cleaner substitute on the spot, same cravings, better label.</p>
+      </div>
+    </div>
+  </div>
+  <p class="hiw-hint">← SWIPE TO EXPLORE →</p>
+</section>
+
+<!-- ============ VERDICT — text left, cards + buttons right ============ -->
+<section class="verdict" id="verdict" data-color="#FCF6E8">
+  <div class="verdict-grid">
+    <div class="verdict-text">
+      <p class="section-kicker" style="color:var(--red)">THE VERDICT</p>
+      <h2 class="section-title split-title">YES. NO. <span class="verdict-title-sprite" id="verdict-title-no-sprite"></span> MAYBE.</h2>
+      <p class="verdict-sub">Pick a plate. Appy has already made up his mind.</p>
+    </div>
+
+    <div class="verdict-right">
+      <div class="verdict-menu">
+        <button class="gooey-btn gooey-btn--yes" data-state="yes"><span>YES</span></button>
+        <button class="gooey-btn gooey-btn--maybe" data-state="maybe"><span>MAYBE</span></button>
+        <button class="gooey-btn gooey-btn--no" data-state="no"><span>NO</span></button>
+      </div>
+
+      <div class="verdict-stage" id="verdict-stage">
+        <div class="verdict-panel" data-panel="yes">
+          <div class="swap-success-sprite" id="swap-success-sprite"></div>
+          <h3>CLEAN BITE</h3>
+          <p>Real ingredients, nothing to decode. Eat up.</p>
+        </div>
+        <div class="verdict-panel" data-panel="maybe">
+          <div class="verdict-panel-sprite" id="verdict-maybe-sprite" style="background-image:url('assets/appy/sprite-think.png')"></div>
+          <h3>PROCEED WITH SNACKS</h3>
+          <p>A couple of flags. Fine sometimes, not every day.</p>
+        </div>
+        <div class="verdict-panel" data-panel="no">
+          <div class="verdict-panel-sprite" id="verdict-no-sprite" style="background-image:url('assets/appy/sprite-dirty.png')"></div>
+          <h3>PUT IT BACK</h3>
+          <p>More lab than pantry. Appy's already turning green.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SWAPS ============ -->
+<section class="swaps" id="swaps" data-color="#A2BF8A">
+  <p class="section-kicker" style="color:var(--red)">SWAPS</p>
+  <h2 class="section-title split-title">SATISFIED &amp; HEALTHY</h2>
+
+  <div class="swap-path">
+    <div class="swap-card swap-card--bad reveal">
+      <span class="swap-label">TRADE THIS</span>
+      <div class="swap-card-frame">🥤</div>
+      <h4>NEON SODA</h4>
+      <p>17 additives. 0 answers.</p>
+    </div>
+
+    <div class="swap-track-sprite" id="swap-track-sprite">
+    </div>
+
+    <div class="swap-card swap-card--good reveal">
+      <span class="swap-label">FOR THIS</span>
+      <div class="swap-card-frame">🍏</div>
+      <h4>SPARKLING APPLE</h4>
+      <p>One ingredient. Full flavor.</p>
+    </div>
+  </div>
+
+  <div class="swap-success reveal">
+    <p>Same craving, cleaner label. That's the whole trick.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER — "mainstays" style flat-lay ============ -->
+<footer class="footer" id="footer" data-color="#FFF8E0">
+  <div class="footer-topbar">
+    <a href="#" class="footer-social-icon" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.5" cy="6.5" r="1"></circle>
+      </svg>
+    </a>
+    <a href="#how-it-works" class="footer-topbar-link">HOW IT WORKS</a>
+    <a href="#verdict" class="footer-topbar-link">VERDICT</a>
+    <a href="#swaps" class="footer-topbar-link">SWAPS</a>
+    <span class="footer-topbar-link footer-topbar-credit">SITE BY SAFEBITE</span>
+  </div>
+
+  <div class="footer-flatlay" id="footer-flatlay">
+    <img src="assets/footer/vase-flowers.png"      class="fl-item" id="fl-vase"       alt="" data-depth="0.10">
+    <img src="assets/footer/wine-glass-1.png"      class="fl-item" id="fl-wineglass1" alt="" data-depth="0.06">
+    <img src="assets/footer/fork.png"               class="fl-item" id="fl-fork"       alt="" data-depth="0.08" data-rotate="-8">
+    <img src="assets/footer/sausage-plate.png"      class="fl-item" id="fl-sausage"    alt="" data-depth="0.05">
+    <img src="assets/footer/wine-bottle.png"        class="fl-item" id="fl-bottle"     alt="" data-depth="0.09">
+    <img src="assets/footer/candle-2.png"           class="fl-item" id="fl-candle2"    alt="" data-depth="0.07">
+    <img src="assets/footer/salt-pepper.png"        class="fl-item" id="fl-saltpepper" alt="" data-depth="0.11">
+    <img src="assets/footer/cheese-block.png"       class="fl-item" id="fl-cheese"     alt="" data-depth="0.06">
+    <img src="assets/footer/candle-1.png"           class="fl-item" id="fl-candle1"    alt="" data-depth="0.08">
+    <img src="assets/footer/olives-bowl.png"        class="fl-item" id="fl-olivesbowl" alt="" data-depth="0.05">
+    <img src="assets/footer/olives-loose.png"       class="fl-item" id="fl-olivesloose" alt="" data-depth="0.09">
+    <img src="assets/footer/jar.png"                class="fl-item" id="fl-jar"        alt="" data-depth="0.07">
+    <img src="assets/footer/bread-board.png"        class="fl-item" id="fl-bread"      alt="" data-depth="0.04">
+    <img src="assets/footer/spoon.png"              class="fl-item" id="fl-spoon"      alt="" data-depth="0.10" data-rotate="6">
+    <img src="assets/footer/wine-glass-2.png"       class="fl-item" id="fl-wineglass2" alt="" data-depth="0.06">
+    <img src="assets/footer/charcuterie-board.png"  class="fl-item" id="fl-charcuterie" alt="" data-depth="0.03">
+    <img src="assets/footer/knife.png"              class="fl-item" id="fl-knife"      alt="" data-depth="0.08" data-rotate="-4">
+    <img src="assets/footer/hat-plate.png"          class="fl-item" id="fl-hat"        alt="" data-depth="0.05">
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
