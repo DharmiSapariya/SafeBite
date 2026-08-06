@@ -1,0 +1,321 @@
+/* =========================================================
+   SAFEBITE — INNER PAGE COMPONENTS
+   Extends style.css (loaded first) with the extra components
+   needed by how-it-works.html, architecture.html, results.html
+   and about.html. Reuses the same tokens (--ink, --cream,
+   --border-thick, --shadow-*, --display, --body, section
+   colors) defined in style.css's :root — this file adds no
+   new variables of its own.
+   ========================================================= */
+
+/* ---- generic inner-page hero (shorter than the 100vh landing hero) ---- */
+.page-hero{
+  min-height:52vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:9rem 1.5rem 4rem;
+}
+.page-hero-inner{ max-width:900px; }
+.page-hero-title{
+  font-size:clamp(2.6rem,7vw,5.2rem) !important;
+}
+.page-hero-sub{
+  font-size:0.95rem;
+  max-width:520px;
+  margin:1.2rem auto 0;
+  line-height:1.6;
+}
+
+/* ---- generic content section wrapper ---- */
+.content-section{
+  padding:5.5rem 1.5rem 6rem;
+}
+.content-section-inner{
+  max-width:1000px;
+  margin:0 auto;
+}
+.section-body-text{
+  max-width:680px;
+  margin:0 auto 2.5rem;
+  font-size:0.9rem;
+  line-height:1.75;
+}
+
+/* ---- CTA strip used before the shared footer on every inner page ---- */
+.cta-strip{
+  text-align:center;
+  padding:4.5rem 1.5rem;
+}
+.cta-strip p{
+  font-size:1rem;
+  margin:0 0 1.5rem;
+}
+
+/* =========================================================
+   STEP LIST — scan flow / craving flow / nudge flow
+   ========================================================= */
+.step-list{
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+  max-width:760px;
+  margin:0 auto;
+}
+.step-item{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:1.4rem;
+  align-items:flex-start;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:1.5rem 1.8rem;
+}
+.step-icon{
+  width:52px; height:52px;
+  object-fit:contain;
+  image-rendering:pixelated;
+}
+.step-num{
+  font-family:var(--display);
+  font-size:2rem;
+  color:var(--red);
+  line-height:1;
+}
+.step-item h3{ font-size:1.2rem; margin-bottom:0.4rem; }
+.step-item p{ font-size:0.85rem; line-height:1.65; margin:0; }
+.step-arrow{
+  text-align:center;
+  font-family:var(--display);
+  font-size:1.4rem;
+  color:var(--cream);
+  opacity:0.85;
+}
+@media (max-width:560px){
+  .step-item{ grid-template-columns:1fr; text-align:left; }
+}
+
+/* =========================================================
+   ARCHITECTURE — 5-layer stack diagram
+   ========================================================= */
+.layer-stack{
+  display:flex;
+  flex-direction:column;
+  gap:1.4rem;
+  max-width:760px;
+  margin:0 auto 3.5rem;
+}
+.layer{
+  position:relative;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:1.5rem 1.8rem 1.5rem 3.2rem;
+}
+.layer-index{
+  position:absolute;
+  top:-16px; left:-16px;
+  width:38px; height:38px;
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--cream);
+  border:3px solid var(--cream);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--display);
+  font-size:0.85rem;
+}
+.layer h3{ font-size:1.15rem; margin-bottom:0.4rem; }
+.layer p{ font-size:0.82rem; line-height:1.65; margin:0; }
+
+/* =========================================================
+   DATA TABLE — module map, metrics, competitive grid
+   ========================================================= */
+.table-scroll{
+  max-width:1000px;
+  margin:0 auto 1rem;
+  overflow-x:auto;
+}
+.data-table{
+  width:100%;
+  min-width:520px;
+  border-collapse:collapse;
+  background:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  font-size:0.8rem;
+}
+.data-table th,
+.data-table td{
+  border:2px solid var(--ink);
+  padding:0.7rem 0.9rem;
+  text-align:left;
+  vertical-align:top;
+  color:var(--ink);
+}
+.data-table th{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--display);
+  font-size:0.65rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+.data-table tr:nth-child(even) td{ background:rgba(20,20,20,0.04); }
+.table-note{
+  max-width:1000px;
+  margin:0 auto 2.5rem;
+  font-size:0.7rem;
+  letter-spacing:0.03em;
+  opacity:0.7;
+  font-style:italic;
+}
+.cell-yes{ color:#2f7a2a; font-weight:700; }
+.cell-no{ color:#b23a3a; font-weight:700; }
+.cell-partial{ color:#a4780a; font-weight:700; }
+
+/* =========================================================
+   MODEL BREAKDOWN GRID — M1 to M6 cards
+   ========================================================= */
+.model-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.4rem;
+  max-width:1100px;
+  margin:0 auto 1rem;
+}
+.model-card{
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:1.4rem 1.5rem;
+}
+.model-card-id{
+  display:inline-block;
+  font-family:var(--display);
+  background:var(--yellow);
+  color:var(--ink);
+  padding:0.2rem 0.55rem;
+  font-size:0.8rem;
+  margin-bottom:0.7rem;
+}
+.model-card h3{ font-size:1.05rem; margin-bottom:0.6rem; }
+.model-card dl{ margin:0; font-size:0.76rem; line-height:1.6; }
+.model-card dt{ font-weight:700; margin-top:0.5rem; }
+.model-card dt:first-child{ margin-top:0; }
+.model-card dd{ margin:0 0 0.2rem; }
+
+/* =========================================================
+   STATUS BANNER — reusable "in progress" / "final" flag
+   ========================================================= */
+.status-banner{
+  display:flex;
+  align-items:center;
+  gap:0.7rem;
+  max-width:700px;
+  margin:0 auto 1.6rem;
+  background:var(--yellow);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:0.75rem 1.1rem;
+  font-size:0.75rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+}
+.status-banner::before{ content:"⏳"; font-size:1rem; }
+.status-banner--done{ background:var(--green); }
+.status-banner--done::before{ content:"✓"; }
+.metric-pill{
+  display:inline-block;
+  font-size:0.62rem;
+  font-weight:700;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  background:var(--yellow);
+  color:var(--ink);
+  border:1.5px solid var(--ink);
+  padding:0.1rem 0.4rem;
+  margin-left:0.4rem;
+}
+
+/* =========================================================
+   BAR CHART — VAE vs hand-weighted comparison
+   ========================================================= */
+.bar-chart{
+  max-width:700px;
+  margin:0 auto 1rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.1rem;
+}
+.bar-row{
+  display:grid;
+  grid-template-columns:150px 1fr 56px;
+  align-items:center;
+  gap:0.9rem;
+  font-size:0.78rem;
+}
+.bar-track{
+  background:var(--cream);
+  border:2px solid var(--ink);
+  height:24px;
+  position:relative;
+  overflow:hidden;
+}
+.bar-fill{
+  height:100%;
+  background:var(--red);
+}
+.bar-row--alt .bar-fill{ background:var(--green); }
+.bar-value{ text-align:right; font-weight:700; }
+@media (max-width:560px){
+  .bar-row{ grid-template-columns:110px 1fr 46px; }
+}
+
+/* =========================================================
+   LIMITATIONS + REFERENCES lists
+   ========================================================= */
+.limitations-list,
+.references-list{
+  max-width:700px;
+  margin:0 auto 3rem;
+  font-size:0.82rem;
+  line-height:1.85;
+  padding-left:1.3rem;
+}
+.references-list{ list-style:decimal; }
+.limitations-list{ list-style:disc; }
+
+/* =========================================================
+   TEAM CREDIT STRIP
+   ========================================================= */
+.team-strip{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:1.3rem;
+  max-width:900px;
+  margin:0 auto 1rem;
+}
+.team-card{
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:1.1rem 1.6rem;
+  text-align:center;
+  font-size:0.78rem;
+  min-width:180px;
+}
+.team-card strong{
+  display:block;
+  font-family:var(--display);
+  font-size:0.95rem;
+  margin-bottom:0.3rem;
+  text-transform:uppercase;
+}
