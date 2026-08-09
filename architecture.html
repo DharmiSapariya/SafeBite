@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — How It Thinks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<!-- ============ NAVBAR (shared) ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SAFEBITE<span class="nav-logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="index.html"><span class="nav-frame"><img src="assets/appy/static/eat.png" alt=""></span>Home</a></li>
+      <li class="nav-item"><a href="how-it-works.html"><span class="nav-frame"><img src="assets/appy/static/read.png" alt=""></span>How It Works</a></li>
+      <li class="nav-item"><a href="architecture.html"><span class="nav-frame"><img src="assets/appy/static/think.png" alt=""></span>How It Thinks</a></li>
+      <li class="nav-item"><a href="results.html"><span class="nav-frame"><img src="assets/appy/static/sit.png" alt=""></span>Results</a></li>
+      <li class="nav-item"><a href="about.html"><span class="nav-frame"><img src="assets/appy/static/meditate.png" alt=""></span>About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO STRIP ============ -->
+<header class="page-hero" id="hero" data-color="#BD3647">
+  <div class="section-props" aria-hidden="true">
+    <img src="assets/footer/wine-glass-2.png" style="top:8%; left:5%; width:70px; transform:rotate(10deg);">
+    <img src="assets/footer/salt-pepper.png" style="bottom:8%; right:6%; width:80px; transform:rotate(-8deg);">
+  </div>
+  <div class="page-hero-inner">
+    <p class="section-kicker" style="color:var(--yellow)">A LOT HAPPENS BEHIND IT</p>
+    <h1 class="page-hero-title split-title split-letters" style="color:var(--cream)">HOW SAFEBITE THINKS</h1>
+    <p class="page-hero-sub" style="color:var(--cream)">You see a scan. A lot happens behind it.</p>
+    <p class="page-hero-sub" style="color:var(--cream); margin-top:0.5rem;">SafeBite turns a messy food label into one simple decision — in seconds.</p>
+  </div>
+</header>
+
+<!-- ============ THE JOURNEY OF A SCAN — clickable step tracker ============ -->
+<section class="content-section" id="journey" data-color="#6B66A6">
+  <div class="section-props" aria-hidden="true">
+    <img src="assets/footer/bread-board.png" style="top:5%; right:5%; width:110px; transform:rotate(-6deg);">
+    <img src="assets/footer/olives-loose.png" style="bottom:6%; left:6%; width:70px; transform:rotate(10deg);">
+  </div>
+  <p class="section-kicker" style="color:var(--yellow)">THE JOURNEY OF A SCAN</p>
+  <h2 class="section-title split-title split-letters" style="color:var(--cream)">FIVE STEPS. ONE SECOND.</h2>
+
+  <div class="journey-tracker" id="journey-tracker">
+    <div class="journey-rail">
+      <button class="journey-dot active" data-step="1" type="button">01</button>
+      <button class="journey-dot" data-step="2" type="button">02</button>
+      <button class="journey-dot" data-step="3" type="button">03</button>
+      <button class="journey-dot" data-step="4" type="button">04</button>
+      <button class="journey-dot" data-step="5" type="button">05</button>
+    </div>
+
+    <div class="journey-panels">
+      <div class="journey-panel active" data-panel="1">
+        <span class="journey-panel-label">SEE</span>
+        <h3>It starts with what you give us.</h3>
+        <p>A food label. A product. Or simply a craving. SafeBite takes that messy input and gets it ready to understand.</p>
+      </div>
+      <div class="journey-panel" data-panel="2">
+        <span class="journey-panel-label">READ</span>
+        <h3>The label becomes information.</h3>
+        <p>SafeBite finds the important parts of the label and reads the ingredients for you. No matter how crowded the packaging looks, the goal is simple: turn food text into something understandable.</p>
+      </div>
+      <div class="journey-panel" data-panel="3">
+        <span class="journey-panel-label">UNDERSTAND</span>
+        <h3>Now SafeBite makes it personal.</h3>
+        <p>The ingredients aren't judged in isolation. They're compared against your profile — what you avoid, what matters to you, and what you've told SafeBite before. That's where a generic ingredient list becomes your answer.</p>
+      </div>
+      <div class="journey-panel" data-panel="4">
+        <span class="journey-panel-label">THINK</span>
+        <h3>SafeBite looks beyond the obvious.</h3>
+        <p>For every scan, it can connect the dots: what was found, what matters to you, what you've been looking at lately. The system uses those signals to surface useful context — without making you dig for it.</p>
+      </div>
+      <div class="journey-panel" data-panel="5">
+        <span class="journey-panel-label">FIND ANOTHER WAY</span>
+        <h3>Because "no" isn't always the end.</h3>
+        <p>If a food doesn't fit, SafeBite can work backwards from the craving — sweet, crunchy, fizzy, comforting. Instead of replacing the food with something random, it looks for something that still feels like what you wanted.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="journey-hint">CLICK A STEP, OR JUST WATCH IT GO</p>
+</section>
+
+<!-- ============ ONE SYSTEM. MANY LITTLE DECISIONS. — flip cards ============ -->
+<section class="content-section" id="one-system" data-color="#A2BF8A">
+  <div class="section-props" aria-hidden="true">
+    <img src="assets/footer/cheese-block.png" style="top:6%; left:6%; width:90px; transform:rotate(8deg);">
+    <img src="assets/footer/fork.png" style="bottom:5%; right:6%; width:80px; transform:rotate(-10deg);">
+  </div>
+  <p class="section-kicker" style="color:var(--red)">ONE SYSTEM</p>
+  <h2 class="section-title split-title split-letters">MANY LITTLE DECISIONS</h2>
+  <p class="section-body-text reveal">Hover a card — or tap it on mobile — to see the question it's actually answering.</p>
+
+  <div class="flip-grid">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front"><h4>UNDERSTAND</h4></div>
+        <div class="flip-card-back"><p>What is actually in this food?</p></div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front"><h4>PERSONALIZE</h4></div>
+        <div class="flip-card-back"><p>Does it work for me?</p></div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front"><h4>RESPOND</h4></div>
+        <div class="flip-card-back"><p>What should I do next?</p></div>
+      </div>
+    </div>
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front"><h4>DISCOVER</h4></div>
+        <div class="flip-card-back"><p>If not this, what else?</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE MAGIC IS IN THE CONNECTIONS — animated chain ============ -->
+<section class="content-section" id="connections" data-color="#8FA3C4">
+  <div class="section-props" aria-hidden="true">
+    <img src="assets/footer/wine-bottle.png" style="top:6%; right:6%; width:80px; transform:rotate(-8deg);">
+    <img src="assets/footer/candle-1.png" style="bottom:8%; left:6%; width:60px; transform:rotate(6deg);">
+  </div>
+  <p class="section-kicker" style="color:var(--ink)">THE MAGIC IS IN THE CONNECTIONS</p>
+  <h2 class="section-title split-title split-letters" style="color:var(--cream)">NOT JUST A SCANNER</h2>
+  <p class="section-body-text reveal">SafeBite is a system where different pieces work together — and all of that becomes one simple experience.</p>
+
+  <div class="chain" id="connection-chain">
+    <div class="chain-line" id="chain-line"></div>
+    <div class="chain-item reveal"><span class="chain-dot"></span>WHAT YOU SEE</div>
+    <div class="chain-item reveal"><span class="chain-dot"></span>WHAT THE LABEL SAYS</div>
+    <div class="chain-item reveal"><span class="chain-dot"></span>WHAT MATTERS TO YOU</div>
+    <div class="chain-item reveal"><span class="chain-dot"></span>WHAT YOU MIGHT WANT INSTEAD</div>
+  </div>
+</section>
+
+<!-- ============ COMPLEX UNDERNEATH. SIMPLE ON TOP. — Q&A toggle ============ -->
+<section class="content-section" id="simple-on-top" data-color="#FCF6E8">
+  <div class="section-props" aria-hidden="true">
+    <img src="assets/footer/spoon.png" style="top:6%; left:6%; width:70px; transform:rotate(12deg);">
+    <img src="assets/footer/knife.png" style="bottom:6%; right:6%; width:70px; transform:rotate(-8deg);">
+  </div>
+  <h2 class="section-title split-title split-letters" style="color:var(--ink)">COMPLEX UNDERNEATH.<br>SIMPLE ON TOP.</h2>
+  <p class="section-body-text reveal" style="color:var(--ink)">You don't need to know what's happening behind the scenes. You just need to know:</p>
+
+  <div class="qa-toggle-row">
+    <button class="qa-toggle active" data-answer="eat" type="button">CAN I EAT THIS?</button>
+    <button class="qa-toggle" data-answer="instead" type="button">WHAT CAN I HAVE INSTEAD?</button>
+  </div>
+
+  <div class="qa-answer">
+    <p id="qa-answer-text">That's the SCAN flow — point your camera, and SafeBite reads the label against your profile in seconds.</p>
+  </div>
+</section>
+
+<!-- ============ CTA FOOTER ============ -->
+<section class="cta-strip" data-color="#FFF8E0">
+  <p style="color:var(--ink)">That's what SafeBite is built to answer.</p>
+  <a href="results.html" class="brutal-btn brutal-btn--yellow">SEE THE RESULTS →</a>
+</section>
+
+<!-- ============ FOOTER — "mainstays" style flat-lay (shared, verbatim) ============ -->
+<footer class="footer" id="footer" data-color="#FFF8E0">
+  <div class="footer-topbar">
+    <a href="#" class="footer-social-icon" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.5" cy="6.5" r="1"></circle>
+      </svg>
+    </a>
+    <a href="how-it-works.html" class="footer-topbar-link">HOW IT WORKS</a>
+    <a href="architecture.html" class="footer-topbar-link">HOW IT THINKS</a>
+    <a href="results.html" class="footer-topbar-link">RESULTS</a>
+    <a href="about.html" class="footer-topbar-link">ABOUT</a>
+    <span class="footer-topbar-link footer-topbar-credit">SITE BY SAFEBITE</span>
+  </div>
+
+  <div class="footer-flatlay" id="footer-flatlay">
+    <img src="assets/footer/vase-flowers.png"      class="fl-item" id="fl-vase"       alt="" data-depth="0.10">
+    <img src="assets/footer/wine-glass-1.png"      class="fl-item" id="fl-wineglass1" alt="" data-depth="0.06">
+    <img src="assets/footer/fork.png"               class="fl-item" id="fl-fork"       alt="" data-depth="0.08" data-rotate="-8">
+    <img src="assets/footer/sausage-plate.png"      class="fl-item" id="fl-sausage"    alt="" data-depth="0.05">
+    <img src="assets/footer/wine-bottle.png"        class="fl-item" id="fl-bottle"     alt="" data-depth="0.09">
+    <img src="assets/footer/candle-2.png"           class="fl-item" id="fl-candle2"    alt="" data-depth="0.07">
+    <img src="assets/footer/salt-pepper.png"        class="fl-item" id="fl-saltpepper" alt="" data-depth="0.11">
+    <img src="assets/footer/cheese-block.png"       class="fl-item" id="fl-cheese"     alt="" data-depth="0.06">
+    <img src="assets/footer/candle-1.png"           class="fl-item" id="fl-candle1"    alt="" data-depth="0.08">
+    <img src="assets/footer/olives-bowl.png"        class="fl-item" id="fl-olivesbowl" alt="" data-depth="0.05">
+    <img src="assets/footer/olives-loose.png"       class="fl-item" id="fl-olivesloose" alt="" data-depth="0.09">
+    <img src="assets/footer/jar.png"                class="fl-item" id="fl-jar"        alt="" data-depth="0.07">
+    <img src="assets/footer/bread-board.png"        class="fl-item" id="fl-bread"      alt="" data-depth="0.04">
+    <img src="assets/footer/spoon.png"              class="fl-item" id="fl-spoon"      alt="" data-depth="0.10" data-rotate="6">
+    <img src="assets/footer/wine-glass-2.png"       class="fl-item" id="fl-wineglass2" alt="" data-depth="0.06">
+    <img src="assets/footer/charcuterie-board.png"  class="fl-item" id="fl-charcuterie" alt="" data-depth="0.03">
+    <img src="assets/footer/knife.png"              class="fl-item" id="fl-knife"      alt="" data-depth="0.08" data-rotate="-4">
+    <img src="assets/footer/hat-plate.png"          class="fl-item" id="fl-hat"        alt="" data-depth="0.05">
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
