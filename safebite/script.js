@@ -284,7 +284,9 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
 // Default behavior (.split-title alone) animates whole words
 // falling in — unchanged, still what index.html uses. Adding
 // the modifier class "split-letters" alongside "split-title"
-// animates individual characters falling in instead.
+// animates individual characters falling in instead, with each
+// word's letters grouped in a non-breaking wrapper so the line
+// only ever wraps at real word boundaries (not mid-word).
 // =========================================================
 (function(){
   if (!window.gsap) return;
@@ -292,21 +294,31 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
 
   function splitBy(root, unit){
     // unit: 'word' wraps each non-whitespace run in a span;
-    // 'letter' wraps each individual non-whitespace character.
+    // 'letter' wraps each word in a nowrap group, with each
+    // character inside it as its own animatable span.
     const pieces = [];
     const className = unit === 'letter' ? 'split-letter' : 'split-word';
 
     function walk(node){
       Array.from(node.childNodes).forEach(child => {
         if (child.nodeType === Node.TEXT_NODE){
-          const parts = unit === 'letter'
-            ? child.textContent.split(/(\s+)/).flatMap(part => /^\s+$/.test(part) ? [part] : part.split(''))
-            : child.textContent.split(/(\s+)/); // keep separators
+          const parts = child.textContent.split(/(\s+)/); // words + whitespace
           const frag = document.createDocumentFragment();
           parts.forEach(part => {
             if (part === '') return;
             if (/^\s+$/.test(part)){
               frag.appendChild(document.createTextNode(part));
+            } else if (unit === 'letter'){
+              const wordWrap = document.createElement('span');
+              wordWrap.className = 'split-word-wrap';
+              part.split('').forEach(ch => {
+                const span = document.createElement('span');
+                span.className = className;
+                span.textContent = ch;
+                wordWrap.appendChild(span);
+                pieces.push(span);
+              });
+              frag.appendChild(wordWrap);
             } else {
               const span = document.createElement('span');
               span.className = className;
