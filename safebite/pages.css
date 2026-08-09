@@ -4,9 +4,82 @@
    needed by how-it-works.html, architecture.html, results.html
    and about.html. Reuses the same tokens (--ink, --cream,
    --border-thick, --shadow-*, --display, --body, section
-   colors) defined in style.css's :root — this file adds no
-   new variables of its own.
+   colors) defined in style.css's :root.
+
+   NOTE ON FONTS: Aalto Display is licensed "Personal Use Only"
+   (see assets/fonts — Befonts-License.txt). Fine for a class
+   project / portfolio piece; if SafeBite ever ships as a real
+   commercial product, that font needs a paid commercial license
+   from befonts.com or swapping out. Pencerio (Fontshare/Indian
+   Type Foundry) is free for commercial use, no restriction.
+   Pencerio only ships in a single Hairline weight — it's very
+   thin at small sizes, worth watching on low-res screens.
    ========================================================= */
+
+@font-face{
+  font-family:'Aalto Display';
+  src:url('assets/fonts/aalto-display-personal-use.otf') format('opentype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Pencerio';
+  src:url('assets/fonts/Pencerio-Hairline.woff2') format('woff2'),
+      url('assets/fonts/Pencerio-Hairline.woff') format('woff'),
+      url('assets/fonts/Pencerio-Hairline.ttf') format('truetype');
+  font-weight:100;
+  font-style:normal;
+  font-display:swap;
+}
+:root{
+  --display: 'Aalto Display', 'Bungee', system-ui, sans-serif;
+  --body: 'Pencerio', 'Space Mono', 'JetBrains Mono', monospace;
+}
+
+/* =========================================================
+   SPLIT-LETTER TITLES — opt-in variant of style.css's
+   .split-title (which animates word-by-word). Add the extra
+   class "split-letters" to any .split-title element and
+   script.js will animate individual characters falling in
+   instead of whole words. .split-title on its own (no
+   modifier) keeps the original word-based behavior untouched
+   — this is what index.html still uses.
+   ========================================================= */
+.split-letter{
+  display:inline-block;
+  will-change:transform, opacity;
+}
+
+/* =========================================================
+   SECTION PROP DECORATIONS — scatters the same food-prop PNGs
+   used in the footer flat-lay across each section's background,
+   so panels of plain color don't read as empty. Purely
+   decorative: absolutely positioned, non-interactive, sits
+   behind the section's real content via a negative z-index.
+   ========================================================= */
+.content-section,
+.page-hero,
+.cta-strip{
+  position:relative;
+  overflow:hidden;
+}
+.section-props{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+}
+.section-props img{
+  position:absolute;
+  max-width:none;
+  filter:drop-shadow(4px 4px 0 rgba(20,20,20,0.15));
+  opacity:0.9;
+}
+@media (max-width:640px){
+  .section-props img{ transform:scale(0.7) !important; }
+}
 
 /* ---- generic inner-page hero (shorter than the 100vh landing hero) ---- */
 .page-hero{
@@ -319,3 +392,215 @@
   margin-bottom:0.3rem;
   text-transform:uppercase;
 }
+
+/* =========================================================
+   WHY-TRIAD — "SCAN. UNDERSTAND. SWAP." beat
+   ========================================================= */
+.why-triad{
+  text-align:center;
+  font-family:var(--display);
+  font-size:clamp(1.1rem,3vw,1.6rem);
+  letter-spacing:0.08em;
+  color:var(--red);
+  margin:0;
+}
+
+/* =========================================================
+   FEATURE CARD STACK — click-to-flip "SCAN IT / CRAVE IT"
+   Uses aspect-ratio for the stack sizing; browsers without
+   support for it fall back to two stacked (non-fanned) cards,
+   flagged by .browser-warning.
+   ========================================================= */
+.browser-warning{
+  display:none;
+  text-align:center;
+  font-size:0.7rem;
+  max-width:420px;
+  margin:0 auto 1rem;
+  opacity:0.8;
+}
+@supports not (aspect-ratio: 1 / 1){
+  .browser-warning{ display:block; }
+  .stack{ aspect-ratio:auto !important; height:440px; }
+}
+
+.stack{
+  position:relative;
+  width:min(90vw,340px);
+  aspect-ratio:4 / 5;
+  margin:0 auto 1.5rem;
+}
+.stack .card{
+  position:absolute;
+  inset:0;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:1.8rem 1.6rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:0.6rem;
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.stack .card:nth-child(1){ transform:rotate(-3deg); z-index:2; }
+.stack .card:nth-child(2){ transform:rotate(4deg) translate(10px,10px); z-index:1; }
+.stack.is-flipped .card:nth-child(1){ transform:rotate(4deg) translate(10px,10px); z-index:1; }
+.stack.is-flipped .card:nth-child(2){ transform:rotate(-3deg); z-index:2; }
+
+.stack .image{
+  width:64px;
+  aspect-ratio:1 / 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.6rem;
+}
+.stack .card h3{ font-size:1.3rem; }
+.stack .card-tag{ font-size:0.85rem; font-weight:700; margin:0; }
+.stack .card p{ font-size:0.8rem; line-height:1.55; margin:0; }
+
+.chip-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.4rem;
+  justify-content:center;
+}
+.chip{
+  font-size:0.62rem;
+  font-weight:700;
+  letter-spacing:0.02em;
+  padding:0.28rem 0.55rem;
+  border:2px solid var(--ink);
+  background:var(--cream);
+}
+.chip--safe{ background:var(--green); }
+.chip--check{ background:var(--yellow); }
+.chip--flag{ background:var(--red); color:var(--cream); }
+
+.stack-flip-btn{
+  display:block;
+  margin:0 auto;
+  font-size:0.75rem;
+}
+
+/* =========================================================
+   TAG CLOUD — floating craving-texture pills
+   ========================================================= */
+.tag-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0.7rem;
+  justify-content:center;
+  max-width:620px;
+  margin:0 auto 2.5rem;
+}
+.tag-pill{
+  font-family:var(--display);
+  font-size:0.72rem;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:0.5rem 1rem;
+  animation:tagFloat 3.6s ease-in-out infinite;
+}
+.tag-pill:nth-child(2n){ animation-delay:-1.2s; }
+.tag-pill:nth-child(3n){ animation-delay:-2.3s; }
+@keyframes tagFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .tag-pill{ animation:none; }
+}
+
+/* =========================================================
+   TRUST CARDS — hover-blur stack (adapted from a Uiverse.io
+   pattern by Gaurav-WebDev). Hovering one card blurs and
+   shrinks its siblings so the hovered state reads as "in
+   focus." Recolored to the SCAN IT chip palette (safe/flag/
+   unclear) instead of the original red/blue/green.
+   ========================================================= */
+.trust-cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.1rem;
+  justify-content:center;
+  max-width:820px;
+  margin:0 auto;
+}
+.trust-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:0.5rem;
+  width:230px;
+  min-height:150px;
+  padding:1.3rem 1.2rem;
+  border:var(--border-thick);
+  border-radius:14px;
+  box-shadow:var(--shadow-sm);
+  color:var(--ink);
+  cursor:pointer;
+  transition:400ms transform, 400ms box-shadow, 400ms filter, 400ms opacity;
+}
+.trust-card--safe{ background:var(--green); }
+.trust-card--flag{ background:var(--red); color:var(--cream); }
+.trust-card--unclear{ background:var(--yellow); }
+
+.trust-card .tip{
+  font-family:var(--display);
+  font-size:1.05rem;
+  margin:0;
+}
+.trust-card .second-text{
+  font-size:0.78rem;
+  line-height:1.55;
+  margin:0;
+}
+
+.trust-card:hover{
+  transform:scale(1.08);
+  box-shadow:var(--shadow-md);
+}
+.trust-cards:hover > .trust-card:not(:hover){
+  filter:blur(3px);
+  transform:scale(0.93);
+  opacity:0.75;
+}
+@media (prefers-reduced-motion: reduce){
+  .trust-card,
+  .trust-cards:hover > .trust-card:not(:hover){
+    transition:none;
+    filter:none;
+    transform:none;
+    opacity:1;
+  }
+}
+
+/* =========================================================
+   SITUATION GRID — "made for real life" cards
+   ========================================================= */
+.situation-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.2rem;
+  max-width:800px;
+  margin:0 auto;
+}
+.situation-card{
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:1.4rem 1.2rem;
+  text-align:center;
+}
+.situation-icon{ font-size:2.2rem; display:block; margin-bottom:0.5rem; }
+.situation-card h4{ font-size:1rem; margin-bottom:0.4rem; }
+.situation-card p{ font-size:0.78rem; margin:0; line-height:1.5; }

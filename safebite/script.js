@@ -280,19 +280,28 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
 
 
 // =========================================================
-// SPLIT-WORD TITLE REVEAL (scroll-triggered, "words" style)
+// SPLIT-WORD / SPLIT-LETTER TITLE REVEAL (scroll-triggered)
+// Default behavior (.split-title alone) animates whole words
+// falling in — unchanged, still what index.html uses. Adding
+// the modifier class "split-letters" alongside "split-title"
+// animates individual characters falling in instead.
 // =========================================================
 (function(){
   if (!window.gsap) return;
   const hasScrollTrigger = !!window.ScrollTrigger;
 
-  function splitWords(root){
-    const words = [];
+  function splitBy(root, unit){
+    // unit: 'word' wraps each non-whitespace run in a span;
+    // 'letter' wraps each individual non-whitespace character.
+    const pieces = [];
+    const className = unit === 'letter' ? 'split-letter' : 'split-word';
 
     function walk(node){
       Array.from(node.childNodes).forEach(child => {
         if (child.nodeType === Node.TEXT_NODE){
-          const parts = child.textContent.split(/(\s+)/); // keep separators
+          const parts = unit === 'letter'
+            ? child.textContent.split(/(\s+)/).flatMap(part => /^\s+$/.test(part) ? [part] : part.split(''))
+            : child.textContent.split(/(\s+)/); // keep separators
           const frag = document.createDocumentFragment();
           parts.forEach(part => {
             if (part === '') return;
@@ -300,10 +309,10 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
               frag.appendChild(document.createTextNode(part));
             } else {
               const span = document.createElement('span');
-              span.className = 'split-word';
+              span.className = className;
               span.textContent = part;
               frag.appendChild(span);
-              words.push(span);
+              pieces.push(span);
             }
           });
           node.replaceChild(frag, child);
@@ -315,26 +324,27 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
     }
 
     walk(root);
-    return words;
+    return pieces;
   }
 
   const titles = document.querySelectorAll('.split-title');
   titles.forEach(title => {
-    const words = splitWords(title);
-    if (!words.length) return;
+    const isLetters = title.classList.contains('split-letters');
+    const pieces = splitBy(title, isLetters ? 'letter' : 'word');
+    if (!pieces.length) return;
 
     const tween = {
       y: -100,
       opacity: 0,
       rotation: () => gsap.utils.random(-80, 80),
-      duration: 0.7,
+      duration: isLetters ? 0.5 : 0.7,
       ease: 'back',
-      stagger: 0.15
+      stagger: isLetters ? 0.025 : 0.15
     };
 
     if (hasScrollTrigger){
       gsap.registerPlugin(ScrollTrigger);
-      gsap.from(words, {
+      gsap.from(pieces, {
         ...tween,
         scrollTrigger: {
           trigger: title,
@@ -343,7 +353,7 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
         }
       });
     } else {
-      gsap.from(words, tween);
+      gsap.from(pieces, tween);
     }
   });
 })();
