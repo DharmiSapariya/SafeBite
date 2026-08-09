@@ -6,9 +6,10 @@
 <title>SafeBite — Know What You Eat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="home.css">
 </head>
 <body>
 
@@ -31,6 +32,14 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="hero" data-color="#6B66A6">
+  <div class="food-emoji-layer" aria-hidden="true">
+    <span class="food-emoji" style="--fx:8%; --fy:18%; --fs:2.6rem; --frot:-10deg; --fdur:5.5s; --fdelay:0s;">🍕</span>
+    <span class="food-emoji" style="--fx:85%; --fy:14%; --fs:2.2rem; --frot:12deg; --fdur:6.5s; --fdelay:.6s;">🍩</span>
+    <span class="food-emoji" style="--fx:12%; --fy:70%; --fs:2rem; --frot:8deg; --fdur:6s; --fdelay:1.1s;">🥑</span>
+    <span class="food-emoji" style="--fx:90%; --fy:68%; --fs:2.4rem; --frot:-14deg; --fdur:5.8s; --fdelay:.3s;">🍓</span>
+    <span class="food-emoji" style="--fx:4%; --fy:42%; --fs:1.8rem; --frot:6deg; --fdur:7s; --fdelay:1.6s;">🧀</span>
+    <span class="food-emoji" style="--fx:93%; --fy:40%; --fs:2rem; --frot:-6deg; --fdur:6.2s; --fdelay:.9s;">🍋</span>
+  </div>
   <div class="hero-inner">
     <h1 class="hero-title split-title">
       SAFEBITE:<br>
@@ -139,6 +148,82 @@
   </div>
 </section>
 
+<!-- ============ CRAVING WHEEL ============ -->
+<section class="craving-section" id="craving" data-color="#8FA3C4">
+  <p class="section-kicker" style="color:var(--yellow)">FEELING SOMETHING?</p>
+  <h2 class="section-title split-title" style="color:var(--cream)">SPIN YOUR CRAVING</h2>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer">▼</div>
+    <div class="wheel" id="craving-wheel">
+      <button class="wheel-seg" data-craving="sweet"   data-angle="0"   style="--seg:0">SWEET</button>
+      <button class="wheel-seg" data-craving="salty"   data-angle="60"  style="--seg:1">SALTY</button>
+      <button class="wheel-seg" data-craving="spicy"   data-angle="120" style="--seg:2">SPICY</button>
+      <button class="wheel-seg" data-craving="fresh"   data-angle="180" style="--seg:3">FRESH</button>
+      <button class="wheel-seg" data-craving="comfort" data-angle="240" style="--seg:4">COMFORT</button>
+      <button class="wheel-seg" data-craving="crunchy" data-angle="300" style="--seg:5">CRUNCHY</button>
+    </div>
+  </div>
+
+  <div class="wheel-result" id="wheel-result">
+    <p id="wheel-result-text">Spin the wheel — Appy's got a swap for whatever you're craving.</p>
+  </div>
+</section>
+
+<!-- ============ DOODLE PLAY — fanning food-doodle card stack ============ -->
+<section class="doodle-play" id="doodle-play" data-color="#816AA8">
+  <p class="section-kicker" style="color:var(--yellow)">DOODLE DECK</p>
+  <h2 class="section-title split-title" style="color:var(--cream)">PLAY WITH YOUR FOOD</h2>
+  <p class="doodle-hint">HOVER (OR TAP) THE STACK →</p>
+
+  <div class="doodle-fan" id="doodle-fan">
+    <div class="doodle-card" style="--i:0">
+      <img src="assets/footer/cheese-block.png" alt="">
+      <p>Real cheese has about four ingredients. Read the block, not just the wrapper.</p>
+    </div>
+    <div class="doodle-card" style="--i:1">
+      <img src="assets/footer/charcuterie-board.png" alt="">
+      <p>Cured meats hide the longest ingredient lists on the whole table.</p>
+    </div>
+    <div class="doodle-card" style="--i:2">
+      <img src="assets/footer/bread-board.png" alt="">
+      <p>Ten ingredients or fewer is a solid rule of thumb for a loaf.</p>
+    </div>
+    <div class="doodle-card" style="--i:3">
+      <img src="assets/footer/olives-bowl.png" alt="">
+      <p>Brine, olives, salt — that's it. Anything else in there is extra.</p>
+    </div>
+    <div class="doodle-card" style="--i:4">
+      <img src="assets/footer/sausage-plate.png" alt="">
+      <p>Casings can hide fillers. SafeBite reads past the seasoning.</p>
+    </div>
+    <div class="doodle-card" style="--i:5">
+      <img src="assets/footer/wine-glass-1.png" alt="">
+      <p>Sulfites happen. SafeBite flags them so you know going in.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCAN GALLERY — curved scroll gallery ============ -->
+<section class="scan-gallery-section" id="scan-gallery" data-color="#141414">
+  <p class="section-kicker" style="color:var(--yellow)">THE FEED</p>
+  <h2 class="section-title split-title" style="color:var(--cream)">EVERYTHING APPY'S SEEN</h2>
+
+  <div class="curve-gallery" id="curve-gallery">
+    <div class="curve-track" id="curve-track">
+      <div class="curve-card"><span class="curve-emoji">🍕</span><h4>PIZZA</h4><span class="curve-chip curve-chip--maybe">MAYBE</span></div>
+      <div class="curve-card"><span class="curve-emoji">🥛</span><h4>YOGURT</h4><span class="curve-chip curve-chip--yes">YES</span></div>
+      <div class="curve-card"><span class="curve-emoji">🥣</span><h4>CEREAL</h4><span class="curve-chip curve-chip--no">NO</span></div>
+      <div class="curve-card"><span class="curve-emoji">🍎</span><h4>APPLE</h4><span class="curve-chip curve-chip--yes">YES</span></div>
+      <div class="curve-card"><span class="curve-emoji">🍟</span><h4>FRIES</h4><span class="curve-chip curve-chip--maybe">MAYBE</span></div>
+      <div class="curve-card"><span class="curve-emoji">🥤</span><h4>SODA</h4><span class="curve-chip curve-chip--no">NO</span></div>
+      <div class="curve-card"><span class="curve-emoji">🧀</span><h4>CHEESE</h4><span class="curve-chip curve-chip--yes">YES</span></div>
+      <div class="curve-card"><span class="curve-emoji">🍫</span><h4>CHOCOLATE</h4><span class="curve-chip curve-chip--maybe">MAYBE</span></div>
+    </div>
+  </div>
+  <p class="hiw-hint" style="color:var(--cream)">← DRAG TO BROWSE →</p>
+</section>
+
 <!-- ============ FOOTER — "mainstays" style flat-lay ============ -->
 <footer class="footer" id="footer" data-color="#FFF8E0">
   <div class="footer-topbar">
@@ -152,6 +237,7 @@
     <a href="#how-it-works" class="footer-topbar-link">HOW IT WORKS</a>
     <a href="#verdict" class="footer-topbar-link">VERDICT</a>
     <a href="#swaps" class="footer-topbar-link">SWAPS</a>
+    <a href="#craving" class="footer-topbar-link">CRAVING</a>
     <span class="footer-topbar-link footer-topbar-credit">SITE BY SAFEBITE</span>
   </div>
 
