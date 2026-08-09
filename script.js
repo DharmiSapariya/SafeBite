@@ -807,3 +807,210 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
     py = e.clientY;
   });
 })();
+
+// =========================================================
+// FLAVOR WHEEL — drag-to-spin gallery with momentum + idle drift
+// A single rAF loop owns the track's rotation at all times: while
+// dragging, angle is driven directly off the pointer position; on
+// release, the captured flick velocity decays into a slow constant
+// idle spin. Tapping a chip (as opposed to dragging through it)
+// pushes that food's verdict into the center hub with a quick pop.
+// =========================================================
+(function(){
+  const wheel = document.getElementById('flavor-wheel');
+  const track = document.getElementById('flavor-wheel-track');
+  const hub = document.getElementById('flavor-hub');
+  const hubEmoji = document.getElementById('flavor-hub-emoji');
+  const hubText = document.getElementById('flavor-hub-text');
+  if (!wheel || !track || !hub) return;
+
+  const IDLE_SPEED = 0.035; // deg/frame ambient drift when idle
+  const TAP_THRESHOLD = 6;  // px of total pointer travel below which a press counts as a tap
+  let angle = 0;
+  let velocity = IDLE_SPEED;
+  let dragging = false;
+  let startAngle = 0;
+  let startRotation = 0;
+  let lastPointerAngle = 0;
+  let lastMoveTime = 0;
+  let downX = 0, downY = 0, travelled = 0;
+  let downChip = null;
+
+  function center(){
+    const r = wheel.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  function pointerAngle(e){
+    const c = center();
+    return Math.atan2(e.clientY - c.y, e.clientX - c.x) * (180 / Math.PI);
+  }
+
+  function normalize(delta){
+    while (delta > 180) delta -= 360;
+    while (delta < -180) delta += 360;
+    return delta;
+  }
+
+  function tapChip(chip){
+    const { emoji, name, verdict, line } = chip.dataset;
+    hub.dataset.state = verdict;
+    hubEmoji.textContent = emoji;
+    hubText.textContent = name;
+    hub.title = line;
+    chip.classList.remove('is-tapped');
+    void chip.offsetWidth; // restart the pop animation
+    chip.classList.add('is-tapped');
+  }
+
+  // Pointer capture is set on the wheel itself (not the chip) so dragging
+  // works no matter where on the ring the press started; tap-vs-drag is
+  // decided here too, from total travel, rather than a child <button>'s
+  // own click handler — a captured pointer doesn't reliably re-target
+  // click back to the element it started on.
+  wheel.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    wheel.setPointerCapture(e.pointerId);
+    startAngle = pointerAngle(e);
+    startRotation = angle;
+    lastPointerAngle = startAngle;
+    lastMoveTime = performance.now();
+    velocity = 0;
+    downX = e.clientX;
+    downY = e.clientY;
+    travelled = 0;
+    downChip = e.target.closest('.flavor-chip');
+  });
+
+  wheel.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const now = performance.now();
+    const current = pointerAngle(e);
+    angle = startRotation + normalize(current - startAngle);
+
+    const step = normalize(current - lastPointerAngle);
+    const dt = Math.max(now - lastMoveTime, 1);
+    velocity = (step / dt) * 16.6; // ~deg/frame at 60fps
+    lastPointerAngle = current;
+    lastMoveTime = now;
+    travelled = Math.hypot(e.clientX - downX, e.clientY - downY);
+  });
+
+  function release(){
+    if (!dragging) return;
+    dragging = false;
+    velocity = Math.max(-14, Math.min(14, velocity));
+    if (downChip && travelled < TAP_THRESHOLD) tapChip(downChip);
+    downChip = null;
+  }
+  wheel.addEventListener('pointerup', release);
+  wheel.addEventListener('pointercancel', release);
+
+  function tick(){
+    if (!dragging){
+      angle += velocity;
+      velocity += (IDLE_SPEED - velocity) * 0.02;
+    }
+    track.style.transform = `rotate(${angle}deg)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// =========================================================
+// PANTRY STACK — tap-to-fan / tap-to-reveal fallback for touch
+// Hover already fans the stack and reveals each card's verdict
+// via CSS alone; touch devices get the same effect from taps:
+// first tap fans the stack out, a second tap on a card reveals
+// it, and tapping anywhere outside collapses everything again.
+// =========================================================
+(function(){
+  const stack = document.getElementById('pantry-stack');
+  if (!stack) return;
+  const cards = stack.querySelectorAll('.food-card');
+
+  stack.addEventListener('click', (e) => {
+    if (!stack.classList.contains('is-fanned')){
+      stack.classList.add('is-fanned');
+      return;
+    }
+    const card = e.target.closest('.food-card');
+    if (card) card.classList.toggle('is-revealed');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!stack.contains(e.target)){
+      stack.classList.remove('is-fanned');
+      cards.forEach(c => c.classList.remove('is-revealed'));
+    }
+  });
+})();
+
+// =========================================================
+// SWAP WHEEL — spins between craving categories (fizzy / crunch
+// / sweet) and swaps the trade-pair cards above to match, with
+// a small pop-in animation on every changed value.
+// =========================================================
+(function(){
+  const wheel = document.getElementById('swap-wheel');
+  if (!wheel) return;
+
+  const badFrame = document.getElementById('swap-bad-frame');
+  const badName = document.getElementById('swap-bad-name');
+  const badLine = document.getElementById('swap-bad-line');
+  const goodFrame = document.getElementById('swap-good-frame');
+  const goodName = document.getElementById('swap-good-name');
+  const goodLine = document.getElementById('swap-good-line');
+
+  function playSwapAnim(){
+    [badFrame, badName, badLine, goodFrame, goodName, goodLine].forEach(el => {
+      el.classList.remove('is-swapping');
+      void el.offsetWidth; // restart animation
+      el.classList.add('is-swapping');
+    });
+  }
+
+  wheel.querySelectorAll('input[name="swap-radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      if (!input.checked) return;
+      const d = input.dataset;
+      badFrame.textContent = d.badEmoji;
+      badName.textContent = d.badName;
+      badLine.textContent = d.badLine;
+      goodFrame.textContent = d.goodEmoji;
+      goodName.textContent = d.goodName;
+      goodLine.textContent = d.goodLine;
+      playSwapAnim();
+    });
+  });
+})();
+
+// =========================================================
+// NEWSLETTER — fake-submit gag: swaps the form for a thank-you
+// line and gives the card a quick glitch-jitter, in the same
+// playful register as the knock-knock dialog elsewhere on site.
+// =========================================================
+(function(){
+  const form = document.getElementById('newsletter-form');
+  const card = document.getElementById('newsletter-card');
+  const success = document.getElementById('newsletter-success');
+  if (!form || !card || !success) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.classList.add('is-hidden');
+    success.classList.add('is-visible');
+    card.classList.add('is-glitching');
+    setTimeout(() => card.classList.remove('is-glitching'), 320);
+
+    if (window.anime){
+      anime({
+        targets: success,
+        scale: [0.7, 1],
+        opacity: [0, 1],
+        easing: 'easeOutElastic(1, .6)',
+        duration: 700
+      });
+    }
+  });
+})();

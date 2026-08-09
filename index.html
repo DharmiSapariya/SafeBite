@@ -6,7 +6,7 @@
 <title>SafeBite — Know What You Eat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Unbounded:wght@700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <link rel="stylesheet" href="style.css">
 </head>
@@ -42,6 +42,36 @@
 </header>
 
 
+
+<!-- ============ GALLERY — drag-to-spin flavor wheel ============ -->
+<section class="gallery" id="gallery" data-color="#816AA8">
+  <p class="section-kicker" style="color:var(--cream)">THE LINEUP</p>
+  <h2 class="section-title split-title" style="color:var(--cream)">SPIN THE SHELF</h2>
+
+  <div class="flavor-wheel-wrap">
+    <div class="flavor-wheel" id="flavor-wheel">
+      <div class="flavor-wheel-track" id="flavor-wheel-track">
+        <button type="button" class="flavor-chip" style="--i:0"  data-emoji="🍎" data-name="APPLE"      data-verdict="yes"    data-line="Clean crunch, zero decoding.">🍎</button>
+        <button type="button" class="flavor-chip" style="--i:1"  data-emoji="🍟" data-name="FRIES"      data-verdict="no"     data-line="Fried twice, flagged twice.">🍟</button>
+        <button type="button" class="flavor-chip" style="--i:2"  data-emoji="🥑" data-name="AVOCADO"    data-verdict="yes"    data-line="One ingredient. All good.">🥑</button>
+        <button type="button" class="flavor-chip" style="--i:3"  data-emoji="🥤" data-name="SODA"       data-verdict="no"     data-line="17 additives, 0 answers.">🥤</button>
+        <button type="button" class="flavor-chip" style="--i:4"  data-emoji="🍞" data-name="BREAD"      data-verdict="maybe"  data-line="Check the label, some are sneaky.">🍞</button>
+        <button type="button" class="flavor-chip" style="--i:5"  data-emoji="🍬" data-name="CANDY"      data-verdict="no"     data-line="More lab than pantry.">🍬</button>
+        <button type="button" class="flavor-chip" style="--i:6"  data-emoji="🥗" data-name="SALAD"      data-verdict="yes"    data-line="Green light. Dig in.">🥗</button>
+        <button type="button" class="flavor-chip" style="--i:7"  data-emoji="🍩" data-name="DONUT"      data-verdict="no"     data-line="Sugar wearing a costume.">🍩</button>
+        <button type="button" class="flavor-chip" style="--i:8"  data-emoji="🧀" data-name="CHEESE"     data-verdict="maybe"  data-line="Real dairy, real sodium too.">🧀</button>
+        <button type="button" class="flavor-chip" style="--i:9"  data-emoji="🌮" data-name="TACO"       data-verdict="maybe"  data-line="Great shell, mystery meat.">🌮</button>
+        <button type="button" class="flavor-chip" style="--i:10" data-emoji="🍕" data-name="PIZZA"      data-verdict="maybe"  data-line="Depends who's making it.">🍕</button>
+        <button type="button" class="flavor-chip" style="--i:11" data-emoji="🍫" data-name="CHOCOLATE"  data-verdict="maybe"  data-line="Depends on the cacao %.">🍫</button>
+      </div>
+      <div class="flavor-hub" id="flavor-hub" data-state="idle">
+        <span class="flavor-hub-emoji" id="flavor-hub-emoji">🎡</span>
+        <span class="flavor-hub-text" id="flavor-hub-text">DRAG ME</span>
+      </div>
+    </div>
+  </div>
+  <p class="hiw-hint">← DRAG TO SPIN · TAP A BITE →</p>
+</section>
 
 <!-- ============ HOW IT WORKS — swipeable card-stack carousel ============ -->
 <section class="how-it-works" id="how-it-works" data-color="#BD3647">
@@ -110,17 +140,110 @@
   </div>
 </section>
 
+<!-- ============ PANTRY STACK — hover-to-fan food cards ============ -->
+<section class="pantry" id="pantry" data-color="#8FA3C4">
+  <p class="section-kicker" style="color:var(--ink)">YOUR PANTRY</p>
+  <h2 class="section-title split-title">HOVER. REVEAL. DECIDE.</h2>
+  <p class="pantry-sub">Appy keeps three things on the counter today. Hover the stack, then hover a card.</p>
+
+  <div class="pantry-stack-wrap">
+    <div class="pantry-stack" id="pantry-stack">
+      <div class="pantry-tray"></div>
+
+      <div class="food-card food-card--cheese">
+        <div class="food-card-inner">
+          <div class="food-card-top">
+            <span class="food-card-tag food-card-tag--moderate">MODERATE</span>
+            <img src="assets/footer/cheese-block.png" class="food-card-doodle" alt="">
+          </div>
+          <div class="food-card-bottom">
+            <div class="food-card-info">
+              <span class="label">Item</span><span class="value">AGED CHEDDAR</span>
+            </div>
+            <div class="food-card-reveal-wrapper">
+              <span class="food-card-teaser">HOVER TO SCAN</span>
+              <span class="food-card-verdict">Real dairy — watch the sodium.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="food-card food-card--bread">
+        <div class="food-card-inner">
+          <div class="food-card-top">
+            <span class="food-card-tag food-card-tag--clean">CLEAN</span>
+            <img src="assets/footer/bread-board.png" class="food-card-doodle" alt="">
+          </div>
+          <div class="food-card-bottom">
+            <div class="food-card-info">
+              <span class="label">Item</span><span class="value">SOURDOUGH LOAF</span>
+            </div>
+            <div class="food-card-reveal-wrapper">
+              <span class="food-card-teaser">HOVER TO SCAN</span>
+              <span class="food-card-verdict">Flour, water, salt, time. Eat up.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="food-card food-card--sausage">
+        <div class="food-card-inner">
+          <div class="food-card-top">
+            <span class="food-card-tag food-card-tag--flagged">FLAGGED</span>
+            <img src="assets/footer/sausage-plate.png" class="food-card-doodle" alt="">
+          </div>
+          <div class="food-card-bottom">
+            <div class="food-card-info">
+              <span class="label">Item</span><span class="value">DELI SAUSAGE</span>
+            </div>
+            <div class="food-card-reveal-wrapper">
+              <span class="food-card-teaser">HOVER TO SCAN</span>
+              <span class="food-card-verdict">Nitrates on board. Save it for rare days.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SWAPS ============ -->
 <section class="swaps" id="swaps" data-color="#A2BF8A">
   <p class="section-kicker" style="color:var(--red)">SWAPS</p>
   <h2 class="section-title split-title">SATISFIED &amp; HEALTHY</h2>
 
+  <div class="swap-wheel-wrap reveal">
+    <p class="swap-wheel-hint">PICK A CRAVING</p>
+    <div class="swap-wheel radio-input" id="swap-wheel">
+      <label for="swap-2" class="next-trigger" id="swap-trig-1"></label>
+      <label for="swap-3" class="next-trigger" id="swap-trig-2"></label>
+      <label for="swap-1" class="next-trigger" id="swap-trig-3"></label>
+
+      <div class="glass-overlay"></div>
+
+      <input type="radio" name="swap-radio" id="swap-1" checked
+        data-bad-emoji="🥤" data-bad-name="NEON SODA" data-bad-line="17 additives. 0 answers."
+        data-good-emoji="🍏" data-good-name="SPARKLING APPLE" data-good-line="One ingredient. Full flavor.">
+      <label class="wheel-label" for="swap-1" style="--angle:-30deg"><span class="num">01</span><span class="label">FIZZY</span></label>
+
+      <input type="radio" name="swap-radio" id="swap-2"
+        data-bad-emoji="🍟" data-bad-name="GREASY FRIES" data-bad-line="Fried twice. Flagged twice."
+        data-good-emoji="🥕" data-good-name="ROASTED CARROTS" data-good-line="All veg. Still crunchy.">
+      <label class="wheel-label" for="swap-2" style="--angle:0deg"><span class="num">02</span><span class="label">CRUNCH</span></label>
+
+      <input type="radio" name="swap-radio" id="swap-3"
+        data-bad-emoji="🍬" data-bad-name="GUMMY CANDY" data-bad-line="12 dyes. 1 headache."
+        data-good-emoji="🍓" data-good-name="FROZEN BERRIES" data-good-line="One ingredient. Still sweet.">
+      <label class="wheel-label" for="swap-3" style="--angle:30deg"><span class="num">03</span><span class="label">SWEET</span></label>
+    </div>
+  </div>
+
   <div class="swap-path">
     <div class="swap-card swap-card--bad reveal">
       <span class="swap-label">TRADE THIS</span>
-      <div class="swap-card-frame">🥤</div>
-      <h4>NEON SODA</h4>
-      <p>17 additives. 0 answers.</p>
+      <div class="swap-card-frame" id="swap-bad-frame">🥤</div>
+      <h4 id="swap-bad-name">NEON SODA</h4>
+      <p id="swap-bad-line">17 additives. 0 answers.</p>
     </div>
 
     <div class="swap-track-sprite" id="swap-track-sprite">
@@ -128,14 +251,32 @@
 
     <div class="swap-card swap-card--good reveal">
       <span class="swap-label">FOR THIS</span>
-      <div class="swap-card-frame">🍏</div>
-      <h4>SPARKLING APPLE</h4>
-      <p>One ingredient. Full flavor.</p>
+      <div class="swap-card-frame" id="swap-good-frame">🍏</div>
+      <h4 id="swap-good-name">SPARKLING APPLE</h4>
+      <p id="swap-good-line">One ingredient. Full flavor.</p>
     </div>
   </div>
 
   <div class="swap-success reveal">
     <p>Same craving, cleaner label. That's the whole trick.</p>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER — brutalist signup card ============ -->
+<section class="newsletter" id="newsletter" data-color="#141414">
+  <div class="newsletter-card reveal" id="newsletter-card">
+    <span class="newsletter-title">STAY SHARP</span>
+    <p class="newsletter-content">One email a week: the sneakiest ingredient we caught, and the swap that beat it.</p>
+
+    <form class="newsletter-form" id="newsletter-form">
+      <input required type="email" placeholder="your@inbox.com" id="newsletter-email" aria-label="Email address">
+      <button type="submit" class="newsletter-button" id="newsletter-button"><span>SIGN ME UP</span></button>
+    </form>
+
+    <p class="newsletter-success" id="newsletter-success">
+      <img src="assets/appy/static/eat.png" class="newsletter-success-icon" alt="">
+      YOU'RE IN. APPY APPROVES.
+    </p>
   </div>
 </section>
 

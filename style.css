@@ -26,6 +26,11 @@
   --display: 'Bungee', system-ui, sans-serif;
   --body: 'Space Mono', 'JetBrains Mono', monospace;
 
+  /* Aalto Display (Gumroad, paid) is the reference for the hero mark —
+     Unbounded is the closest free geometric+hand-cut stand-in, used only
+     on the hero headline. Every other heading keeps --display (Bungee). */
+  --display-hero: 'Unbounded', var(--display);
+
   --border: 3px solid var(--ink);
   --border-thick: 5px solid var(--ink);
   --shadow-sm: 5px 5px 0 var(--ink);
@@ -225,6 +230,7 @@ h1,h2,h3,h4{
 .hero-title{
   color:var(--yellow);
   font-size:190px !important;
+  font-family:var(--display-hero);
 }
 .hero-title-outline{
   color:var(--yellow);
@@ -294,6 +300,115 @@ h1,h2,h3,h4{
   background-size:500% 500%;
   z-index:10;
   filter:drop-shadow(6px 6px 0 var(--ink));
+}
+
+/* =========================================================
+   GALLERY — drag-to-spin flavor wheel
+   A ring of 12 food-emoji chips on a rotating track. Dragging
+   (mouse or touch) spins it with momentum; released, it drifts
+   back to a slow idle spin. Tapping a chip pushes its verdict
+   (yes/maybe/no, reusing the verdict section's palette) into
+   the center hub. All physics live in script.js.
+   ========================================================= */
+.gallery{
+  padding:6rem 1.5rem 6.5rem;
+  text-align:center;
+}
+.flavor-wheel-wrap{
+  display:flex;
+  justify-content:center;
+  margin:2.5rem auto 1.2rem;
+}
+.flavor-wheel{
+  position:relative;
+  --wheel-radius:190px;
+  width:440px;
+  height:440px;
+  max-width:86vw;
+  max-height:86vw;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(252,246,232,0.14) 0%, rgba(252,246,232,0.03) 62%, transparent 72%);
+  touch-action:none;
+}
+.flavor-wheel::before{
+  content:"";
+  position:absolute;
+  inset:8%;
+  border-radius:50%;
+  border:2px dashed rgba(252,246,232,0.35);
+  pointer-events:none;
+}
+.flavor-wheel-track{
+  position:absolute;
+  inset:0;
+  will-change:transform;
+}
+.flavor-chip{
+  position:absolute;
+  top:50%; left:50%;
+  width:66px; height:66px;
+  margin:-33px 0 0 -33px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem;
+  line-height:1;
+  background:var(--cream);
+  border:3px solid var(--ink);
+  border-radius:50%;
+  box-shadow:4px 4px 0 var(--ink);
+  cursor:pointer;
+  padding:0;
+  transform:rotate(calc(var(--i) * 30deg)) translateY(calc(var(--wheel-radius) * -1));
+  animation:chip-bob 3.2s ease-in-out infinite;
+  animation-delay:calc(var(--i) * -0.27s);
+  transition:box-shadow .2s ease, background .2s ease;
+}
+.flavor-chip:hover{ background:var(--yellow); box-shadow:6px 6px 0 var(--ink); }
+.flavor-chip:focus-visible{ outline:3px solid var(--yellow); outline-offset:3px; }
+.flavor-chip.is-tapped{ animation:chip-pop .5s cubic-bezier(.34,1.56,.64,1); }
+
+@keyframes chip-bob{
+  0%,100%{ margin-top:-33px; }
+  50%{ margin-top:-41px; }
+}
+@keyframes chip-pop{
+  0%{ scale:1; }
+  40%{ scale:1.35; background:var(--yellow); }
+  100%{ scale:1; }
+}
+
+.flavor-hub{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:132px; height:132px;
+  border-radius:50%;
+  background:var(--ink);
+  border:3px solid var(--cream);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:0.2rem;
+  text-align:center;
+  padding:0.5rem;
+  pointer-events:none;
+  transition:background .25s ease;
+}
+.flavor-hub[data-state="yes"]{ background:var(--green); }
+.flavor-hub[data-state="maybe"]{ background:var(--yellow); }
+.flavor-hub[data-state="no"]{ background:var(--red); }
+.flavor-hub-emoji{ font-size:1.8rem; line-height:1; }
+.flavor-hub-text{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:0.6rem;
+  letter-spacing:0.08em;
+  color:var(--cream);
+}
+.flavor-hub[data-state="yes"] .flavor-hub-text,
+.flavor-hub[data-state="maybe"] .flavor-hub-text{ color:var(--ink); }
+
+@media (max-width:640px){
+  .flavor-wheel{ --wheel-radius:120px; width:300px; height:300px; }
+  .flavor-chip{ width:50px; height:50px; margin:-25px 0 0 -25px; font-size:1.5rem; }
+  .flavor-hub{ width:100px; height:100px; }
 }
 
 /* =========================================================
@@ -426,6 +541,142 @@ h1,h2,h3,h4{
   background-size:500% 500%;
 }
 /* =========================================================
+   PANTRY STACK — hover-to-fan food cards
+   Three doodle cards rest flat on a "counter" tray. Hovering
+   the stack fans them upward like a hand of cards; hovering an
+   individual card lifts it further and swaps its teaser text
+   for the real verdict line. Touch devices get a tap-to-fan /
+   tap-to-reveal fallback (script.js).
+   ========================================================= */
+.pantry{
+  padding:5.5rem 1.5rem 7rem;
+  text-align:center;
+  color:var(--ink);
+}
+.pantry-sub{
+  font-size:0.85rem;
+  max-width:420px;
+  margin:0 auto 3rem;
+  opacity:0.8;
+}
+.pantry-stack-wrap{
+  display:flex;
+  justify-content:center;
+}
+.pantry-stack{
+  position:relative;
+  width:280px;
+  height:260px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+}
+
+@keyframes slideIntoTray{
+  0%{ transform:translateY(-80px); opacity:0; }
+  100%{ transform:translateY(0); opacity:1; }
+}
+
+.pantry-tray{
+  position:absolute;
+  bottom:0;
+  width:280px;
+  height:70px;
+  background:var(--ink);
+  border-radius:50%/100%;
+  opacity:0.14;
+  z-index:1;
+}
+
+.food-card{
+  position:absolute;
+  width:250px;
+  height:150px;
+  left:15px;
+  background:var(--cream);
+  border:var(--border-thick);
+  border-radius:14px;
+  padding:1rem 1.1rem;
+  box-shadow:var(--shadow-sm);
+  transition:transform 0.55s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, z-index 0s;
+  animation:slideIntoTray 0.7s cubic-bezier(.2,.8,.2,1) backwards;
+}
+.food-card-inner{
+  display:flex; flex-direction:column; justify-content:space-between;
+  height:100%;
+}
+.food-card-top{
+  display:flex; align-items:flex-start; justify-content:space-between;
+}
+.food-card-tag{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:0.6rem;
+  letter-spacing:0.08em;
+  padding:0.25rem 0.5rem;
+  border:2px solid var(--ink);
+  color:var(--ink);
+}
+.food-card-tag--clean{ background:var(--green); }
+.food-card-tag--moderate{ background:var(--yellow); }
+.food-card-tag--flagged{ background:var(--red); color:var(--cream); }
+.food-card-doodle{
+  width:64px; height:64px;
+  object-fit:contain;
+  filter:drop-shadow(2px 2px 0 rgba(20,20,20,0.15));
+}
+.food-card-bottom{ display:flex; justify-content:space-between; align-items:flex-end; gap:0.6rem; }
+.food-card-info .label{
+  font-size:0.6rem; text-transform:uppercase; letter-spacing:0.06em; opacity:0.6; display:block;
+}
+.food-card-info .value{ font-family:var(--body); font-weight:700; font-size:0.78rem; }
+.food-card-reveal-wrapper{ text-align:right; max-width:130px; }
+.food-card-teaser{
+  display:block;
+  font-family:var(--body);
+  font-size:0.65rem;
+  letter-spacing:0.04em;
+  opacity:0.55;
+}
+.food-card-verdict{
+  display:none;
+  font-family:var(--body);
+  font-size:0.72rem;
+  line-height:1.35;
+}
+
+.food-card--cheese{ bottom:80px; z-index:10; animation-delay:0.1s; }
+.food-card--bread{  bottom:55px; z-index:20; animation-delay:0.2s; }
+.food-card--sausage{ bottom:30px; z-index:30; animation-delay:0.3s; }
+
+.pantry-stack:hover .food-card--cheese,
+.pantry-stack.is-fanned .food-card--cheese{ transform:translateY(-70px) rotate(-4deg); }
+.pantry-stack:hover .food-card--bread,
+.pantry-stack.is-fanned .food-card--bread{ transform:translateY(-42px) rotate(2deg); }
+.pantry-stack:hover .food-card--sausage,
+.pantry-stack.is-fanned .food-card--sausage{ transform:translateY(-12px); }
+
+.food-card:hover,
+.food-card.is-revealed{ z-index:100 !important; box-shadow:var(--shadow-md); }
+
+.pantry-stack:hover .food-card--cheese:hover,
+.pantry-stack.is-fanned .food-card--cheese.is-revealed{ transform:translateY(-92px) scale(1.06) rotate(0); }
+.pantry-stack:hover .food-card--bread:hover,
+.pantry-stack.is-fanned .food-card--bread.is-revealed{ transform:translateY(-98px) scale(1.06) rotate(0); }
+.pantry-stack:hover .food-card--sausage:hover,
+.pantry-stack.is-fanned .food-card--sausage.is-revealed{ transform:translateY(-92px) scale(1.06) rotate(0); }
+
+.food-card:hover .food-card-teaser,
+.food-card.is-revealed .food-card-teaser{ display:none; }
+.food-card:hover .food-card-verdict,
+.food-card.is-revealed .food-card-verdict{ display:block; }
+
+@media (max-width:640px){
+  .pantry-stack{ width:230px; }
+  .food-card{ width:210px; left:10px; }
+}
+
+/* =========================================================
    SWAPS — poster "fight card"
    ========================================================= */
 .swaps{
@@ -490,6 +741,226 @@ h1,h2,h3,h4{
   background-image:url('assets/appy/sprite-sit.png');
   background-size:500% 500%;
 }
+
+/* =========================================================
+   SWAP WHEEL — tap-to-spin craving picker
+   A slot-machine style radio wheel (checked <input> + sibling
+   <label> selectors, no JS needed to drive the rotation itself)
+   that lets a visitor choose which trade pair the swap cards
+   above are showing. script.js just listens for the "change"
+   event and swaps the card copy/emoji to match.
+   ========================================================= */
+.swap-wheel-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.6rem;
+  margin:0 auto 3rem;
+}
+.swap-wheel-hint{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:0.65rem;
+  letter-spacing:0.25em;
+  color:var(--ink);
+  opacity:0.7;
+}
+.swap-wheel.radio-input{
+  position:relative;
+  height:190px;
+  width:190px;
+  background:var(--ink);
+  border:var(--border-thick);
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  box-shadow:var(--shadow-sm);
+}
+.swap-wheel.radio-input::after{
+  content:"";
+  position:absolute;
+  right:-120px;
+  width:240px; height:240px;
+  background:repeating-conic-gradient(from 0deg, rgba(252,246,232,0.06) 0deg 10deg, rgba(252,246,232,0.1) 10deg 20deg);
+  border-radius:50%;
+  z-index:1;
+}
+.swap-wheel.radio-input::before{
+  content:"";
+  position:absolute;
+  left:12px; top:50%;
+  transform:translateY(-50%);
+  width:6px; height:6px;
+  background:var(--yellow);
+  border-radius:50%;
+  z-index:30;
+  box-shadow:0 0 10px var(--yellow), 0 0 20px var(--yellow);
+  pointer-events:none;
+}
+.swap-wheel.radio-input input{ display:none; }
+.swap-wheel .glass-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.25) 100%);
+  z-index:25;
+  pointer-events:none;
+}
+.swap-wheel .wheel-label{
+  position:absolute;
+  left:30px;
+  display:flex; flex-direction:column;
+  transition:all .6s cubic-bezier(.19,1,.22,1);
+  transform-origin:220px center;
+  transform:rotate(var(--angle));
+  filter:blur(2px);
+  opacity:0.15;
+  z-index:5;
+}
+.swap-wheel .wheel-label .num{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:0.6rem;
+  color:var(--yellow);
+  margin-bottom:-4px;
+}
+.swap-wheel .wheel-label .label{
+  font-family:var(--display);
+  font-size:1.5rem;
+  color:var(--cream);
+  letter-spacing:-0.02em;
+  text-transform:uppercase;
+}
+.swap-wheel.radio-input:has(#swap-1:checked) .wheel-label{ transform:rotate(calc(var(--angle) + 30deg)); }
+.swap-wheel.radio-input:has(#swap-2:checked) .wheel-label{ transform:rotate(calc(var(--angle) + 0deg)); }
+.swap-wheel.radio-input:has(#swap-3:checked) .wheel-label{ transform:rotate(calc(var(--angle) - 30deg)); }
+.swap-wheel input:checked + .wheel-label{
+  opacity:1; filter:blur(0);
+  transform:rotate(0deg) translateX(8px);
+  z-index:10;
+}
+.swap-wheel .next-trigger{ position:absolute; inset:0; z-index:-1; cursor:pointer; }
+.swap-wheel.radio-input:has(#swap-1:checked) #swap-trig-1,
+.swap-wheel.radio-input:has(#swap-2:checked) #swap-trig-2,
+.swap-wheel.radio-input:has(#swap-3:checked) #swap-trig-3{ z-index:100; }
+
+.swap-card-frame.is-swapping,
+.swap-card h4.is-swapping,
+.swap-card p.is-swapping{ animation:swap-fade .3s ease; }
+@keyframes swap-fade{
+  0%{ opacity:0; transform:translateY(6px) scale(0.92); }
+  100%{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* =========================================================
+   NEWSLETTER — brutalist signup card
+   ========================================================= */
+.newsletter{
+  padding:6rem 1.5rem;
+  display:flex;
+  justify-content:center;
+}
+.newsletter-card{
+  width:min(94vw,420px);
+  background:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-lg);
+  padding:2.2rem 2rem;
+  text-align:left;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.newsletter-card:hover{
+  transform:translate(-5px,-5px);
+  box-shadow:16px 16px 0 var(--ink);
+}
+.newsletter-card.is-glitching{ animation:glitch .3s steps(2); }
+@keyframes glitch{
+  0%{ transform:translate(2px,2px); }
+  25%{ transform:translate(-2px,-2px); }
+  50%{ transform:translate(-2px,2px); }
+  75%{ transform:translate(2px,-2px); }
+  100%{ transform:translate(0,0); }
+}
+.newsletter-title{
+  display:block;
+  font-family:var(--display);
+  font-size:2.1rem;
+  color:var(--ink);
+  margin-bottom:0.9rem;
+  position:relative;
+  overflow:hidden;
+}
+.newsletter-title::after{
+  content:"";
+  position:absolute;
+  bottom:0; left:0;
+  width:90%; height:3px;
+  background:var(--ink);
+  transform:translateX(-100%);
+  transition:transform .3s ease;
+}
+.newsletter-card:hover .newsletter-title::after{ transform:translateX(0); }
+.newsletter-content{
+  font-family:var(--body);
+  font-size:0.85rem;
+  line-height:1.55;
+  margin-bottom:1.4rem;
+}
+.newsletter-form{ display:flex; flex-direction:column; gap:0.9rem; }
+.newsletter-form input{
+  padding:0.75rem;
+  border:3px solid var(--ink);
+  font-family:var(--body);
+  font-size:0.9rem;
+  background:var(--cream);
+  color:var(--ink);
+  transition:transform .2s ease, background .2s ease, color .2s ease;
+}
+.newsletter-form input:focus{
+  outline:none;
+  transform:scale(1.03);
+  background:var(--ink);
+  color:var(--cream);
+}
+.newsletter-button{
+  border:3px solid var(--ink);
+  background:var(--ink);
+  color:var(--cream);
+  padding:0.8rem;
+  font-family:var(--display);
+  font-size:1rem;
+  letter-spacing:0.02em;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:transform .2s ease;
+}
+.newsletter-button::before{
+  content:"APPY'S WATCHING 👀";
+  position:absolute;
+  inset:0;
+  background:var(--yellow);
+  color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.75rem;
+  letter-spacing:0.05em;
+  transform:translateY(100%);
+  transition:transform .3s ease;
+}
+.newsletter-button:hover::before{ transform:translateY(0); }
+.newsletter-button:active{ transform:scale(0.96); }
+.newsletter-form.is-hidden{ display:none; }
+.newsletter-success{
+  display:none;
+  align-items:center;
+  gap:0.6rem;
+  font-family:var(--display);
+  font-size:0.95rem;
+  color:var(--ink);
+  margin:0;
+}
+.newsletter-success.is-visible{ display:flex; }
+.newsletter-success-icon{ width:36px; height:36px; object-fit:contain; }
+
 /* =========================================================
    FOOTER — "mainstays" flat-lay
    Cream wash, hand-drawn red-line props scattered like a table
