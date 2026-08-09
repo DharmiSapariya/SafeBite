@@ -158,39 +158,6 @@
 }
 
 /* =========================================================
-   ARCHITECTURE — 5-layer stack diagram
-   ========================================================= */
-.layer-stack{
-  display:flex;
-  flex-direction:column;
-  gap:1.4rem;
-  max-width:760px;
-  margin:0 auto 3.5rem;
-}
-.layer{
-  position:relative;
-  background:var(--cream);
-  color:var(--ink);
-  border:var(--border-thick);
-  box-shadow:var(--shadow-sm);
-  padding:1.5rem 1.8rem 1.5rem 3.2rem;
-}
-.layer-index{
-  position:absolute;
-  top:-16px; left:-16px;
-  width:38px; height:38px;
-  border-radius:50%;
-  background:var(--ink);
-  color:var(--cream);
-  border:3px solid var(--cream);
-  display:flex; align-items:center; justify-content:center;
-  font-family:var(--display);
-  font-size:0.85rem;
-}
-.layer h3{ font-size:1.15rem; margin-bottom:0.4rem; }
-.layer p{ font-size:0.82rem; line-height:1.65; margin:0; }
-
-/* =========================================================
    DATA TABLE — module map, metrics, competitive grid
    ========================================================= */
 .table-scroll{
@@ -590,3 +557,225 @@
 .situation-icon{ font-size:2.2rem; display:block; margin-bottom:0.5rem; }
 .situation-card h4{ font-size:1rem; margin-bottom:0.4rem; }
 .situation-card p{ font-size:0.78rem; margin:0; line-height:1.5; }
+
+/* =========================================================
+   JOURNEY TRACKER — clickable 5-step stepper (architecture.html)
+   A rail of numbered dot-buttons; clicking one swaps the active
+   panel below. Auto-advances on a timer, pauses on hover/click
+   so it never fights the reader.
+   ========================================================= */
+.journey-tracker{
+  max-width:720px;
+  margin:0 auto;
+}
+.journey-rail{
+  display:flex;
+  justify-content:center;
+  gap:0.9rem;
+  margin-bottom:2rem;
+  flex-wrap:wrap;
+}
+.journey-dot{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:var(--border-thick);
+  background:var(--cream);
+  color:var(--ink);
+  font-family:var(--display);
+  font-size:0.85rem;
+  cursor:pointer;
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+  box-shadow:var(--shadow-sm);
+}
+.journey-dot:hover{ transform:translateY(-3px); }
+.journey-dot.active{
+  background:var(--yellow);
+  transform:scale(1.12);
+  box-shadow:var(--shadow-md);
+}
+.journey-panels{
+  position:relative;
+  min-height:220px;
+}
+.journey-panel{
+  position:absolute;
+  inset:0;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:1.8rem 2rem;
+  text-align:center;
+  opacity:0;
+  transform:translateY(14px);
+  pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease;
+}
+.journey-panel.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+  position:relative;
+}
+.journey-panel-label{
+  display:inline-block;
+  font-family:var(--display);
+  font-size:0.7rem;
+  letter-spacing:0.08em;
+  background:var(--red);
+  color:var(--cream);
+  padding:0.25rem 0.6rem;
+  margin-bottom:0.8rem;
+}
+.journey-panel h3{ font-size:1.25rem; margin-bottom:0.6rem; }
+.journey-panel p{ font-size:0.85rem; line-height:1.65; margin:0; max-width:520px; margin-inline:auto; }
+.journey-hint{
+  text-align:center;
+  font-size:0.7rem;
+  letter-spacing:0.1em;
+  color:var(--cream);
+  opacity:0.8;
+  margin-top:1.5rem;
+}
+@media (max-width:560px){
+  .journey-panels{ min-height:280px; }
+}
+
+/* =========================================================
+   FLIP GRID — hover/tap 3D flip cards (architecture.html)
+   ========================================================= */
+.flip-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.4rem;
+  max-width:900px;
+  margin:0 auto;
+  perspective:1200px;
+}
+.flip-card{
+  aspect-ratio:4 / 5;
+  cursor:pointer;
+}
+.flip-card-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform .6s cubic-bezier(.4,.2,.2,1);
+  transform-style:preserve-3d;
+}
+.flip-card:hover .flip-card-inner,
+.flip-card.is-flipped .flip-card-inner{
+  transform:rotateY(180deg);
+}
+.flip-card-front,
+.flip-card-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:1.2rem;
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  background:var(--cream);
+  color:var(--ink);
+}
+.flip-card-front h4{ font-size:1.05rem; letter-spacing:0.02em; }
+.flip-card-back{
+  transform:rotateY(180deg);
+  background:var(--yellow);
+}
+.flip-card-back p{ font-size:0.85rem; font-weight:700; margin:0; line-height:1.4; }
+@media (prefers-reduced-motion: reduce){
+  .flip-card-inner{ transition:none; }
+}
+
+/* =========================================================
+   CONNECTION CHAIN — scroll-triggered drawing line
+   (architecture.html "the magic is in the connections")
+   ========================================================= */
+.chain{
+  position:relative;
+  max-width:420px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:2.2rem;
+  padding-left:2.2rem;
+}
+.chain-line{
+  position:absolute;
+  left:0.65rem;
+  top:0.4rem;
+  bottom:0.4rem;
+  width:3px;
+  background:var(--ink);
+  transform:scaleY(0);
+  transform-origin:top;
+  transition:transform 1.3s ease;
+}
+.chain-line.in-view{ transform:scaleY(1); }
+.chain-item{
+  position:relative;
+  font-family:var(--display);
+  font-size:0.95rem;
+  letter-spacing:0.02em;
+  color:var(--cream);
+}
+.chain-dot{
+  position:absolute;
+  left:-2.2rem;
+  top:0.1rem;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--yellow);
+  border:2px solid var(--ink);
+}
+@media (prefers-reduced-motion: reduce){
+  .chain-line{ transition:none; }
+}
+
+/* =========================================================
+   Q&A TOGGLE — "Can I eat this?" / "What can I have instead?"
+   (architecture.html closing section)
+   ========================================================= */
+.qa-toggle-row{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:0.8rem;
+  margin-bottom:1.6rem;
+}
+.qa-toggle{
+  font-family:var(--display);
+  font-size:0.78rem;
+  background:var(--cream);
+  color:var(--ink);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:0.8rem 1.2rem;
+  cursor:pointer;
+  transition:transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+.qa-toggle:hover{ transform:translate(-2px,-2px); box-shadow:var(--shadow-md); }
+.qa-toggle.active{ background:var(--yellow); transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+.qa-answer{
+  max-width:560px;
+  margin:0 auto;
+  background:var(--ink);
+  color:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:1.5rem 1.8rem;
+  text-align:center;
+}
+.qa-answer p{
+  font-size:0.88rem;
+  line-height:1.6;
+  margin:0;
+}
