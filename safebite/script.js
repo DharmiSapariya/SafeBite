@@ -458,6 +458,117 @@ function createSprite(el, { cols = 5, rows = 5, fps = 12, autoplay = true } = {}
 })();
 
 // =========================================================
+// JOURNEY TRACKER — clickable 5-step stepper (architecture.html)
+// Auto-advances every 4.5s; a manual click jumps straight to
+// that step and resets the timer; hovering the tracker pauses
+// auto-advance so it never fights a reader mid-read.
+// =========================================================
+(function(){
+  const tracker = document.getElementById('journey-tracker');
+  if (!tracker) return;
+
+  const dots = tracker.querySelectorAll('.journey-dot');
+  const panels = tracker.querySelectorAll('.journey-panel');
+  if (!dots.length || !panels.length) return;
+
+  let current = 1;
+  let timer = null;
+
+  function setStep(n){
+    current = n;
+    dots.forEach(d => d.classList.toggle('active', d.dataset.step === String(n)));
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === String(n)));
+  }
+
+  function next(){
+    const n = current >= dots.length ? 1 : current + 1;
+    setStep(n);
+  }
+
+  function startAuto(){
+    stopAuto();
+    timer = setInterval(next, 4500);
+  }
+  function stopAuto(){
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      setStep(Number(dot.dataset.step));
+      startAuto();
+    });
+  });
+
+  tracker.addEventListener('mouseenter', stopAuto);
+  tracker.addEventListener('mouseleave', startAuto);
+
+  setStep(1);
+  startAuto();
+})();
+
+// =========================================================
+// FLIP CARDS — tap-to-flip fallback for touch devices
+// (architecture.html "one system, many little decisions")
+// Hover already flips via CSS; this just makes tap/click do
+// the same thing so it works without a mouse.
+// =========================================================
+(function(){
+  const cards = document.querySelectorAll('.flip-card');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('is-flipped');
+    });
+  });
+})();
+
+// =========================================================
+// CONNECTION CHAIN — scroll-triggered line draw
+// (architecture.html "the magic is in the connections")
+// =========================================================
+(function(){
+  const line = document.getElementById('chain-line');
+  if (!line) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        line.classList.add('in-view');
+        io.unobserve(line);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  io.observe(line);
+})();
+
+// =========================================================
+// Q&A TOGGLE — "Can I eat this?" / "What can I have instead?"
+// (architecture.html closing section)
+// =========================================================
+(function(){
+  const buttons = document.querySelectorAll('.qa-toggle');
+  const answerText = document.getElementById('qa-answer-text');
+  if (!buttons.length || !answerText) return;
+
+  const answers = {
+    eat: "That's the SCAN flow — point your camera, and SafeBite reads the label against your profile in seconds.",
+    instead: "That's the CRAVE flow — tell SafeBite what you're craving, and it finds something that still hits the spot."
+  };
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      answerText.textContent = answers[btn.dataset.answer] || '';
+    });
+  });
+})();
+
+// =========================================================
 // FOOTER PAW CURSOR + FOOTPRINT TRAIL + PROP DEFLECTION
 // Active only while the pointer is inside <footer class="footer">.
 // - Cursor image swaps/rotates to face the direction of travel.
