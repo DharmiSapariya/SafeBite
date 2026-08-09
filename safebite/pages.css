@@ -6,36 +6,13 @@
    --border-thick, --shadow-*, --display, --body, section
    colors) defined in style.css's :root.
 
-   NOTE ON FONTS: Aalto Display is licensed "Personal Use Only"
-   (see assets/fonts — Befonts-License.txt). Fine for a class
-   project / portfolio piece; if SafeBite ever ships as a real
-   commercial product, that font needs a paid commercial license
-   from befonts.com or swapping out. Pencerio (Fontshare/Indian
-   Type Foundry) is free for commercial use, no restriction.
-   Pencerio only ships in a single Hairline weight — it's very
-   thin at small sizes, worth watching on low-res screens.
+   FONTS: reverted back to style.css's own Bungee / Space Mono —
+   the Aalto Display / Pencerio custom fonts never made it into
+   the live assets/fonts/ folder, so the browser was falling
+   through a broken @font-face chain. Not touching --display/
+   --body here anymore; style.css is the single source of truth
+   for those again.
    ========================================================= */
-
-@font-face{
-  font-family:'Aalto Display';
-  src:url('assets/fonts/aalto-display-personal-use.otf') format('opentype');
-  font-weight:400;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:'Pencerio';
-  src:url('assets/fonts/Pencerio-Hairline.woff2') format('woff2'),
-      url('assets/fonts/Pencerio-Hairline.woff') format('woff'),
-      url('assets/fonts/Pencerio-Hairline.ttf') format('truetype');
-  font-weight:100;
-  font-style:normal;
-  font-display:swap;
-}
-:root{
-  --display: 'Aalto Display', 'Bungee', system-ui, sans-serif;
-  --body: 'Pencerio', 'Space Mono', 'JetBrains Mono', monospace;
-}
 
 /* =========================================================
    SPLIT-LETTER TITLES — opt-in variant of style.css's
