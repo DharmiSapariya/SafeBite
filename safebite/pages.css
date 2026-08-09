@@ -22,10 +22,19 @@
    instead of whole words. .split-title on its own (no
    modifier) keeps the original word-based behavior untouched
    — this is what index.html still uses.
+
+   .split-word-wrap groups each word's individual letter-spans
+   so the browser only wraps lines between words, never inside
+   one — without it, each letter is its own element and the
+   browser is free to break the line anywhere.
    ========================================================= */
 .split-letter{
   display:inline-block;
   will-change:transform, opacity;
+}
+.split-word-wrap{
+  display:inline-block;
+  white-space:nowrap;
 }
 
 /* =========================================================
