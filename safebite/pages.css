@@ -6,9 +6,12 @@
    --border-thick, --shadow-*, --display, --body, section
    colors) defined in style.css's :root.
 
-   FONTS: --display / --body are defined once in style.css
-   (Aalto Display headings, Bricolage Grotesque body) — not
-   touched here, style.css stays the single source of truth.
+   FONTS: reverted back to style.css's own Bungee / Space Mono —
+   the Aalto Display / Pencerio custom fonts never made it into
+   the live assets/fonts/ folder, so the browser was falling
+   through a broken @font-face chain. Not touching --display/
+   --body here anymore; style.css is the single source of truth
+   for those again.
    ========================================================= */
 
 /* =========================================================

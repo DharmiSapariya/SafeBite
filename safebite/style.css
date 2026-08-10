@@ -20,25 +20,17 @@
 
   --ink: var(--black);
 
-  /* Aalto Display (self-hosted, assets/fonts/) for headings, Bricolage
-     Grotesque (Google Fonts) for body copy. Bungee/Space Mono stay as
-     the fallback chain if the Aalto file ever fails to load. */
-  --display: 'Aalto Display', 'Bungee', system-ui, sans-serif;
-  --body: 'Bricolage Grotesque', 'Space Mono', 'JetBrains Mono', monospace;
+  /* Obviously (Wide Black) has no free release — Bungee is the closest
+     free stand-in for that ultra-wide black display feel. Bergen Mono
+     stays mapped to Space Mono, which was already in use. */
+  --display: 'Bungee', system-ui, sans-serif;
+  --body: 'Space Mono', 'JetBrains Mono', monospace;
 
   --border: 3px solid var(--ink);
   --border-thick: 5px solid var(--ink);
   --shadow-sm: 5px 5px 0 var(--ink);
   --shadow-md: 8px 8px 0 var(--ink);
   --shadow-lg: 12px 12px 0 var(--ink);
-}
-
-@font-face{
-  font-family:'Aalto Display';
-  src:url('assets/fonts/aalto-display.otf') format('opentype');
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
