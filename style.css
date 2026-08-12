@@ -26,11 +26,24 @@
   --display: 'Bungee', system-ui, sans-serif;
   --body: 'Space Mono', 'JetBrains Mono', monospace;
 
+  /* Aalto Display — self-hosted, personal-use license (see
+     assets/fonts/Befonts-License.txt). Used only for the hero title
+     and the big section titles; every other heading keeps --display. */
+  --display-heading: 'Aalto Display', var(--display);
+
   --border: 3px solid var(--ink);
   --border-thick: 5px solid var(--ink);
   --shadow-sm: 5px 5px 0 var(--ink);
   --shadow-md: 8px 8px 0 var(--ink);
   --shadow-lg: 12px 12px 0 var(--ink);
+}
+
+@font-face{
+  font-family:'Aalto Display';
+  src:url('assets/fonts/aalto-display-personal-use.otf') format('opentype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -92,6 +105,8 @@ h1,h2,h3,h4{
   text-align:center;
   font-size:160px !important;
   margin-bottom:clamp(2rem,5vw,3.5rem);
+  font-family:var(--display-heading);
+  letter-spacing:0;
 }
 
 /* =========================================================
@@ -225,6 +240,8 @@ h1,h2,h3,h4{
 .hero-title{
   color:var(--yellow);
   font-size:190px !important;
+  font-family:var(--display-heading);
+  letter-spacing:0;
 }
 .hero-title-outline{
   color:var(--yellow);
