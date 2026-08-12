@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — Set Up Your Profile</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<main class="app-main">
+  <div class="app-shell" style="max-width:600px;">
+
+    <div class="app-topbar">
+      <div>
+        <h1 class="app-heading split-title">Who are we protecting against?</h1>
+        <p class="app-subheading">This feeds every verdict Appy gives you — pick everything that applies.</p>
+      </div>
+    </div>
+
+    <div class="ingredient-card">
+      <div class="choice-chip-grid" id="allergen-grid">
+        <button type="button" class="choice-chip" data-value="peanut">Peanut</button>
+        <button type="button" class="choice-chip" data-value="tree-nut">Tree Nut</button>
+        <button type="button" class="choice-chip" data-value="dairy">Dairy</button>
+        <button type="button" class="choice-chip" data-value="gluten">Gluten</button>
+        <button type="button" class="choice-chip" data-value="egg">Egg</button>
+        <button type="button" class="choice-chip" data-value="shellfish">Shellfish</button>
+        <button type="button" class="choice-chip" data-value="soy">Soy</button>
+      </div>
+
+      <div class="verdict-actions" style="margin-top:2rem;">
+        <button id="allergen-continue" class="brutal-btn brutal-btn--yellow">CONTINUE →</button>
+        <a href="dashboard.html" class="scan-upload-alt" style="align-self:center;">skip for now</a>
+      </div>
+      <p class="scan-demo-note" style="text-align:left;margin-top:1rem;">Skipping means verdicts can't be personalized to you yet — you can always add this later in Settings.</p>
+    </div>
+
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script>
+const API_BASE = 'http://localhost:8000';
+const grid = document.getElementById('allergen-grid');
+const selected = new Set();
+
+grid.querySelectorAll('.choice-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const val = chip.dataset.value;
+    if (selected.has(val)){ selected.delete(val); chip.classList.remove('active'); }
+    else { selected.add(val); chip.classList.add('active'); }
+  });
+});
+
+document.getElementById('allergen-continue').addEventListener('click', () => {
+  fetch(`${API_BASE}/api/profile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ allergens: Array.from(selected) })
+  })
+  .then(r => r.json())
+  .then(() => { window.location.href = 'dashboard.html'; })
+  .catch(err => {
+    console.error('Failed to save profile:', err);
+    alert(`Couldn't reach the backend at ${API_BASE} — is it running?`);
+  });
+});
+</script>
+</body>
+</html>

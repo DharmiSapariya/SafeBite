@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — Scan</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SAFEBITE<span class="nav-logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="dashboard.html"><span class="nav-frame"><img src="assets/appy/static/sit.png" alt=""></span>Dashboard</a></li>
+      <li class="nav-item"><a href="scan.html"><span class="nav-frame"><img src="assets/appy/static/read.png" alt=""></span>Scan</a></li>
+      <li class="nav-item"><a href="craving-search.html"><span class="nav-frame"><img src="assets/appy/static/drinkwalk.png" alt=""></span>Craving Search</a></li>
+      <li class="nav-item"><a href="history.html"><span class="nav-frame"><img src="assets/appy/static/think.png" alt=""></span>History</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="app-main">
+  <div class="app-shell">
+
+    <div class="app-topbar">
+      <a href="dashboard.html" class="app-back">←</a>
+      <div>
+        <h1 class="app-heading split-title">Scan a label</h1>
+        <p class="app-subheading">No perfect angle needed — Appy finds the label even in a messy photo.</p>
+      </div>
+    </div>
+
+    <div class="scan-frame">
+      <span class="scan-frame-corner scan-frame-corner--tl"></span>
+      <span class="scan-frame-corner scan-frame-corner--tr"></span>
+      <span class="scan-frame-corner scan-frame-corner--bl"></span>
+      <span class="scan-frame-corner scan-frame-corner--br"></span>
+      <p class="scan-frame-hint">Camera preview placeholder — point it at an ingredients panel.</p>
+    </div>
+
+    <div class="scan-actions">
+      <button id="scan-capture-btn" class="brutal-btn brutal-btn--yellow">📸 CAPTURE</button>
+      <input type="file" id="scan-file-input" accept="image/*" capture="environment" style="display:none">
+      <input type="file" id="scan-upload-input" accept="image/*" style="display:none">
+      <a href="#" id="scan-upload-alt-link" class="scan-upload-alt">or upload a photo instead</a>
+    </div>
+
+    <p class="scan-demo-note">
+      No real detector/OCR wired up yet — CAPTURE always resolves to a demo "flagged" scan so the verdict → ingredient-detail flow has something real to click through.
+      <br>
+      <button id="scan-error-demo-btn">Simulate a low-confidence scan instead →</button>
+    </p>
+
+  </div>
+</main>
+
+<!-- PROCESSING OVERLAY -->
+<div class="state-overlay" id="processing-overlay">
+  <div class="state-overlay-sprite state-overlay-sprite--processing"></div>
+  <div class="state-overlay-text" id="processing-text">Finding the label…</div>
+</div>
+
+<!-- ERROR / LOW-CONFIDENCE OVERLAY -->
+<div class="state-overlay" id="error-overlay">
+  <div class="state-overlay-sprite state-overlay-sprite--error"></div>
+  <div class="state-overlay-text">Couldn't read this one clearly</div>
+  <p class="state-overlay-sub">We're not fully confident on this label. You can retake the photo, continue anyway with an "unclear" verdict, or enter ingredients manually.</p>
+  <div class="state-overlay-actions">
+    <button id="error-retake-btn" class="brutal-btn">RETAKE PHOTO</button>
+    <button id="error-continue-btn" class="brutal-btn brutal-btn--yellow">CONTINUE ANYWAY</button>
+  </div>
+</div>
+
+<script src="app-data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
