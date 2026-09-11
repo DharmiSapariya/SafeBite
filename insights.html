@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SafeBite — Insights</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="app.css">
+
+<style>
+
+/* =========================================================
+   SAFEBITE — INSIGHTS PAGE
+   Pattern-reading dashboard
+   ========================================================= */
+
+.insights-page{
+  background:var(--cream);
+  min-height:100vh;
+  color:var(--ink);
+}
+
+/* =========================================================
+   INSIGHTS HERO
+   ========================================================= */
+
+.insights-hero{
+  position:relative;
+  min-height:72vh;
+  background:var(--purple);
+  color:var(--cream);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:8rem 1.5rem 6rem;
+  border-bottom:var(--border-thick);
+}
+
+.insights-hero::before{
+  content:"PATTERNS";
+  position:absolute;
+  left:50%;
+  top:8%;
+  transform:translateX(-50%);
+  font-family:var(--display);
+  font-size:clamp(5rem,18vw,15rem);
+  line-height:.8;
+  color:transparent;
+  -webkit-text-stroke:2px rgba(252,246,232,.16);
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.insights-hero-inner{
+  position:relative;
+  z-index:2;
+  width:min(1100px,92vw);
+  text-align:center;
+}
+
+.insights-kicker{
+  font-family:var(--body);
+  font-weight:700;
+  letter-spacing:.3em;
+  font-size:.72rem;
+  margin-bottom:1rem;
+  color:var(--yellow);
+}
+
+.insights-title{
+  font-family:var(--display);
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:clamp(4rem,10vw,9rem);
+  line-height:.82;
+  letter-spacing:-.035em;
+  margin:0;
+}
+
+.insights-subtitle{
+  max-width:620px;
+  margin:2rem auto 0;
+  font-family:var(--body);
+  font-size:.95rem;
+  line-height:1.65;
+  color:var(--cream);
+}
+
+.insights-hero-note{
+  display:inline-block;
+  margin-top:2rem;
+  padding:.65rem 1rem;
+  border:var(--border-thick);
+  background:var(--yellow);
+  color:var(--ink);
+  box-shadow:var(--shadow-sm);
+  font-family:var(--display);
+  font-size:.72rem;
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.insights-main{
+  width:min(1180px,92vw);
+  margin:0 auto;
+  padding:5rem 0 7rem;
+}
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.insights-section{
+  margin-bottom:7rem;
+}
+
+.insights-section-kicker{
+  font-family:var(--body);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  margin:0 0 .7rem;
+}
+
+.insights-section-title{
+  font-family:var(--display);
+  font-weight:800;
+  text-transform:uppercase;
+  font-size:clamp(3rem,7vw,6.5rem);
+  line-height:.85;
+  letter-spacing:-.035em;
+  margin:0 0 2.5rem;
+}
+
+/* =========================================================
+   SNAPSHOT GRID
+   ========================================================= */
+
+.snapshot-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1rem;
+}
+
+.snapshot-card{
+  position:relative;
+  min-height:190px;
+  padding:1.4rem;
+  background:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
+}
+
+.snapshot-card:nth-child(1){
+  background:var(--yellow);
+}
+
+.snapshot-card:nth-child(2){
+  background:var(--green);
+}
+
+.snapshot-card:nth-child(3){
+  background:var(--red);
+  color:var(--cream);
+}
+
+.snapshot-card:nth-child(4){
+  background:var(--slate);
+}
+
+.snapshot-label{
+  font-family:var(--body);
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.snapshot-number{
+  font-family:var(--display);
+  font-size:clamp(3rem,6vw,5.5rem);
+  line-height:.8;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.snapshot-description{
+  font-family:var(--body);
+  font-size:.72rem;
+  line-height:1.45;
+  max-width:180px;
+}
+
+/* =========================================================
+   PATTERN SECTION
+   ========================================================= */
+
+.pattern-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:1.5rem;
+  align-items:stretch;
+}
+
+.pattern-card{
+  border:var(--border-thick);
+  background:var(--purple);
+  color:var(--cream);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+  position:relative;
+  overflow:hidden;
+}
+
+.pattern-card::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  right:-80px;
+  bottom:-100px;
+  border:2px solid rgba(252,246,232,.2);
+  border-radius:50%;
+}
+
+.pattern-card-title{
+  font-family:var(--display);
+  font-size:clamp(2rem,4vw,3.6rem);
+  line-height:.85;
+  text-transform:uppercase;
+  margin:0 0 .7rem;
+}
+
+.pattern-card-sub{
+  font-family:var(--body);
+  font-size:.78rem;
+  line-height:1.55;
+  opacity:.8;
+  max-width:470px;
+  margin-bottom:2rem;
+}
+
+/* =========================================================
+   BAR CHART
+   ========================================================= */
+
+.pattern-chart{
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+
+.pattern-row{
+  display:grid;
+  grid-template-columns:120px 1fr 50px;
+  align-items:center;
+  gap:.8rem;
+}
+
+.pattern-row-label{
+  font-family:var(--body);
+  font-size:.65rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+.pattern-bar{
+  height:18px;
+  border:2px solid var(--cream);
+  position:relative;
+  background:rgba(252,246,232,.12);
+}
+
+.pattern-bar-fill{
+  height:100%;
+  background:var(--yellow);
+}
+
+.pattern-row-value{
+  font-family:var(--display);
+  font-size:.9rem;
+  text-align:right;
+}
+
+/* =========================================================
+   TOP FLAGS
+   ========================================================= */
+
+.flags-card{
+  border:var(--border-thick);
+  background:var(--cream);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+}
+
+.flags-title{
+  font-family:var(--display);
+  font-size:2.5rem;
+  line-height:.85;
+  text-transform:uppercase;
+  margin:0 0 .5rem;
+}
+
+.flags-sub{
+  font-family:var(--body);
+  font-size:.72rem;
+  line-height:1.5;
+  margin-bottom:1.8rem;
+}
+
+.flag-list{
+  display:flex;
+  flex-direction:column;
+}
+
+.flag-item{
+  display:grid;
+  grid-template-columns:45px 1fr auto;
+  align-items:center;
+  gap:.7rem;
+  padding:.9rem 0;
+  border-top:2px solid var(--ink);
+}
+
+.flag-item:last-child{
+  border-bottom:2px solid var(--ink);
+}
+
+.flag-rank{
+  width:34px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--red);
+  color:var(--cream);
+  border:2px solid var(--ink);
+  font-family:var(--display);
+  font-size:.75rem;
+}
+
+.flag-name{
+  font-family:var(--body);
+  font-weight:700;
+  font-size:.76rem;
+  text-transform:uppercase;
+}
+
+.flag-count{
+  font-family:var(--display);
+  font-size:1.2rem;
+}
+
+/* =========================================================
+   WEEKLY PATTERN
+   ========================================================= */
+
+.week-card{
+  background:var(--slate);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+}
+
+.week-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:1rem;
+  margin-bottom:2rem;
+}
+
+.week-title{
+  font-family:var(--display);
+  font-size:clamp(2.3rem,4vw,4rem);
+  line-height:.85;
+  text-transform:uppercase;
+  margin:0;
+}
+
+.week-note{
+  background:var(--cream);
+  border:2px solid var(--ink);
+  padding:.5rem .7rem;
+  font-family:var(--body);
+  font-size:.6rem;
+  font-weight:700;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.week-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:.8rem;
+  align-items:end;
+  height:220px;
+  border-bottom:3px solid var(--ink);
+  padding-bottom:.8rem;
+}
+
+.week-day{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:.5rem;
+}
+
+.week-column{
+  width:100%;
+  max-width:50px;
+  border:2px solid var(--ink);
+  background:var(--cream);
+  position:relative;
+}
+
+.week-column::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--yellow);
+  transform-origin:bottom;
+  transform:scaleY(.72);
+}
+
+.week-day:nth-child(2) .week-column::after{
+  transform:scaleY(.4);
+}
+
+.week-day:nth-child(3) .week-column::after{
+  transform:scaleY(.85);
+}
+
+.week-day:nth-child(4) .week-column::after{
+  transform:scaleY(.58);
+}
+
+.week-day:nth-child(5) .week-column::after{
+  transform:scaleY(.95);
+}
+
+.week-day:nth-child(6) .week-column::after{
+  transform:scaleY(.35);
+}
+
+.week-day:nth-child(7) .week-column::after{
+  transform:scaleY(.68);
+}
+
+.week-day-label{
+  font-family:var(--body);
+  font-size:.6rem;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.week-column{
+  height:var(--bar-height,120px);
+}
+
+/* =========================================================
+   CRAVING PATTERN
+   ========================================================= */
+
+.craving-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:1.5rem;
+}
+
+.craving-story{
+  background:var(--red);
+  color:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+  position:relative;
+  overflow:hidden;
+}
+
+.craving-story img{
+  width:150px;
+  margin:1rem auto 1.5rem;
+  filter:drop-shadow(6px 6px 0 var(--ink));
+}
+
+.craving-story-title{
+  font-family:var(--display);
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  line-height:.82;
+  text-transform:uppercase;
+  margin:0;
+}
+
+.craving-story p{
+  font-family:var(--body);
+  font-size:.78rem;
+  line-height:1.55;
+  max-width:390px;
+}
+
+.craving-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem;
+}
+
+.craving-card{
+  background:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-sm);
+  padding:1.4rem;
+  min-height:190px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.craving-card:nth-child(2){
+  background:var(--yellow);
+}
+
+.craving-card:nth-child(3){
+  background:var(--green);
+}
+
+.craving-card:nth-child(4){
+  background:var(--plum);
+  color:var(--cream);
+}
+
+.craving-card-label{
+  font-family:var(--body);
+  font-size:.6rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.craving-card-title{
+  font-family:var(--display);
+  font-size:1.8rem;
+  line-height:.85;
+  text-transform:uppercase;
+}
+
+.craving-card-detail{
+  font-family:var(--body);
+  font-size:.68rem;
+  line-height:1.45;
+}
+
+/* =========================================================
+   PROACTIVE NUDGE
+   ========================================================= */
+
+.nudge-section{
+  background:var(--green);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:clamp(2rem,5vw,4rem);
+  position:relative;
+  overflow:hidden;
+}
+
+.nudge-section::before{
+  content:"BEFORE YOU SCAN";
+  position:absolute;
+  right:-2rem;
+  bottom:-1rem;
+  font-family:var(--display);
+  font-size:clamp(3rem,8vw,7rem);
+  line-height:.8;
+  opacity:.1;
+  white-space:nowrap;
+}
+
+.nudge-content{
+  position:relative;
+  z-index:2;
+  max-width:760px;
+}
+
+.nudge-kicker{
+  font-family:var(--body);
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:.7rem;
+}
+
+.nudge-title{
+  font-family:var(--display);
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.82;
+  text-transform:uppercase;
+  margin:0 0 1rem;
+}
+
+.nudge-copy{
+  font-family:var(--body);
+  font-size:.85rem;
+  line-height:1.65;
+  max-width:650px;
+}
+
+.nudge-signal{
+  margin-top:2rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.8rem;
+  border:var(--border-thick);
+  background:var(--cream);
+  padding:.9rem 1rem;
+  box-shadow:var(--shadow-sm);
+}
+
+.nudge-dot{
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:var(--red);
+  border:2px solid var(--ink);
+}
+
+.nudge-signal span{
+  font-family:var(--body);
+  font-size:.68rem;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   PERSONAL RECOMMENDATION
+   ========================================================= */
+
+.recommendation{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.5rem;
+  align-items:stretch;
+}
+
+.recommendation-copy{
+  background:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+}
+
+.recommendation-copy h3{
+  font-family:var(--display);
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  line-height:.82;
+  text-transform:uppercase;
+  margin:0 0 1rem;
+}
+
+.recommendation-copy p{
+  font-family:var(--body);
+  font-size:.8rem;
+  line-height:1.6;
+  max-width:500px;
+}
+
+.recommendation-copy .brutal-btn{
+  margin-top:1.2rem;
+}
+
+.recommendation-card{
+  background:var(--purple);
+  color:var(--cream);
+  border:var(--border-thick);
+  box-shadow:var(--shadow-md);
+  padding:2rem;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.recommendation-card img{
+  width:130px;
+  margin-bottom:1.3rem;
+  filter:drop-shadow(6px 6px 0 var(--ink));
+}
+
+.recommendation-card-label{
+  font-family:var(--body);
+  font-size:.6rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--yellow);
+}
+
+.recommendation-card h4{
+  font-family:var(--display);
+  font-size:2rem;
+  line-height:.85;
+  margin:.6rem 0;
+}
+
+.recommendation-card p{
+  font-family:var(--body);
+  font-size:.72rem;
+  line-height:1.5;
+  max-width:330px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:900px){
+
+  .snapshot-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .pattern-grid,
+  .craving-grid,
+  .recommendation{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:640px){
+
+  .insights-hero{
+    min-height:65vh;
+    padding-top:7rem;
+  }
+
+  .insights-title{
+    font-size:clamp(3.2rem,15vw,5.5rem);
+  }
+
+  .insights-main{
+    width:min(92vw,540px);
+    padding-top:4rem;
+  }
+
+  .snapshot-grid{
+    grid-template-columns:1fr 1fr;
+    gap:.7rem;
+  }
+
+  .snapshot-card{
+    min-height:150px;
+    padding:1rem;
+  }
+
+  .snapshot-number{
+    font-size:3rem;
+  }
+
+  .pattern-card,
+  .flags-card,
+  .week-card,
+  .craving-story,
+  .recommendation-copy,
+  .recommendation-card{
+    padding:1.3rem;
+  }
+
+  .pattern-row{
+    grid-template-columns:85px 1fr 35px;
+    gap:.45rem;
+  }
+
+  .pattern-row-label{
+    font-size:.55rem;
+  }
+
+  .week-days{
+    gap:.35rem;
+    height:170px;
+  }
+
+  .craving-list{
+    grid-template-columns:1fr 1fr;
+    gap:.7rem;
+  }
+
+  .craving-card{
+    min-height:160px;
+    padding:1rem;
+  }
+
+  .craving-card-title{
+    font-size:1.35rem;
+  }
+
+  .week-header{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     CURSOR
+     ========================================================= -->
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<nav class="navbar" id="navbar">
+
+  <div class="nav-inner">
+
+    <a href="index.html" class="nav-logo">
+      SAFEBITE<span class="nav-logo-dot">.</span>
+    </a>
+
+    <ul class="nav-links">
+
+      <li class="nav-item">
+        <a href="index.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/eat.png" alt="">
+          </span>
+          Home
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="how-it-works.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/read.png" alt="">
+          </span>
+          How It Works
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="architecture.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/think.png" alt="">
+          </span>
+          How It Thinks
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="results.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/sit.png" alt="">
+          </span>
+          Results
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="about.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/meditate.png" alt="">
+          </span>
+          About
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<header class="insights-hero">
+
+  <div class="insights-hero-inner">
+
+    <p class="insights-kicker">
+      YOUR FOOD PATTERN
+    </p>
+
+    <h1 class="insights-title">
+      WHAT SAFEBITE<br>
+      NOTICED
+    </h1>
+
+    <p class="insights-subtitle">
+      SafeBite doesn't stop at individual verdicts.
+      Your scans, swaps and cravings form a pattern —
+      and this is where that pattern starts to become useful.
+    </p>
+
+    <div class="insights-hero-note">
+      LAST 30 DAYS · PERSONAL VIEW
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="insights-main">
+
+
+  <!-- =======================================================
+       SECTION 01 — SNAPSHOT
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      01 / AT A GLANCE
+    </p>
+
+    <h2 class="insights-section-title">
+      YOUR MONTH<br>
+      IN NUMBERS
+    </h2>
+
+    <div class="snapshot-grid">
+
+      <article class="snapshot-card">
+
+        <span class="snapshot-label">
+          Foods checked
+        </span>
+
+        <span class="snapshot-number">
+          42
+        </span>
+
+        <span class="snapshot-description">
+          Products you've asked SafeBite to understand.
+        </span>
+
+      </article>
+
+
+      <article class="snapshot-card">
+
+        <span class="snapshot-label">
+          Safe choices
+        </span>
+
+        <span class="snapshot-number">
+          29
+        </span>
+
+        <span class="snapshot-description">
+          Foods that matched your current profile.
+        </span>
+
+      </article>
+
+
+      <article class="snapshot-card">
+
+        <span class="snapshot-label">
+          Flagged
+        </span>
+
+        <span class="snapshot-number">
+          09
+        </span>
+
+        <span class="snapshot-description">
+          Products where SafeBite found something to watch.
+        </span>
+
+      </article>
+
+
+      <article class="snapshot-card">
+
+        <span class="snapshot-label">
+          Swapped
+        </span>
+
+        <span class="snapshot-number">
+          04
+        </span>
+
+        <span class="snapshot-description">
+          Times a craving became a safer alternative.
+        </span>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SECTION 02 — PATTERNS
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      02 / THE PATTERN
+    </p>
+
+    <h2 class="insights-section-title">
+      WHAT KEEPS<br>
+      SHOWING UP
+    </h2>
+
+
+    <div class="pattern-grid">
+
+
+      <article class="pattern-card">
+
+        <h3 class="pattern-card-title">
+          Your scans<br>
+          have a shape.
+        </h3>
+
+        <p class="pattern-card-sub">
+          Across your recent scans, SafeBite sees more than
+          isolated YES or NO decisions. It can track the
+          kinds of products you check and the ingredients
+          that repeatedly appear.
+        </p>
+
+
+        <div class="pattern-chart">
+
+          <div class="pattern-row">
+
+            <span class="pattern-row-label">
+              Snacks
+            </span>
+
+            <div class="pattern-bar">
+              <div
+                class="pattern-bar-fill"
+                style="width:82%;">
+              </div>
+            </div>
+
+            <span class="pattern-row-value">
+              18
+            </span>
+
+          </div>
+
+
+          <div class="pattern-row">
+
+            <span class="pattern-row-label">
+              Drinks
+            </span>
+
+            <div class="pattern-bar">
+              <div
+                class="pattern-bar-fill"
+                style="width:58%;">
+              </div>
+            </div>
+
+            <span class="pattern-row-value">
+              11
+            </span>
+
+          </div>
+
+
+          <div class="pattern-row">
+
+            <span class="pattern-row-label">
+              Breakfast
+            </span>
+
+            <div class="pattern-bar">
+              <div
+                class="pattern-bar-fill"
+                style="width:38%;">
+              </div>
+            </div>
+
+            <span class="pattern-row-value">
+              07
+            </span>
+
+          </div>
+
+
+          <div class="pattern-row">
+
+            <span class="pattern-row-label">
+              Desserts
+            </span>
+
+            <div class="pattern-bar">
+              <div
+                class="pattern-bar-fill"
+                style="width:25%;">
+              </div>
+            </div>
+
+            <span class="pattern-row-value">
+              06
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <article class="flags-card">
+
+        <h3 class="flags-title">
+          REPEATED<br>
+          FLAGS
+        </h3>
+
+        <p class="flags-sub">
+          Ingredients and additives that have appeared
+          most often in your flagged scans.
+        </p>
+
+
+        <div class="flag-list">
+
+          <div class="flag-item">
+
+            <span class="flag-rank">
+              01
+            </span>
+
+            <span class="flag-name">
+              Milk derivatives
+            </span>
+
+            <span class="flag-count">
+              06
+            </span>
+
+          </div>
+
+
+          <div class="flag-item">
+
+            <span class="flag-rank">
+              02
+            </span>
+
+            <span class="flag-name">
+              Soy
+            </span>
+
+            <span class="flag-count">
+              04
+            </span>
+
+          </div>
+
+
+          <div class="flag-item">
+
+            <span class="flag-rank">
+              03
+            </span>
+
+            <span class="flag-name">
+              Artificial colours
+            </span>
+
+            <span class="flag-count">
+              03
+            </span>
+
+          </div>
+
+
+          <div class="flag-item">
+
+            <span class="flag-rank">
+              04
+            </span>
+
+            <span class="flag-name">
+              Added sweeteners
+            </span>
+
+            <span class="flag-count">
+              03
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SECTION 03 — WEEKLY ACTIVITY
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      03 / RECENT ACTIVITY
+    </p>
+
+    <h2 class="insights-section-title">
+      WHEN YOU<br>
+      CHECK
+    </h2>
+
+
+    <div class="week-card">
+
+      <div class="week-header">
+
+        <h3 class="week-title">
+          LAST<br>
+          7 DAYS
+        </h3>
+
+        <span class="week-note">
+          24 scans this week
+        </span>
+
+      </div>
+
+
+      <div class="week-days">
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:90px;">
+          </div>
+
+          <span class="week-day-label">
+            Mon
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:70px;">
+          </div>
+
+          <span class="week-day-label">
+            Tue
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:150px;">
+          </div>
+
+          <span class="week-day-label">
+            Wed
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:105px;">
+          </div>
+
+          <span class="week-day-label">
+            Thu
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:175px;">
+          </div>
+
+          <span class="week-day-label">
+            Fri
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:60px;">
+          </div>
+
+          <span class="week-day-label">
+            Sat
+          </span>
+
+        </div>
+
+
+        <div class="week-day">
+
+          <div
+            class="week-column"
+            style="--bar-height:125px;">
+          </div>
+
+          <span class="week-day-label">
+            Sun
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SECTION 04 — CRAVINGS
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      04 / CRAVINGS
+    </p>
+
+    <h2 class="insights-section-title">
+      WHAT YOU<br>
+      KEEP WANTING
+    </h2>
+
+
+    <div class="craving-grid">
+
+
+      <article class="craving-story">
+
+        <img
+          src="assets/appy/static/drinkwalk.png"
+          alt="Appy thinking">
+
+        <h3 class="craving-story-title">
+          YOUR<br>
+          CRAVINGS<br>
+          HAVE A<br>
+          PATTERN.
+        </h3>
+
+        <p>
+          SafeBite can look beyond product names and
+          understand the kind of experience you're trying
+          to find — sweet, crunchy, fizzy, creamy or
+          comforting.
+        </p>
+
+      </article>
+
+
+      <div class="craving-list">
+
+
+        <article class="craving-card">
+
+          <span class="craving-card-label">
+            Most common
+          </span>
+
+          <span class="craving-card-title">
+            Sweet
+          </span>
+
+          <span class="craving-card-detail">
+            11 craving searches
+          </span>
+
+        </article>
+
+
+        <article class="craving-card">
+
+          <span class="craving-card-label">
+            Second
+          </span>
+
+          <span class="craving-card-title">
+            Fizzy
+          </span>
+
+          <span class="craving-card-detail">
+            07 craving searches
+          </span>
+
+        </article>
+
+
+        <article class="craving-card">
+
+          <span class="craving-card-label">
+            Third
+          </span>
+
+          <span class="craving-card-title">
+            Crunchy
+          </span>
+
+          <span class="craving-card-detail">
+            05 craving searches
+          </span>
+
+        </article>
+
+
+        <article class="craving-card">
+
+          <span class="craving-card-label">
+            Emerging
+          </span>
+
+          <span class="craving-card-title">
+            Comfort
+          </span>
+
+          <span class="craving-card-detail">
+            04 craving searches
+          </span>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SECTION 05 — PROACTIVE NUDGE
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      05 / THE QUIET THIRD JOURNEY
+    </p>
+
+
+    <div class="nudge-section">
+
+      <div class="nudge-content">
+
+        <p class="nudge-kicker">
+          SAFE BITE NOTICED SOMETHING
+        </p>
+
+        <h2 class="nudge-title">
+          THREE<br>
+          FLAGS<br>
+          IN A ROW.
+        </h2>
+
+        <p class="nudge-copy">
+          Your last three snack scans were flagged.
+          That doesn't mean the next one will be —
+          but it is a pattern worth noticing.
+
+          SafeBite's proactive layer uses your scan
+          sequence to surface signals like this before
+          they become another isolated decision.
+        </p>
+
+
+        <div class="nudge-signal">
+
+          <span class="nudge-dot"></span>
+
+          <span>
+            Pattern detected · confidence 82%
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SECTION 06 — PERSONAL RECOMMENDATION
+       ======================================================= -->
+
+  <section class="insights-section">
+
+    <p class="insights-section-kicker">
+      06 / WHAT NEXT
+    </p>
+
+    <h2 class="insights-section-title">
+      DON'T JUST<br>
+      LOOK BACK
+    </h2>
+
+
+    <div class="recommendation">
+
+
+      <article class="recommendation-copy">
+
+        <h3>
+          TURN THE<br>
+          PATTERN INTO<br>
+          A BETTER CHOICE.
+        </h3>
+
+        <p>
+          Your insights become useful when they change
+          what happens next.
+
+          Based on the things you've been checking and
+          the cravings you've been searching for, SafeBite
+          can surface alternatives that still match what
+          you wanted.
+        </p>
+
+        <a
+          href="craving-search.html"
+          class="brutal-btn brutal-btn--yellow">
+          FIND A SWAP →
+        </a>
+
+      </article>
+
+
+      <article class="recommendation-card">
+
+        <img
+          src="assets/appy/static/think.png"
+          alt="Appy thinking">
+
+        <span class="recommendation-card-label">
+          Your current signal
+        </span>
+
+        <h4>
+          SWEET<br>
+          + FIZZY
+        </h4>
+
+        <p>
+          Your recent cravings lean toward sweet,
+          carbonated drinks. SafeBite can search the
+          craving space for alternatives that fit your
+          profile.
+        </p>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     CTA
+     ========================================================= -->
+
+<section
+  class="cta-strip"
+  data-color="#FFF8E0">
+
+  <p style="color:var(--ink)">
+    The more you use SafeBite, the more useful
+    the pattern becomes.
+  </p>
+
+  <a
+    href="scan.html"
+    class="brutal-btn brutal-btn--yellow">
+    SCAN SOMETHING →
+  </a>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+
+
+
+<!-- =========================================================
+     SCRIPTS
+     ========================================================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script src="script.js"></script>
+
+
+
+<footer class="footer" id="footer" data-color="#FFF8E0">
+  <div class="footer-topbar">
+    <a href="#" class="footer-social-icon" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.5" cy="6.5" r="1"></circle>
+      </svg>
+    </a>
+    <a href="how-it-works.html" class="footer-topbar-link">HOW IT WORKS</a>
+    <a href="architecture.html" class="footer-topbar-link">HOW IT THINKS</a>
+    <a href="results.html" class="footer-topbar-link">RESULTS</a>
+    <a href="about.html" class="footer-topbar-link">ABOUT</a>
+    <span class="footer-topbar-link footer-topbar-credit">SITE BY SAFEBITE</span>
+  </div>
+
+  <div class="footer-flatlay" id="footer-flatlay">
+    <img src="assets/footer/vase-flowers.png"      class="fl-item" id="fl-vase"       alt="" data-depth="0.10">
+    <img src="assets/footer/wine-glass-1.png"      class="fl-item" id="fl-wineglass1" alt="" data-depth="0.06">
+    <img src="assets/footer/fork.png"               class="fl-item" id="fl-fork"       alt="" data-depth="0.08" data-rotate="-8">
+    <img src="assets/footer/sausage-plate.png"      class="fl-item" id="fl-sausage"    alt="" data-depth="0.05">
+    <img src="assets/footer/wine-bottle.png"        class="fl-item" id="fl-bottle"     alt="" data-depth="0.09">
+    <img src="assets/footer/candle-2.png"           class="fl-item" id="fl-candle2"    alt="" data-depth="0.07">
+    <img src="assets/footer/salt-pepper.png"        class="fl-item" id="fl-saltpepper" alt="" data-depth="0.11">
+    <img src="assets/footer/cheese-block.png"       class="fl-item" id="fl-cheese"     alt="" data-depth="0.06">
+    <img src="assets/footer/candle-1.png"           class="fl-item" id="fl-candle1"    alt="" data-depth="0.08">
+    <img src="assets/footer/olives-bowl.png"        class="fl-item" id="fl-olivesbowl" alt="" data-depth="0.05">
+    <img src="assets/footer/olives-loose.png"       class="fl-item" id="fl-olivesloose" alt="" data-depth="0.09">
+    <img src="assets/footer/jar.png"                class="fl-item" id="fl-jar"        alt="" data-depth="0.07">
+    <img src="assets/footer/bread-board.png"        class="fl-item" id="fl-bread"      alt="" data-depth="0.04">
+    <img src="assets/footer/spoon.png"              class="fl-item" id="fl-spoon"      alt="" data-depth="0.10" data-rotate="6">
+    <img src="assets/footer/wine-glass-2.png"       class="fl-item" id="fl-wineglass2" alt="" data-depth="0.06">
+    <img src="assets/footer/charcuterie-board.png"  class="fl-item" id="fl-charcuterie" alt="" data-depth="0.03">
+    <img src="assets/footer/knife.png"              class="fl-item" id="fl-knife"      alt="" data-depth="0.08" data-rotate="-4">
+    <img src="assets/footer/hat-plate.png"          class="fl-item" id="fl-hat"        alt="" data-depth="0.05">
+  </div>
+</footer>
+
+</body>
+</html>

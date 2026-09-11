@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Safety — SafeBite</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+
+  <style>
+    /* =========================================================
+       SAFE BITE — SAFETY PAGE
+       ========================================================= */
+
+    .safety-page {
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    /* ---------------------------------------------------------
+       HERO
+       --------------------------------------------------------- */
+
+    .safety-hero {
+      min-height: 76vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      border-bottom: 4px solid var(--black);
+      background: var(--cream);
+    }
+
+    .safety-hero::before {
+      content: "";
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      right: 8%;
+      top: 14%;
+      background: var(--green);
+      border: 4px solid var(--black);
+      box-shadow: 14px 14px 0 var(--black);
+      transform: rotate(7deg);
+      z-index: 0;
+    }
+
+    .safety-hero::after {
+      content: "SAFE";
+      position: absolute;
+      right: 10%;
+      top: 22%;
+      font-family: var(--display);
+      font-size: clamp(5rem, 11vw, 11rem);
+      line-height: .8;
+      color: var(--cream);
+      -webkit-text-stroke: 3px var(--black);
+      transform: rotate(-7deg);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .safety-hero-inner {
+      width: min(1380px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 3;
+      padding: 110px 0 90px;
+    }
+
+    .safety-kicker {
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .safety-title {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: clamp(4.5rem, 10vw, 10rem);
+      line-height: .82;
+      letter-spacing: -.045em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .safety-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 3px var(--black);
+      display: block;
+    }
+
+    .safety-sub {
+      max-width: 650px;
+      margin-top: 38px;
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.55;
+      position: relative;
+    }
+
+    /* ---------------------------------------------------------
+       VERDICT STRIP
+       --------------------------------------------------------- */
+
+    .verdict-strip {
+      border-bottom: 4px solid var(--black);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .verdict-block {
+      min-height: 250px;
+      padding: 42px;
+      border-right: 4px solid var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .verdict-block:last-child {
+      border-right: none;
+    }
+
+    .verdict-block.safe {
+      background: var(--green);
+    }
+
+    .verdict-block.flagged {
+      background: var(--red);
+      color: var(--cream);
+    }
+
+    .verdict-block.unclear {
+      background: var(--slate);
+    }
+
+    .verdict-number {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .verdict-name {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: clamp(2.6rem, 4vw, 4.6rem);
+      line-height: .85;
+      margin: 45px 0 18px;
+      text-transform: uppercase;
+    }
+
+    .verdict-description {
+      max-width: 390px;
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .verdict-mark {
+      position: absolute;
+      right: 28px;
+      bottom: 18px;
+      font-family: var(--display);
+      font-size: 7rem;
+      line-height: .7;
+      opacity: .12;
+    }
+
+    /* ---------------------------------------------------------
+       INTRO
+       --------------------------------------------------------- */
+
+    .safety-section {
+      padding: 120px 4%;
+      border-bottom: 4px solid var(--black);
+      position: relative;
+    }
+
+    .safety-section.purple {
+      background: var(--purple);
+      color: var(--cream);
+    }
+
+    .safety-section.yellow {
+      background: var(--yellow);
+    }
+
+    .safety-section.white {
+      background: var(--cream);
+    }
+
+    .safety-section.green {
+      background: var(--green);
+    }
+
+    .safety-section-inner {
+      width: min(1380px, 100%);
+      margin: 0 auto;
+    }
+
+    .safety-label {
+      font-family: var(--body);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .safety-heading {
+      max-width: 1050px;
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: .86;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      margin: 0 0 45px;
+    }
+
+    .safety-copy {
+      max-width: 760px;
+      font-family: var(--body);
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    /* ---------------------------------------------------------
+       HOW THE VERDICT IS MADE
+       --------------------------------------------------------- */
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      background: var(--black);
+      border: 4px solid var(--black);
+      margin-top: 70px;
+    }
+
+    .decision-card {
+      background: var(--cream);
+      padding: 42px;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .decision-card:nth-child(2) {
+      background: var(--slate);
+    }
+
+    .decision-card:nth-child(3) {
+      background: var(--green);
+    }
+
+    .decision-card:nth-child(4) {
+      background: var(--yellow);
+    }
+
+    .decision-index {
+      font-family: var(--display);
+      font-size: 14px;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+
+    .decision-title {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: 42px;
+      line-height: .9;
+      text-transform: uppercase;
+      margin: 70px 0 20px;
+    }
+
+    .decision-text {
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 450px;
+    }
+
+    /* ---------------------------------------------------------
+       SAFETY PRINCIPLE
+       --------------------------------------------------------- */
+
+    .principle-layout {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 70px;
+    }
+
+    .principle-statement {
+      font-family: var(--display-heading);
+      font-size: clamp(3rem, 6vw, 6rem);
+      line-height: .85;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+    }
+
+    .principle-list {
+      border-top: 4px solid var(--black);
+    }
+
+    .principle-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 25px;
+      padding: 30px 0;
+      border-bottom: 4px solid var(--black);
+    }
+
+    .principle-item-number {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .principle-item-title {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: 28px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .principle-item-text {
+      font-family: var(--body);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 650px;
+    }
+
+    /* ---------------------------------------------------------
+       UNCLEAR STATE
+       --------------------------------------------------------- */
+
+    .unclear-box {
+      margin-top: 65px;
+      border: 4px solid var(--black);
+      background: var(--cream);
+      box-shadow: 14px 14px 0 var(--black);
+      padding: 50px;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 45px;
+      align-items: start;
+    }
+
+    .unclear-symbol {
+      width: 120px;
+      height: 120px;
+      border: 4px solid var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--display);
+      font-size: 65px;
+      background: var(--slate);
+      transform: rotate(-5deg);
+    }
+
+    .unclear-title {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: .85;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+
+    .unclear-text {
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    /* ---------------------------------------------------------
+       WHAT SAFE BITE DOES / DOES NOT DO
+       --------------------------------------------------------- */
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      margin-top: 65px;
+    }
+
+    .limits-card {
+      border: 4px solid var(--black);
+      padding: 45px;
+      min-height: 360px;
+      box-shadow: 10px 10px 0 var(--black);
+    }
+
+    .limits-card.does {
+      background: var(--green);
+    }
+
+    .limits-card.does-not {
+      background: var(--cream);
+    }
+
+    .limits-title {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: 48px;
+      line-height: .9;
+      text-transform: uppercase;
+      margin: 0 0 35px;
+    }
+
+    .limits-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .limits-list li {
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 15px 0 15px 28px;
+      border-top: 2px solid var(--black);
+      position: relative;
+    }
+
+    .limits-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      font-family: var(--display);
+      font-weight: 800;
+    }
+
+    /* ---------------------------------------------------------
+       FINAL CTA
+       --------------------------------------------------------- */
+
+    .safety-cta {
+      background: var(--red);
+      color: var(--cream);
+      border-bottom: 4px solid var(--black);
+      padding: 110px 4%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .safety-cta::before {
+      content: "CHECK";
+      position: absolute;
+      font-family: var(--display);
+      font-size: 22vw;
+      line-height: .7;
+      opacity: .08;
+      left: -3%;
+      bottom: -5%;
+      pointer-events: none;
+    }
+
+    .safety-cta-inner {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .safety-cta-title {
+      font-family: var(--display-heading);
+      font-weight: 800;
+      font-size: clamp(4rem, 9vw, 9rem);
+      line-height: .82;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      margin: 0 0 30px;
+    }
+
+    .safety-cta-copy {
+      max-width: 620px;
+      margin: 0 auto 40px;
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .safety-cta .brutal-btn {
+      background: var(--cream);
+      color: var(--black);
+    }
+
+    /* ---------------------------------------------------------
+       RESPONSIVE
+       --------------------------------------------------------- */
+
+    @media (max-width: 900px) {
+      .verdict-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .verdict-block {
+        border-right: none;
+        border-bottom: 4px solid var(--black);
+      }
+
+      .verdict-block:last-child {
+        border-bottom: none;
+      }
+
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principle-layout {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .limits-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .safety-hero::before {
+        width: 220px;
+        height: 220px;
+        right: 4%;
+        top: 20%;
+      }
+
+      .safety-hero::after {
+        font-size: 5rem;
+        right: 8%;
+        top: 27%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .safety-hero-inner {
+        padding: 90px 0 70px;
+      }
+
+      .safety-hero::before,
+      .safety-hero::after {
+        display: none;
+      }
+
+      .safety-section {
+        padding: 80px 6%;
+      }
+
+      .verdict-block {
+        padding: 32px;
+      }
+
+      .decision-card {
+        padding: 32px;
+        min-height: 260px;
+      }
+
+      .decision-title {
+        margin-top: 50px;
+        font-size: 34px;
+      }
+
+      .unclear-box {
+        grid-template-columns: 1fr;
+        padding: 32px;
+        gap: 30px;
+      }
+
+      .limits-card {
+        padding: 32px;
+      }
+
+      .limits-title {
+        font-size: 38px;
+      }
+
+      .safety-cta {
+        padding: 80px 6%;
+      }
+    }
+  </style>
+</head>
+
+<body class="safety-page">
+
+  <!-- =======================================================
+       NAVIGATION
+       ======================================================= -->
+
+  <nav class="navbar">
+    <div class="nav-inner">
+
+      <a href="index.html" class="nav-logo">
+        SAFE<span>BITE</span>
+      </a>
+
+      <div class="nav-links">
+        <div class="nav-item">
+          <a href="index.html">Home</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="how-it-works.html">How It Works</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="architecture.html">How It Thinks</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="results.html">Results</a>
+        </div>
+
+        <div class="nav-item">
+          <a href="about.html">About</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+
+  <!-- =======================================================
+       HERO
+       ======================================================= -->
+
+  <main>
+
+    <section class="safety-hero">
+      <div class="safety-hero-inner">
+
+        <div class="safety-kicker reveal">
+          SAFE BITE / SAFETY SYSTEM
+        </div>
+
+        <h1 class="safety-title split-title reveal">
+          <span>SAFETY</span>
+          <span class="outline">COMES</span>
+          <span>FIRST.</span>
+        </h1>
+
+        <p class="safety-sub reveal">
+          SafeBite is designed to make allergen decisions predictable,
+          traceable and easy to understand — from the ingredient panel
+          to the final verdict.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         THREE VERDICTS
+         ===================================================== -->
+
+    <section class="verdict-strip">
+
+      <article class="verdict-block safe reveal">
+        <div class="verdict-number">01 / CLEAR</div>
+
+        <div class="verdict-name">
+          SAFE
+        </div>
+
+        <p class="verdict-description">
+          No known allergen conflict was identified in the processed
+          ingredient information.
+        </p>
+
+        <div class="verdict-mark">✓</div>
+      </article>
+
+
+      <article class="verdict-block flagged reveal">
+        <div class="verdict-number">02 / MATCH</div>
+
+        <div class="verdict-name">
+          FLAGGED
+        </div>
+
+        <p class="verdict-description">
+          A known allergen was matched against the ingredient information
+          and the product should be treated as requiring attention.
+        </p>
+
+        <div class="verdict-mark">!</div>
+      </article>
+
+
+      <article class="verdict-block unclear reveal">
+        <div class="verdict-number">03 / UNCERTAIN</div>
+
+        <div class="verdict-name">
+          UNCLEAR
+        </div>
+
+        <p class="verdict-description">
+          The available information was not reliable enough to produce
+          a confident safety verdict.
+        </p>
+
+        <div class="verdict-mark">?</div>
+      </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         CORE PRINCIPLE
+         ===================================================== -->
+
+    <section class="safety-section purple">
+
+      <div class="safety-section-inner">
+
+        <div class="safety-label reveal">
+          01 / THE CORE PRINCIPLE
+        </div>
+
+        <h2 class="safety-heading split-title reveal">
+          NO BLACK<br>
+          BOX VERDICTS.
+        </h2>
+
+        <p class="safety-copy reveal">
+          SafeBite separates learned perception from the final allergen
+          decision. The image-processing and recognition models help
+          extract information from a label. The safety verdict itself
+          is produced through deterministic allergen matching so that
+          the final decision remains predictable and auditable.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DECISION PIPELINE
+         ===================================================== -->
+
+    <section class="safety-section white">
+
+      <div class="safety-section-inner">
+
+        <div class="safety-label reveal">
+          02 / FROM IMAGE TO VERDICT
+        </div>
+
+        <h2 class="safety-heading split-title reveal">
+          EVERY STEP<br>
+          HAS A JOB.
+        </h2>
+
+
+        <div class="decision-grid">
+
+          <article class="decision-card reveal">
+            <div class="decision-index">01 / DETECT</div>
+
+            <h3 class="decision-title">
+              FIND<br>THE PANEL
+            </h3>
+
+            <p class="decision-text">
+              The label image is processed to locate the relevant
+              ingredient panel before text extraction begins.
+            </p>
+          </article>
+
+
+          <article class="decision-card reveal">
+            <div class="decision-index">02 / READ</div>
+
+            <h3 class="decision-title">
+              READ<br>THE TEXT
+            </h3>
+
+            <p class="decision-text">
+              OCR models process the detected ingredient region and
+              convert the visible label information into text.
+            </p>
+          </article>
+
+
+          <article class="decision-card reveal">
+            <div class="decision-index">03 / MATCH</div>
+
+            <h3 class="decision-title">
+              CHECK<br>ALLERGENS
+            </h3>
+
+            <p class="decision-text">
+              The extracted ingredient information is cleaned and
+              compared against the user's configured allergen profile.
+            </p>
+          </article>
+
+
+          <article class="decision-card reveal">
+            <div class="decision-index">04 / VERDICT</div>
+
+            <h3 class="decision-title">
+              RETURN<br>THE STATE
+            </h3>
+
+            <p class="decision-text">
+              SafeBite produces one of three understandable states:
+              safe, flagged or unclear.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SAFETY PRINCIPLES
+         ===================================================== -->
+
+    <section class="safety-section yellow">
+
+      <div class="safety-section-inner">
+
+        <div class="safety-label reveal">
+          03 / SAFETY BY DESIGN
+        </div>
+
+        <div class="principle-layout">
+
+          <div class="principle-statement reveal">
+            LEARNED<br>
+            WHERE<br>
+            USEFUL.<br><br>
+            RULED<br>
+            WHERE<br>
+            IT MATTERS.
+          </div>
+
+
+          <div class="principle-list">
+
+            <article class="principle-item reveal">
+              <div class="principle-item-number">01</div>
+
+              <div>
+                <div class="principle-item-title">
+                  Deterministic verdicts
+                </div>
+
+                <p class="principle-item-text">
+                  The final allergen decision is based on explicit
+                  matching rather than allowing a generative model
+                  to decide whether a food is safe.
+                </p>
+              </div>
+            </article>
+
+
+            <article class="principle-item reveal">
+              <div class="principle-item-number">02</div>
+
+              <div>
+                <div class="principle-item-title">
+                  Three-state output
+                </div>
+
+                <p class="principle-item-text">
+                  SafeBite does not force uncertain input into a binary
+                  yes-or-no answer. When confidence or extracted
+                  information is insufficient, the system can return
+                  an unclear state.
+                </p>
+              </div>
+            </article>
+
+
+            <article class="principle-item reveal">
+              <div class="principle-item-number">03</div>
+
+              <div>
+                <div class="principle-item-title">
+                  User-specific matching
+                </div>
+
+                <p class="principle-item-text">
+                  Ingredient checks are evaluated against the allergen
+                  profile configured by the user rather than treating
+                  every food decision as identical.
+                </p>
+              </div>
+            </article>
+
+
+            <article class="principle-item reveal">
+              <div class="principle-item-number">04</div>
+
+              <div>
+                <div class="principle-item-title">
+                  Traceable pipeline
+                </div>
+
+                <p class="principle-item-text">
+                  The system separates detection, OCR, text processing,
+                  allergen matching and presentation so that each stage
+                  has a clear responsibility.
+                </p>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         UNCLEAR STATE
+         ===================================================== -->
+
+    <section class="safety-section green">
+
+      <div class="safety-section-inner">
+
+        <div class="safety-label reveal">
+          04 / WHEN THE SYSTEM ISN'T SURE
+        </div>
+
+        <h2 class="safety-heading split-title reveal">
+          UNCLEAR<br>
+          IS A VALID<br>
+          ANSWER.
+        </h2>
+
+        <p class="safety-copy reveal">
+          Real-world food labels are messy. Images can be incomplete,
+          text can be difficult to read and extracted information can
+          be insufficient for a reliable allergen check.
+        </p>
+
+
+        <div class="unclear-box reveal">
+
+          <div class="unclear-symbol">
+            ?
+          </div>
+
+          <div>
+            <h3 class="unclear-title">
+              DON'T GUESS.
+            </h3>
+
+            <p class="unclear-text">
+              When SafeBite cannot establish a sufficiently reliable
+              result, the system surfaces uncertainty instead of
+              presenting a confident-looking answer. The unclear state
+              tells the user that the available information needs
+              additional attention.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         LIMITS
+         ===================================================== -->
+
+    <section class="safety-section white">
+
+      <div class="safety-section-inner">
+
+        <div class="safety-label reveal">
+          05 / KNOW THE BOUNDARY
+        </div>
+
+        <h2 class="safety-heading split-title reveal">
+          SAFETY<br>
+          NEEDS<br>
+          CONTEXT.
+        </h2>
+
+
+        <div class="limits-grid">
+
+          <article class="limits-card does reveal">
+
+            <h3 class="limits-title">
+              SAFE BITE<br>
+              DOES
+            </h3>
+
+            <ul class="limits-list">
+              <li>
+                Detect and process ingredient-panel information.
+              </li>
+
+              <li>
+                Extract and clean ingredient text.
+              </li>
+
+              <li>
+                Compare ingredients against a configured allergen profile.
+              </li>
+
+              <li>
+                Return a clear safe, flagged or unclear state.
+              </li>
+
+              <li>
+                Use the same safety logic consistently across scans.
+              </li>
+            </ul>
+
+          </article>
+
+
+          <article class="limits-card does-not reveal">
+
+            <h3 class="limits-title">
+              SAFE BITE<br>
+              DOESN'T
+            </h3>
+
+            <ul class="limits-list">
+              <li>
+                Replace professional medical advice.
+              </li>
+
+              <li>
+                Guarantee the absence of every possible contamination
+                or cross-contact risk.
+              </li>
+
+              <li>
+                Treat uncertain image or OCR output as certain information.
+              </li>
+
+              <li>
+                Allow a generative model to independently decide an
+                allergen safety verdict.
+              </li>
+
+              <li>
+                Turn a food-safety decision into a recommendation when
+                the underlying information is unclear.
+              </li>
+            </ul>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+
+    <section class="safety-cta">
+
+      <div class="safety-cta-inner">
+
+        <h2 class="safety-cta-title reveal">
+          CHECK<br>
+          BEFORE<br>
+          YOU BITE.
+        </h2>
+
+        <p class="safety-cta-copy reveal">
+          Scan the label, let SafeBite process the ingredient information,
+          and understand exactly what the system found.
+        </p>
+
+        <a href="scan.html" class="brutal-btn reveal">
+          SCAN A LABEL →
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =======================================================
+       FOOTER
+       ======================================================= -->
+
+  <footer class="site-footer">
+
+    <div class="footer-flatlay">
+
+      <img
+        src="assets/footer/footer-paper-1.png"
+        alt=""
+        class="footer-paper footer-paper-1"
+      >
+
+      <img
+        src="assets/footer/footer-paper-2.png"
+        alt=""
+        class="footer-paper footer-paper-2"
+      >
+
+      <img
+        src="assets/footer/footer-flower.png"
+        alt=""
+        class="footer-flower"
+      >
+
+      <img
+        src="assets/footer/footer-bow.png"
+        alt=""
+        class="footer-bow"
+      >
+
+      <div class="footer-content">
+
+        <div class="footer-brand">
+          SAFE<span>BITE</span>
+        </div>
+
+        <p class="footer-tagline">
+          FOOD SAFETY,<br>
+          READ DIFFERENTLY.
+        </p>
+
+        <div class="footer-links">
+
+          <a href="index.html">Home</a>
+          <a href="how-it-works.html">How It Works</a>
+          <a href="architecture.html">How It Thinks</a>
+          <a href="results.html">Results</a>
+          <a href="about.html">About</a>
+
+        </div>
+
+        <div class="footer-bottom">
+          <span>SAFE BITE</span>
+          <span>DEEP-LEARNING-NATIVE FOOD SAFETY</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =======================================================
+       SCRIPTS
+       ======================================================= -->
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js">
+  </script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js">
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+<style>
+/* SAFETY PAGE VISIBILITY FIX */
+.safety-page .reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+</style>

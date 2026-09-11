@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — Verdict</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">SAFEBITE<span class="nav-logo-dot">.</span></a>
+    <ul class="nav-links">
+      <li class="nav-item"><a href="dashboard.html"><span class="nav-frame"><img src="assets/appy/static/sit.png" alt=""></span>Dashboard</a></li>
+      <li class="nav-item"><a href="scan.html"><span class="nav-frame"><img src="assets/appy/static/read.png" alt=""></span>Scan</a></li>
+      <li class="nav-item"><a href="craving-search.html"><span class="nav-frame"><img src="assets/appy/static/drinkwalk.png" alt=""></span>Craving Search</a></li>
+      <li class="nav-item"><a href="history.html"><span class="nav-frame"><img src="assets/appy/static/think.png" alt=""></span>History</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="app-main">
+  <div class="app-shell">
+
+    <div class="app-topbar">
+      <a href="dashboard.html" class="app-back">←</a>
+      <div>
+        <h1 class="app-heading split-title">Verdict</h1>
+        <p class="app-subheading" id="verdict-product-name">—</p>
+      </div>
+    </div>
+
+    <div class="verdict-result" id="verdict-result">
+      <div class="verdict-result-top">
+        <div class="verdict-result-sprite" id="verdict-result-sprite"></div>
+        <span class="verdict-badge-lg" id="verdict-badge">—</span>
+      </div>
+      <p id="verdict-copy" style="font-size:0.95rem;"></p>
+
+      <div id="flagged-list-section" style="display:none;">
+        <div class="flagged-list">
+          <div class="flagged-list-title">FLAGGED INGREDIENTS</div>
+          <div id="flagged-list"></div>
+          <p class="explain-hint">Tap any flagged ingredient for a plain-English why.</p>
+        </div>
+      </div>
+
+      <div class="verdict-actions">
+        <a href="swaps.html" id="verdict-swap-cta" class="brutal-btn brutal-btn--yellow" style="display:none;">SEE SWAPS →</a>
+        <a href="scan.html" class="brutal-btn">SCAN ANOTHER</a>
+      </div>
+    </div>
+
+    <div class="demo-preview-row">
+      Demo preview:
+      <a href="verdict.html?scanId=s1">flagged</a>
+      <a href="verdict.html?scanId=s2">safe</a>
+      <a href="verdict.html?scanId=s3">unclear</a>
+    </div>
+
+  </div>
+</main>
+
+<script src="app-data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

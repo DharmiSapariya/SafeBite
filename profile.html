@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SafeBite — Profile</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+
+<style>
+
+/* =========================================================
+   SAFEBITE — PROFILE
+   ========================================================= */
+
+.profile-page {
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PROFILE HERO
+   ========================================================= */
+
+.profile-hero {
+  min-height: 72vh;
+  background: var(--purple);
+  color: var(--cream);
+  border-bottom: 4px solid var(--black);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.profile-hero::before {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  right: 8%;
+  top: 12%;
+  background: var(--yellow);
+  border: 4px solid var(--black);
+  box-shadow: 16px 16px 0 var(--black);
+  transform: rotate(7deg);
+}
+
+.profile-hero::after {
+  content: "YOU";
+  position: absolute;
+  right: 9%;
+  top: 23%;
+  font-family: var(--display-heading);
+  font-size: clamp(6rem, 13vw, 13rem);
+  line-height: .75;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--black);
+  transform: rotate(-7deg);
+  pointer-events: none;
+}
+
+.profile-hero-inner {
+  width: min(1380px, 92%);
+  margin: 0 auto;
+  padding: 110px 0 90px;
+  position: relative;
+  z-index: 3;
+}
+
+.profile-kicker {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: var(--yellow);
+}
+
+.profile-title {
+  margin: 0;
+  max-width: 1000px;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 10vw, 10rem);
+  line-height: .82;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+
+.profile-title .outline {
+  color: transparent;
+  -webkit-text-stroke: 3px var(--cream);
+}
+
+.profile-sub {
+  max-width: 680px;
+  margin-top: 38px;
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   PROFILE IDENTITY BAR
+   ========================================================= */
+
+.profile-identity {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+  border-bottom: 4px solid var(--black);
+  background: var(--cream);
+}
+
+.identity-block {
+  min-height: 190px;
+  padding: 38px;
+  border-right: 4px solid var(--black);
+}
+
+.identity-block:last-child {
+  border-right: none;
+}
+
+.identity-label {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.identity-value {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 38px;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.identity-block:nth-child(2) {
+  background: var(--green);
+}
+
+.identity-block:nth-child(3) {
+  background: var(--slate);
+}
+
+
+/* =========================================================
+   MAIN PROFILE AREA
+   ========================================================= */
+
+.profile-section {
+  padding: 115px 4%;
+  border-bottom: 4px solid var(--black);
+}
+
+.profile-section-inner {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+}
+
+.profile-section.yellow {
+  background: var(--yellow);
+}
+
+.profile-section.green {
+  background: var(--green);
+}
+
+.profile-section.purple {
+  background: var(--purple);
+  color: var(--cream);
+}
+
+.profile-section.cream {
+  background: var(--cream);
+}
+
+.profile-label {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.profile-heading {
+  max-width: 1050px;
+  margin: 0 0 35px;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: .84;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+
+.profile-copy {
+  max-width: 760px;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   PERSONAL DETAILS
+   ========================================================= */
+
+.profile-details {
+  margin-top: 65px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: var(--black);
+  border: 4px solid var(--black);
+}
+
+.profile-field {
+  background: var(--cream);
+  padding: 38px;
+  min-height: 180px;
+}
+
+.profile-field:nth-child(2) {
+  background: var(--slate);
+}
+
+.profile-field:nth-child(3) {
+  background: var(--green);
+}
+
+.profile-field:nth-child(4) {
+  background: var(--cream);
+}
+
+.field-label {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.field-value {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 34px;
+  line-height: .9;
+  text-transform: uppercase;
+}
+
+.field-note {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   ALLERGEN PROFILE
+   ========================================================= */
+
+.allergen-layout {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.allergen-statement {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(3rem, 6vw, 6rem);
+  line-height: .84;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+
+.allergen-panel {
+  border: 4px solid var(--black);
+  background: var(--cream);
+  box-shadow: 12px 12px 0 var(--black);
+}
+
+.allergen-panel-header {
+  padding: 25px 30px;
+  border-bottom: 4px solid var(--black);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.allergen-panel-title {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 27px;
+  text-transform: uppercase;
+}
+
+.allergen-status {
+  font-family: var(--body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  background: var(--green);
+  border: 2px solid var(--black);
+  padding: 8px 10px;
+}
+
+.allergen-list {
+  padding: 0;
+}
+
+.allergen-row {
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  border-bottom: 2px solid var(--black);
+}
+
+.allergen-row:last-child {
+  border-bottom: none;
+}
+
+.allergen-name {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.allergen-check {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--black);
+  background: var(--red);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display);
+  font-weight: 800;
+}
+
+.allergen-row.inactive .allergen-check {
+  background: var(--cream);
+  color: var(--black);
+}
+
+.allergen-note {
+  padding: 20px 30px;
+  background: var(--yellow);
+  border-top: 4px solid var(--black);
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SAFETY BEHAVIOUR
+   ========================================================= */
+
+.safety-settings {
+  margin-top: 65px;
+  border-top: 4px solid var(--black);
+}
+
+.safety-setting {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 4px solid var(--black);
+}
+
+.setting-title {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 30px;
+  line-height: .9;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.setting-description {
+  max-width: 650px;
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.setting-state {
+  min-width: 110px;
+  text-align: center;
+  padding: 12px 16px;
+  border: 3px solid var(--black);
+  background: var(--cream);
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PERSONALIZATION
+   ========================================================= */
+
+.preference-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 65px;
+}
+
+.preference-card {
+  min-height: 280px;
+  border: 4px solid var(--black);
+  background: var(--cream);
+  padding: 35px;
+  box-shadow: 10px 10px 0 var(--black);
+  position: relative;
+}
+
+.preference-card:nth-child(2) {
+  background: var(--slate);
+}
+
+.preference-card:nth-child(3) {
+  background: var(--green);
+}
+
+.preference-number {
+  font-family: var(--display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.preference-title {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 35px;
+  line-height: .87;
+  text-transform: uppercase;
+  margin: 65px 0 18px;
+}
+
+.preference-text {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   PRIVACY
+   ========================================================= */
+
+.privacy-box {
+  margin-top: 65px;
+  border: 4px solid var(--black);
+  background: var(--cream);
+  box-shadow: 14px 14px 0 var(--black);
+  padding: 45px;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 50px;
+}
+
+.privacy-symbol {
+  width: 135px;
+  height: 135px;
+  border: 4px solid var(--black);
+  background: var(--purple);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--display-heading);
+  font-size: 65px;
+  transform: rotate(-5deg);
+}
+
+.privacy-title {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .84;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.privacy-text {
+  max-width: 720px;
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   ACCOUNT ACTIONS
+   ========================================================= */
+
+.account-actions {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.profile-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 15px 24px;
+  border: 4px solid var(--black);
+  background: var(--cream);
+  color: var(--black);
+  box-shadow: 7px 7px 0 var(--black);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.profile-button:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 3px 3px 0 var(--black);
+}
+
+.profile-button.primary {
+  background: var(--yellow);
+}
+
+.profile-button.danger {
+  background: var(--red);
+  color: var(--cream);
+}
+
+
+/* =========================================================
+   FINAL CTA
+   ========================================================= */
+
+.profile-cta {
+  background: var(--red);
+  color: var(--cream);
+  border-bottom: 4px solid var(--black);
+  padding: 110px 4%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-cta::before {
+  content: "PROFILE";
+  position: absolute;
+  left: -3%;
+  bottom: -5%;
+  font-family: var(--display-heading);
+  font-size: 19vw;
+  line-height: .7;
+  opacity: .08;
+  pointer-events: none;
+}
+
+.profile-cta-inner {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-cta-title {
+  margin: 0 0 30px;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(4rem, 9vw, 9rem);
+  line-height: .82;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+
+.profile-cta-copy {
+  max-width: 620px;
+  margin: 0 auto 40px;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.profile-cta .brutal-btn {
+  background: var(--cream);
+  color: var(--black);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .profile-identity {
+    grid-template-columns: 1fr;
+  }
+
+  .identity-block {
+    border-right: none;
+    border-bottom: 4px solid var(--black);
+  }
+
+  .identity-block:last-child {
+    border-bottom: none;
+  }
+
+  .profile-details {
+    grid-template-columns: 1fr;
+  }
+
+  .allergen-layout {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .preference-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .privacy-box {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-hero::before {
+    width: 230px;
+    height: 230px;
+    right: 4%;
+  }
+
+  .profile-hero::after {
+    font-size: 6rem;
+    right: 6%;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .profile-hero-inner {
+    padding: 85px 0 70px;
+  }
+
+  .profile-hero::before,
+  .profile-hero::after {
+    display: none;
+  }
+
+  .profile-section {
+    padding: 80px 6%;
+  }
+
+  .profile-field {
+    padding: 30px;
+  }
+
+  .allergen-panel-header,
+  .allergen-row,
+  .allergen-note {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .safety-setting {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .privacy-box {
+    padding: 30px;
+    gap: 30px;
+  }
+
+  .profile-cta {
+    padding: 80px 6%;
+  }
+
+}
+
+
+/* =========================================================
+   PROFILE VISIBILITY FIX
+   ========================================================= */
+
+.profile-page .reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+</style>
+</head>
+
+
+<body class="profile-page">
+
+
+<!-- =======================================================
+     NAVBAR
+     ======================================================= -->
+
+<nav class="navbar" id="navbar">
+
+  <div class="nav-inner">
+
+    <a href="index.html" class="nav-logo">
+      SAFEBITE<span class="nav-logo-dot">.</span>
+    </a>
+
+    <ul class="nav-links">
+
+      <li class="nav-item">
+        <a href="index.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/eat.png" alt="">
+          </span>
+          Home
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="how-it-works.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/read.png" alt="">
+          </span>
+          How It Works
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="architecture.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/think.png" alt="">
+          </span>
+          How It Thinks
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="results.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/sit.png" alt="">
+          </span>
+          Results
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="about.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/meditate.png" alt="">
+          </span>
+          About
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
+<header class="profile-hero">
+
+  <div class="profile-hero-inner">
+
+    <p class="profile-kicker reveal">
+      YOUR SAFEBITE / YOUR RULES
+    </p>
+
+    <h1 class="profile-title reveal">
+      BUILT<br>
+      AROUND <span class="outline">YOU.</span>
+    </h1>
+
+    <p class="profile-sub reveal">
+      Your profile is where SafeBite learns what matters to you —
+      from the allergens you avoid to the way you want food decisions
+      presented.
+    </p>
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     IDENTITY BAR
+     ======================================================= -->
+
+<section class="profile-identity">
+
+  <div class="identity-block reveal">
+
+    <div class="identity-label">
+      PROFILE
+    </div>
+
+    <div class="identity-value">
+      DHARMI
+    </div>
+
+  </div>
+
+
+  <div class="identity-block reveal">
+
+    <div class="identity-label">
+      SAFETY PROFILE
+    </div>
+
+    <div class="identity-value">
+      ACTIVE
+    </div>
+
+  </div>
+
+
+  <div class="identity-block reveal">
+
+    <div class="identity-label">
+      LAST UPDATED
+    </div>
+
+    <div class="identity-value">
+      TODAY
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PERSONAL DETAILS
+     ======================================================= -->
+
+<section class="profile-section cream">
+
+  <div class="profile-section-inner">
+
+    <p class="profile-label reveal">
+      01 / YOUR PROFILE
+    </p>
+
+    <h2 class="profile-heading reveal">
+      THE DETAILS<br>
+      THAT MAKE IT<br>
+      PERSONAL.
+    </h2>
+
+    <p class="profile-copy reveal">
+      SafeBite uses your profile to turn a general ingredient list
+      into a decision that is relevant to you. These settings shape
+      how the system interprets scans, recommendations and insights.
+    </p>
+
+
+    <div class="profile-details">
+
+      <article class="profile-field reveal">
+
+        <div class="field-label">
+          NAME
+        </div>
+
+        <div class="field-value">
+          Dharmi
+        </div>
+
+      </article>
+
+
+      <article class="profile-field reveal">
+
+        <div class="field-label">
+          PROFILE TYPE
+        </div>
+
+        <div class="field-value">
+          PERSONAL
+        </div>
+
+        <p class="field-note">
+          A personal SafeBite profile used to personalize food-safety
+          decisions.
+        </p>
+
+      </article>
+
+
+      <article class="profile-field reveal">
+
+        <div class="field-label">
+          SAFETY MODE
+        </div>
+
+        <div class="field-value">
+          ALLERGEN
+        </div>
+
+        <p class="field-note">
+          Ingredient checks are evaluated against the allergen profile
+          configured below.
+        </p>
+
+      </article>
+
+
+      <article class="profile-field reveal">
+
+        <div class="field-label">
+          PROFILE STATUS
+        </div>
+
+        <div class="field-value">
+          READY
+        </div>
+
+        <p class="field-note">
+          Your profile is available to the scan and recommendation
+          flows.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     ALLERGEN PROFILE
+     ======================================================= -->
+
+<section class="profile-section yellow">
+
+  <div class="profile-section-inner">
+
+    <p class="profile-label reveal">
+      02 / ALLERGEN PROFILE
+    </p>
+
+    <div class="allergen-layout">
+
+      <div class="allergen-statement reveal">
+        WHAT SHOULD<br>
+        SAFEBITE<br>
+        WATCH FOR?
+      </div>
+
+
+      <div class="allergen-panel reveal">
+
+        <div class="allergen-panel-header">
+
+          <div class="allergen-panel-title">
+            MY ALLERGENS
+          </div>
+
+          <div class="allergen-status">
+            ACTIVE
+          </div>
+
+        </div>
+
+
+        <div class="allergen-list">
+
+          <div class="allergen-row">
+            <span class="allergen-name">Peanuts</span>
+            <span class="allergen-check">✓</span>
+          </div>
+
+          <div class="allergen-row">
+            <span class="allergen-name">Milk</span>
+            <span class="allergen-check">✓</span>
+          </div>
+
+          <div class="allergen-row">
+            <span class="allergen-name">Eggs</span>
+            <span class="allergen-check">✓</span>
+          </div>
+
+          <div class="allergen-row inactive">
+            <span class="allergen-name">Tree Nuts</span>
+            <span class="allergen-check">—</span>
+          </div>
+
+          <div class="allergen-row inactive">
+            <span class="allergen-name">Soy</span>
+            <span class="allergen-check">—</span>
+          </div>
+
+        </div>
+
+
+        <div class="allergen-note">
+          Your configured allergen profile is used by the deterministic
+          matching stage when SafeBite evaluates extracted ingredient
+          information.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SAFETY BEHAVIOUR
+     ======================================================= -->
+
+<section class="profile-section green">
+
+  <div class="profile-section-inner">
+
+    <p class="profile-label reveal">
+      03 / SAFETY BEHAVIOUR
+    </p>
+
+    <h2 class="profile-heading reveal">
+      HOW SAFEBITE<br>
+      SHOULD<br>
+      RESPOND.
+    </h2>
+
+    <p class="profile-copy reveal">
+      These settings define the experience around a safety decision.
+      The underlying allergen matching remains deterministic.
+    </p>
+
+
+    <div class="safety-settings">
+
+      <article class="safety-setting reveal">
+
+        <div>
+          <div class="setting-title">
+            SHOW THE MATCH
+          </div>
+
+          <p class="setting-description">
+            When an ingredient is flagged, show the matched allergen
+            alongside the verdict so the reason is visible.
+          </p>
+        </div>
+
+        <div class="setting-state">
+          ON
+        </div>
+
+      </article>
+
+
+      <article class="safety-setting reveal">
+
+        <div>
+          <div class="setting-title">
+            KEEP UNCLEAR VISIBLE
+          </div>
+
+          <p class="setting-description">
+            Preserve the unclear state when the available information
+            is not sufficient for a confident decision.
+          </p>
+        </div>
+
+        <div class="setting-state">
+          ON
+        </div>
+
+      </article>
+
+
+      <article class="safety-setting reveal">
+
+        <div>
+          <div class="setting-title">
+            SUGGEST A SWAP
+          </div>
+
+          <p class="setting-description">
+            When a food does not fit, allow SafeBite to move from the
+            safety result toward a craving-aware alternative.
+          </p>
+        </div>
+
+        <div class="setting-state">
+          ON
+        </div>
+
+      </article>
+
+
+      <article class="safety-setting reveal">
+
+        <div>
+          <div class="setting-title">
+            PROACTIVE INSIGHTS
+          </div>
+
+          <p class="setting-description">
+            Use recent scan and craving signals to surface useful
+            patterns and context.
+          </p>
+        </div>
+
+        <div class="setting-state">
+          ON
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PREFERENCES
+     ======================================================= -->
+
+<section class="profile-section cream">
+
+  <div class="profile-section-inner">
+
+    <p class="profile-label reveal">
+      04 / PERSONALIZATION
+    </p>
+
+    <h2 class="profile-heading reveal">
+      MAKE THE<br>
+      EXPERIENCE<br>
+      YOURS.
+    </h2>
+
+
+    <div class="preference-grid">
+
+      <article class="preference-card reveal">
+
+        <div class="preference-number">
+          01 / SCANS
+        </div>
+
+        <h3 class="preference-title">
+          FAST<br>
+          ANSWERS
+        </h3>
+
+        <p class="preference-text">
+          Keep the scan experience focused on the verdict first,
+          with supporting ingredient information available when
+          needed.
+        </p>
+
+      </article>
+
+
+      <article class="preference-card reveal">
+
+        <div class="preference-number">
+          02 / CRAVINGS
+        </div>
+
+        <h3 class="preference-title">
+          FIND<br>
+          THE FEELING
+        </h3>
+
+        <p class="preference-text">
+          Search for alternatives based on what you actually wanted —
+          not just a list of unrelated foods.
+        </p>
+
+      </article>
+
+
+      <article class="preference-card reveal">
+
+        <div class="preference-number">
+          03 / INSIGHTS
+        </div>
+
+        <h3 class="preference-title">
+          NOTICE<br>
+          THE PATTERN
+        </h3>
+
+        <p class="preference-text">
+          Let recent scans, verdicts and cravings become useful context
+          instead of isolated events.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     PRIVACY
+     ======================================================= -->
+
+<section class="profile-section purple">
+
+  <div class="profile-section-inner">
+
+    <p class="profile-label reveal">
+      05 / YOUR DATA
+    </p>
+
+    <h2 class="profile-heading reveal">
+      YOUR FOOD<br>
+      PROFILE IS<br>
+      YOURS.
+    </h2>
+
+    <p class="profile-copy reveal">
+      SafeBite's personalization features depend on information you
+      choose to provide. The interface should make those choices
+      visible rather than hiding them behind the system.
+    </p>
+
+
+    <div class="privacy-box reveal">
+
+      <div class="privacy-symbol">
+        +
+      </div>
+
+      <div>
+
+        <h3 class="privacy-title">
+          SEE WHAT<br>
+          YOU'VE SET.
+        </h3>
+
+        <p class="privacy-text">
+          Your allergen profile, scan history and personalization
+          preferences are separate pieces of information with different
+          purposes. Review them individually so you know what SafeBite
+          is using to personalize your experience.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="account-actions">
+
+      <a href="history.html" class="profile-button">
+        VIEW HISTORY →
+      </a>
+
+      <a href="insights.html" class="profile-button primary">
+        VIEW INSIGHTS →
+      </a>
+
+      <a href="settings.html" class="profile-button">
+        SETTINGS →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL CTA
+     ======================================================= -->
+
+<section class="profile-cta">
+
+  <div class="profile-cta-inner">
+
+    <h2 class="profile-cta-title reveal">
+      YOUR PROFILE.<br>
+      YOUR CALL.
+    </h2>
+
+    <p class="profile-cta-copy reveal">
+      Keep your safety preferences current, then get back to the
+      part that matters: making food decisions with more context.
+    </p>
+
+    <a href="scan.html" class="brutal-btn reveal">
+      SCAN A LABEL →
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER — SAME AS ARCHITECTURE
+     ======================================================= -->
+
+<footer class="footer" id="footer" data-color="#FFF8E0">
+
+  <div class="footer-topbar">
+
+    <a href="#" class="footer-social-icon" aria-label="Instagram">
+
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2">
+
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5">
+        </rect>
+
+        <circle
+          cx="12"
+          cy="12"
+          r="4">
+        </circle>
+
+        <circle
+          cx="17.5"
+          cy="6.5"
+          r="1">
+        </circle>
+
+      </svg>
+
+    </a>
+
+    <a href="how-it-works.html" class="footer-topbar-link">
+      HOW IT WORKS
+    </a>
+
+    <a href="architecture.html" class="footer-topbar-link">
+      HOW IT THINKS
+    </a>
+
+    <a href="results.html" class="footer-topbar-link">
+      RESULTS
+    </a>
+
+    <a href="about.html" class="footer-topbar-link">
+      ABOUT
+    </a>
+
+    <span class="footer-topbar-link footer-topbar-credit">
+      SITE BY SAFEBITE
+    </span>
+
+  </div>
+
+
+  <div class="footer-flatlay" id="footer-flatlay">
+
+    <img
+      src="assets/footer/vase-flowers.png"
+      class="fl-item"
+      id="fl-vase"
+      alt=""
+      data-depth="0.10">
+
+    <img
+      src="assets/footer/wine-glass-1.png"
+      class="fl-item"
+      id="fl-wineglass1"
+      alt=""
+      data-depth="0.06">
+
+    <img
+      src="assets/footer/fork.png"
+      class="fl-item"
+      id="fl-fork"
+      alt=""
+      data-depth="0.08"
+      data-rotate="-8">
+
+    <img
+      src="assets/footer/sausage-plate.png"
+      class="fl-item"
+      id="fl-sausage"
+      alt=""
+      data-depth="0.05">
+
+    <img
+      src="assets/footer/wine-bottle.png"
+      class="fl-item"
+      id="fl-bottle"
+      alt=""
+      data-depth="0.09">
+
+    <img
+      src="assets/footer/candle-2.png"
+      class="fl-item"
+      id="fl-candle2"
+      alt=""
+      data-depth="0.07">
+
+    <img
+      src="assets/footer/salt-pepper.png"
+      class="fl-item"
+      id="fl-saltpepper"
+      alt=""
+      data-depth="0.11">
+
+    <img
+      src="assets/footer/cheese-block.png"
+      class="fl-item"
+      id="fl-cheese"
+      alt=""
+      data-depth="0.06">
+
+    <img
+      src="assets/footer/candle-1.png"
+      class="fl-item"
+      id="fl-candle1"
+      alt=""
+      data-depth="0.08">
+
+    <img
+      src="assets/footer/olives-bowl.png"
+      class="fl-item"
+      id="fl-olivesbowl"
+      alt=""
+      data-depth="0.05">
+
+    <img
+      src="assets/footer/olives-loose.png"
+      class="fl-item"
+      id="fl-olivesloose"
+      alt=""
+      data-depth="0.09">
+
+    <img
+      src="assets/footer/jar.png"
+      class="fl-item"
+      id="fl-jar"
+      alt=""
+      data-depth="0.07">
+
+    <img
+      src="assets/footer/bread-board.png"
+      class="fl-item"
+      id="fl-bread"
+      alt=""
+      data-depth="0.04">
+
+    <img
+      src="assets/footer/spoon.png"
+      class="fl-item"
+      id="fl-spoon"
+      alt=""
+      data-depth="0.10"
+      data-rotate="6">
+
+    <img
+      src="assets/footer/wine-glass-2.png"
+      class="fl-item"
+      id="fl-wineglass2"
+      alt=""
+      data-depth="0.06">
+
+    <img
+      src="assets/footer/charcuterie-board.png"
+      class="fl-item"
+      id="fl-charcuterie"
+      alt=""
+      data-depth="0.03">
+
+    <img
+      src="assets/footer/knife.png"
+      class="fl-item"
+      id="fl-knife"
+      alt=""
+      data-depth="0.08"
+      data-rotate="-4">
+
+    <img
+      src="assets/footer/hat-plate.png"
+      class="fl-item"
+      id="fl-hat"
+      alt=""
+      data-depth="0.05">
+
+  </div>
+
+</footer>
+
+
+<!-- =======================================================
+     SCRIPTS
+     ======================================================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

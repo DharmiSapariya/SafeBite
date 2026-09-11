@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SafeBite — Swap Detail</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="pages.css">
+
+<style>
+
+/* =========================================================
+   SWAP DETAIL PAGE
+   ========================================================= */
+
+.swap-detail-page {
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.swap-detail-hero {
+  min-height: 82vh;
+  background: var(--slate);
+  border-bottom: 4px solid var(--black);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.swap-detail-hero::before {
+  content: "";
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  right: 5%;
+  top: 8%;
+  background: var(--cream);
+  border: 4px solid var(--black);
+  box-shadow: 18px 18px 0 var(--black);
+  transform: rotate(8deg);
+}
+
+.swap-detail-hero::after {
+  content: "SWAP";
+  position: absolute;
+  right: 7%;
+  top: 24%;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(7rem, 14vw, 14rem);
+  line-height: .7;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--black);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.swap-detail-hero-inner {
+  width: min(1380px, 92%);
+  margin: 0 auto;
+  padding: 120px 0 100px;
+  position: relative;
+  z-index: 3;
+}
+
+.swap-detail-kicker {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.swap-detail-title {
+  max-width: 1000px;
+  margin: 0;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(5rem, 11vw, 11rem);
+  line-height: .78;
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+}
+
+.swap-detail-title .outline {
+  color: transparent;
+  -webkit-text-stroke: 3px var(--black);
+}
+
+.swap-detail-intro {
+  max-width: 680px;
+  margin-top: 42px;
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SWAP BAR
+   ========================================================= */
+
+.swap-bar {
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  border-bottom: 4px solid var(--black);
+  background: var(--black);
+  gap: 4px;
+}
+
+.swap-food {
+  padding: 45px;
+  min-height: 190px;
+  background: var(--cream);
+}
+
+.swap-food:last-child {
+  background: var(--green);
+}
+
+.swap-food-label {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.swap-food-name {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: .85;
+  text-transform: uppercase;
+}
+
+.swap-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--yellow);
+  font-family: var(--display-heading);
+  font-size: 45px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   MAIN EXPLANATION
+   ========================================================= */
+
+.swap-section {
+  padding: 120px 4%;
+  border-bottom: 4px solid var(--black);
+}
+
+.swap-section-inner {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+}
+
+.swap-section.yellow {
+  background: var(--yellow);
+}
+
+.swap-section.green {
+  background: var(--green);
+}
+
+.swap-section.purple {
+  background: var(--purple);
+  color: var(--cream);
+}
+
+.swap-section.cream {
+  background: var(--cream);
+}
+
+.swap-label {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.swap-heading {
+  max-width: 1100px;
+  margin: 0;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(4rem, 8vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+
+.swap-copy {
+  max-width: 750px;
+  margin-top: 35px;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   WHY THIS SWAP
+   ========================================================= */
+
+.reason-grid {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.reason-card {
+  min-height: 300px;
+  border: 4px solid var(--black);
+  background: var(--cream);
+  padding: 35px;
+  box-shadow: 10px 10px 0 var(--black);
+}
+
+.reason-card:nth-child(2) {
+  background: var(--slate);
+}
+
+.reason-card:nth-child(3) {
+  background: var(--red);
+  color: var(--cream);
+}
+
+.reason-number {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: .12em;
+}
+
+.reason-title {
+  margin: 65px 0 18px;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 36px;
+  line-height: .86;
+  text-transform: uppercase;
+}
+
+.reason-text {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   SAFETY RESULT
+   ========================================================= */
+
+.safety-result {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 4px solid var(--black);
+  background: var(--black);
+  gap: 4px;
+}
+
+.safety-result-block {
+  padding: 50px;
+  background: var(--cream);
+}
+
+.safety-result-block:first-child {
+  background: var(--green);
+}
+
+.safety-result-label {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.safety-result-value {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: .8;
+  text-transform: uppercase;
+}
+
+.safety-result-description {
+  margin-top: 25px;
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   MACRO COMPARISON
+   ========================================================= */
+
+.macro-table {
+  margin-top: 65px;
+  border: 4px solid var(--black);
+  background: var(--black);
+  display: grid;
+  gap: 3px;
+}
+
+.macro-row {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  background: var(--cream);
+}
+
+.macro-row.header {
+  background: var(--black);
+  color: var(--cream);
+}
+
+.macro-cell {
+  padding: 23px 28px;
+  font-family: var(--body);
+  font-size: 14px;
+  border-right: 2px solid var(--black);
+}
+
+.macro-row.header .macro-cell {
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.macro-cell:last-child {
+  border-right: none;
+}
+
+.macro-row:not(.header) .macro-cell:first-child {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   MATCH EXPLANATION
+   ========================================================= */
+
+.explanation-layout {
+  margin-top: 75px;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 70px;
+  align-items: start;
+}
+
+.explanation-big {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: .82;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+}
+
+.explanation-box {
+  border: 4px solid var(--black);
+  background: var(--cream);
+  color: var(--black);
+  box-shadow: 12px 12px 0 var(--black);
+}
+
+.explanation-box-head {
+  padding: 25px 30px;
+  border-bottom: 4px solid var(--black);
+  background: var(--yellow);
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.explanation-box-body {
+  padding: 35px;
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   HOW THE SWAP WAS FOUND
+   ========================================================= */
+
+.process-grid {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 4px solid var(--black);
+  background: var(--black);
+  gap: 3px;
+}
+
+.process-step {
+  min-height: 260px;
+  padding: 30px;
+  background: var(--cream);
+}
+
+.process-step:nth-child(2) {
+  background: var(--yellow);
+}
+
+.process-step:nth-child(3) {
+  background: var(--slate);
+}
+
+.process-step:nth-child(4) {
+  background: var(--green);
+}
+
+.process-step-number {
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.process-step-title {
+  margin-top: 75px;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 31px;
+  line-height: .87;
+  text-transform: uppercase;
+}
+
+.process-step-text {
+  margin-top: 18px;
+  font-family: var(--body);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   IMPORTANT NOTE
+   ========================================================= */
+
+.note-box {
+  margin-top: 70px;
+  padding: 35px;
+  border: 4px solid var(--black);
+  background: var(--cream);
+  color: var(--black);
+  box-shadow: 10px 10px 0 var(--black);
+}
+
+.note-title {
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.note-text {
+  max-width: 800px;
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.swap-cta {
+  padding: 120px 4%;
+  background: var(--red);
+  color: var(--cream);
+  border-bottom: 4px solid var(--black);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.swap-cta::before {
+  content: "BETTER";
+  position: absolute;
+  left: -3%;
+  bottom: -7%;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: 20vw;
+  line-height: .7;
+  opacity: .08;
+}
+
+.swap-cta-inner {
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.swap-cta-title {
+  margin: 0;
+  font-family: var(--display-heading);
+  font-weight: 800;
+  font-size: clamp(4rem, 9vw, 9rem);
+  line-height: .8;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+
+.swap-cta-copy {
+  max-width: 620px;
+  margin: 35px auto 40px;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.swap-cta .brutal-btn {
+  background: var(--cream);
+  color: var(--black);
+}
+
+
+/* =========================================================
+   VISIBILITY
+   ========================================================= */
+
+.swap-detail-page .reveal {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+  .swap-detail-hero::before,
+  .swap-detail-hero::after {
+    display: none;
+  }
+
+  .reason-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .explanation-layout {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .swap-detail-hero-inner {
+    padding: 90px 0 75px;
+  }
+
+  .swap-section {
+    padding: 80px 6%;
+  }
+
+  .swap-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-arrow {
+    min-height: 70px;
+  }
+
+  .safety-result {
+    grid-template-columns: 1fr;
+  }
+
+  .macro-row {
+    grid-template-columns: 1fr;
+  }
+
+  .macro-row.header {
+    display: none;
+  }
+
+  .macro-cell {
+    border-right: none;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body class="swap-detail-page">
+
+
+<!-- =======================================================
+     NAVBAR
+     ======================================================= -->
+
+<nav class="navbar" id="navbar">
+
+  <div class="nav-inner">
+
+    <a href="index.html" class="nav-logo">
+      SAFEBITE<span class="nav-logo-dot">.</span>
+    </a>
+
+    <ul class="nav-links">
+
+      <li class="nav-item">
+        <a href="index.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/eat.png" alt="">
+          </span>
+          Home
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="how-it-works.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/read.png" alt="">
+          </span>
+          How It Works
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="architecture.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/think.png" alt="">
+          </span>
+          How It Thinks
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="results.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/sit.png" alt="">
+          </span>
+          Results
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="about.html">
+          <span class="nav-frame">
+            <img src="assets/appy/static/meditate.png" alt="">
+          </span>
+          About
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</nav>
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
+<header class="swap-detail-hero">
+
+  <div class="swap-detail-hero-inner">
+
+    <p class="swap-detail-kicker reveal">
+      SAFE SWAP / RECOMMENDED FOR YOU
+    </p>
+
+    <h1 class="swap-detail-title reveal">
+      SAME<br>
+      CRAVING.<br>
+      <span class="outline">BETTER</span><br>
+      CHOICE.
+    </h1>
+
+    <p class="swap-detail-intro reveal">
+      SafeBite found an alternative that aims to preserve what you
+      were looking for while fitting your configured safety profile.
+    </p>
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     SWAP COMPARISON
+     ======================================================= -->
+
+<section class="swap-bar">
+
+  <div class="swap-food reveal">
+
+    <div class="swap-food-label">
+      YOU WERE LOOKING AT
+    </div>
+
+    <div class="swap-food-name">
+      PEANUT<br>
+      BUTTER<br>
+      TOAST
+    </div>
+
+  </div>
+
+
+  <div class="swap-arrow">
+    →
+  </div>
+
+
+  <div class="swap-food reveal">
+
+    <div class="swap-food-label">
+      SAFE SWAP
+    </div>
+
+    <div class="swap-food-name">
+      SUNFLOWER<br>
+      BUTTER<br>
+      TOAST
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     WHY THIS SWAP
+     ======================================================= -->
+
+<section class="swap-section yellow">
+
+  <div class="swap-section-inner">
+
+    <p class="swap-label reveal">
+      01 / WHY THIS SWAP
+    </p>
+
+    <h2 class="swap-heading reveal">
+      NOT JUST<br>
+      “ANOTHER<br>
+      OPTION.”
+    </h2>
+
+    <p class="swap-copy reveal">
+      A useful swap should preserve the intent behind the original
+      choice. SafeBite considers the craving representation first,
+      then applies the safety constraint before presenting an
+      alternative.
+    </p>
+
+
+    <div class="reason-grid">
+
+      <article class="reason-card reveal">
+
+        <div class="reason-number">
+          01 / CRAVING
+        </div>
+
+        <h3 class="reason-title">
+          SAME<br>
+          TEXTURE
+        </h3>
+
+        <p class="reason-text">
+          The alternative is selected to remain close to the original
+          craving rather than becoming an unrelated recommendation.
+        </p>
+
+      </article>
+
+
+      <article class="reason-card reveal">
+
+        <div class="reason-number">
+          02 / SAFETY
+        </div>
+
+        <h3 class="reason-title">
+          FITS<br>
+          YOUR PROFILE
+        </h3>
+
+        <p class="reason-text">
+          Candidate foods are considered against the allergen profile
+          before being surfaced as a swap.
+        </p>
+
+      </article>
+
+
+      <article class="reason-card reveal">
+
+        <div class="reason-number">
+          03 / CHOICE
+        </div>
+
+        <h3 class="reason-title">
+          STILL<br>
+          FEELS RIGHT
+        </h3>
+
+        <p class="reason-text">
+          The goal is not to remove the craving. It is to find a
+          different route toward it.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SAFETY RESULT
+     ======================================================= -->
+
+<section class="swap-section green">
+
+  <div class="swap-section-inner">
+
+    <p class="swap-label reveal">
+      02 / SAFETY CHECK
+    </p>
+
+    <h2 class="swap-heading reveal">
+      BEFORE<br>
+      THE SWAP,<br>
+      COMES THE CHECK.
+    </h2>
+
+    <p class="swap-copy reveal">
+      SafeBite does not treat similarity as proof of safety. The
+      candidate still passes through the safety layer before it can
+      become a recommendation.
+    </p>
+
+
+    <div class="safety-result">
+
+      <div class="safety-result-block reveal">
+
+        <div class="safety-result-label">
+          ORIGINAL
+        </div>
+
+        <div class="safety-result-value">
+          FLAGGED
+        </div>
+
+        <p class="safety-result-description">
+          The original food conflicts with an allergen configured in
+          the user's safety profile.
+        </p>
+
+      </div>
+
+
+      <div class="safety-result-block reveal">
+
+        <div class="safety-result-label">
+          RECOMMENDED SWAP
+        </div>
+
+        <div class="safety-result-value">
+          SAFE
+        </div>
+
+        <p class="safety-result-description">
+          The alternative passes the configured deterministic
+          allergen-matching stage.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     EXPLANATION
+     ======================================================= -->
+
+<section class="swap-section purple">
+
+  <div class="swap-section-inner">
+
+    <p class="swap-label reveal">
+      03 / THE EXPLANATION
+    </p>
+
+    <div class="explanation-layout">
+
+      <div class="explanation-big reveal">
+        WHY<br>
+        THIS<br>
+        ONE?
+      </div>
+
+
+      <div class="explanation-box reveal">
+
+        <div class="explanation-box-head">
+          SAFEBITE'S READ
+        </div>
+
+        <div class="explanation-box-body">
+          You were looking for something rich, spreadable and
+          satisfying on toast. The recommended alternative stays close
+          to that craving while avoiding the ingredient conflict found
+          in the original choice.
+          <br><br>
+          The explanation is generated from the recommendation context;
+          the underlying safety verdict remains separate and
+          deterministic.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     MACRO COMPARISON
+     ======================================================= -->
+
+<section class="swap-section cream">
+
+  <div class="swap-section-inner">
+
+    <p class="swap-label reveal">
+      04 / SIDE BY SIDE
+    </p>
+
+    <h2 class="swap-heading reveal">
+      WHAT<br>
+      CHANGES?
+    </h2>
+
+    <p class="swap-copy reveal">
+      The swap is about more than the allergen constraint. Comparing
+      basic nutritional information gives you context for the choice.
+    </p>
+
+
+    <div class="macro-table reveal">
+
+      <div class="macro-row header">
+
+        <div class="macro-cell">
+          PER SERVING
+        </div>
+
+        <div class="macro-cell">
+          ORIGINAL
+        </div>
+
+        <div class="macro-cell">
+          SWAP
+        </div>
+
+      </div>
+
+
+      <div class="macro-row">
+
+        <div class="macro-cell">
+          Calories
+        </div>
+
+        <div class="macro-cell">
+          190 kcal
+        </div>
+
+        <div class="macro-cell">
+          170 kcal
+        </div>
+
+      </div>
+
+
+      <div class="macro-row">
+
+        <div class="macro-cell">
+          Protein
+        </div>
+
+        <div class="macro-cell">
+          8 g
+        </div>
+
+        <div class="macro-cell">
+          6 g
+        </div>
+
+      </div>
+
+
+      <div class="macro-row">
+
+        <div class="macro-cell">
+          Carbohydrates
+        </div>
+
+        <div class="macro-cell">
+          7 g
+        </div>
+
+        <div class="macro-cell">
+          9 g
+        </div>
+
+      </div>
+
+
+      <div class="macro-row">
+
+        <div class="macro-cell">
+          Fat
+        </div>
+
+        <div class="macro-cell">
+          16 g
+        </div>
+
+        <div class="macro-cell">
+          13 g
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     HOW THE SWAP WAS FOUND
+     ======================================================= -->
+
+<section class="swap-section yellow">
+
+  <div class="swap-section-inner">
+
+    <p class="swap-label reveal">
+      05 / UNDER THE HOOD
+    </p>
+
+    <h2 class="swap-heading reveal">
+      FROM<br>
+      CRAVING<br>
+      TO CHOICE.
+    </h2>
+
+    <p class="swap-copy reveal">
+      The recommendation combines learned similarity with a safety
+      constraint. This lets SafeBite search for something that feels
+      close without treating the closest item as automatically safe.
+    </p>
+
+
+    <div class="process-grid">
+
+      <article class="process-step reveal">
+
+        <div class="process-step-number">
+          01
+        </div>
+
+        <h3 class="process-step-title">
+          READ
+        </h3>
+
+        <p class="process-step-text">
+          Understand what the user is craving.
+        </p>
+
+      </article>
+
+
+      <article class="process-step reveal">
+
+        <div class="process-step-number">
+          02
+        </div>
+
+        <h3 class="process-step-title">
+          EMBED
+        </h3>
+
+        <p class="process-step-text">
+          Represent the craving in a learned latent space.
+        </p>
+
+      </article>
+
+
+      <article class="process-step reveal">
+
+        <div class="process-step-number">
+          03
+        </div>
+
+        <h3 class="process-step-title">
+          FILTER
+        </h3>
+
+        <p class="process-step-text">
+          Remove candidates that conflict with the active safety
+          profile.
+        </p>
+
+      </article>
+
+
+      <article class="process-step reveal">
+
+        <div class="process-step-number">
+          04
+        </div>
+
+        <h3 class="process-step-title">
+          RANK
+        </h3>
+
+        <p class="process-step-text">
+          Surface the closest remaining alternatives.
+        </p>
+
+      </article>
+
+    </div>
+
+
+    <div class="note-box reveal">
+
+      <div class="note-title">
+        IMPORTANT
+      </div>
+
+      <p class="note-text">
+        A recommendation is not a medical guarantee. Product
+        formulations, cross-contact information and ingredient
+        disclosures can change. Always verify the current product label
+        when making a real-world food decision.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     CTA
+     ======================================================= -->
+
+<section class="swap-cta">
+
+  <div class="swap-cta-inner">
+
+    <h2 class="swap-cta-title reveal">
+      KEEP<br>
+      THE<br>
+      CRAVING.
+    </h2>
+
+    <p class="swap-cta-copy reveal">
+      Go back to your alternatives, search for something else, or scan
+      another label.
+    </p>
+
+    <a href="swaps.html" class="brutal-btn reveal">
+      SEE MORE SWAPS →
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER — SHARED VERBATIM
+     ======================================================= -->
+
+<footer class="footer" id="footer" data-color="#FFF8E0">
+
+  <div class="footer-topbar">
+
+    <a href="#" class="footer-social-icon" aria-label="Instagram">
+
+      <svg viewBox="0 0 24 24"
+           width="20"
+           height="20"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="2">
+
+        <rect x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="5">
+        </rect>
+
+        <circle cx="12"
+                cy="12"
+                r="4">
+        </circle>
+
+        <circle cx="17.5"
+                cy="6.5"
+                r="1">
+        </circle>
+
+      </svg>
+
+    </a>
+
+    <a href="how-it-works.html" class="footer-topbar-link">
+      HOW IT WORKS
+    </a>
+
+    <a href="architecture.html" class="footer-topbar-link">
+      HOW IT THINKS
+    </a>
+
+    <a href="results.html" class="footer-topbar-link">
+      RESULTS
+    </a>
+
+    <a href="about.html" class="footer-topbar-link">
+      ABOUT
+    </a>
+
+    <span class="footer-topbar-link footer-topbar-credit">
+      SITE BY SAFEBITE
+    </span>
+
+  </div>
+
+
+  <div class="footer-flatlay" id="footer-flatlay">
+
+    <img src="assets/footer/vase-flowers.png"
+         class="fl-item"
+         id="fl-vase"
+         alt=""
+         data-depth="0.10">
+
+    <img src="assets/footer/wine-glass-1.png"
+         class="fl-item"
+         id="fl-wineglass1"
+         alt=""
+         data-depth="0.06">
+
+    <img src="assets/footer/fork.png"
+         class="fl-item"
+         id="fl-fork"
+         alt=""
+         data-depth="0.08"
+         data-rotate="-8">
+
+    <img src="assets/footer/sausage-plate.png"
+         class="fl-item"
+         id="fl-sausage"
+         alt=""
+         data-depth="0.05">
+
+    <img src="assets/footer/wine-bottle.png"
+         class="fl-item"
+         id="fl-bottle"
+         alt=""
+         data-depth="0.09">
+
+    <img src="assets/footer/candle-2.png"
+         class="fl-item"
+         id="fl-candle2"
+         alt=""
+         data-depth="0.07">
+
+    <img src="assets/footer/salt-pepper.png"
+         class="fl-item"
+         id="fl-saltpepper"
+         alt=""
+         data-depth="0.11">
+
+    <img src="assets/footer/cheese-block.png"
+         class="fl-item"
+         id="fl-cheese"
+         alt=""
+         data-depth="0.06">
+
+    <img src="assets/footer/candle-1.png"
+         class="fl-item"
+         id="fl-candle1"
+         alt=""
+         data-depth="0.08">
+
+    <img src="assets/footer/olives-bowl.png"
+         class="fl-item"
+         id="fl-olivesbowl"
+         alt=""
+         data-depth="0.05">
+
+    <img src="assets/footer/olives-loose.png"
+         class="fl-item"
+         id="fl-olivesloose"
+         alt=""
+         data-depth="0.09">
+
+    <img src="assets/footer/jar.png"
+         class="fl-item"
+         id="fl-jar"
+         alt=""
+         data-depth="0.07">
+
+    <img src="assets/footer/bread-board.png"
+         class="fl-item"
+         id="fl-bread"
+         alt=""
+         data-depth="0.04">
+
+    <img src="assets/footer/spoon.png"
+         class="fl-item"
+         id="fl-spoon"
+         alt=""
+         data-depth="0.10"
+         data-rotate="6">
+
+    <img src="assets/footer/wine-glass-2.png"
+         class="fl-item"
+         id="fl-wineglass2"
+         alt=""
+         data-depth="0.06">
+
+    <img src="assets/footer/charcuterie-board.png"
+         class="fl-item"
+         id="fl-charcuterie"
+         alt=""
+         data-depth="0.03">
+
+    <img src="assets/footer/knife.png"
+         class="fl-item"
+         id="fl-knife"
+         alt=""
+         data-depth="0.08"
+         data-rotate="-4">
+
+    <img src="assets/footer/hat-plate.png"
+         class="fl-item"
+         id="fl-hat"
+         alt=""
+         data-depth="0.05">
+
+  </div>
+
+</footer>
+
+
+<!-- =======================================================
+     SCRIPTS
+     ======================================================= -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>

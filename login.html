@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeBite — Log In / Sign Up</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<canvas id="trail-canvas"></canvas>
+<div class="custom-appy-cursor" id="appy-cursor"></div>
+
+<main class="app-main">
+  <div class="app-shell" style="max-width:420px;">
+    <div class="ingredient-card">
+      <h1 class="app-heading split-title" style="margin-bottom:1.5rem;">Welcome to SafeBite</h1>
+
+      <form id="auth-form">
+        <div style="margin-bottom:1rem;">
+          <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;opacity:0.7;">EMAIL</label>
+          <input type="email" required style="width:100%;border:var(--border);padding:0.7rem 0.9rem;margin-top:0.3rem;font-family:var(--body);">
+        </div>
+        <div style="margin-bottom:1.5rem;">
+          <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;opacity:0.7;">PASSWORD</label>
+          <input type="password" required style="width:100%;border:var(--border);padding:0.7rem 0.9rem;margin-top:0.3rem;font-family:var(--body);">
+        </div>
+        <button type="submit" id="signup-btn" class="brutal-btn brutal-btn--yellow" style="width:100%;">SIGN UP</button>
+      </form>
+      <p style="text-align:center;font-size:0.8rem;margin-top:1rem;">
+        Already have an account? <a href="#" id="toggle-mode" style="text-decoration:underline;">Log in instead</a>
+      </p>
+      <p class="scan-demo-note">No real auth yet — this just routes you into the app so the rest of the flow is testable.</p>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="script.js"></script>
+<script>
+let isSignup = true;
+const toggle = document.getElementById('toggle-mode');
+const btn = document.getElementById('signup-btn');
+
+toggle.addEventListener('click', (e) => {
+  e.preventDefault();
+  isSignup = !isSignup;
+  btn.textContent = isSignup ? 'SIGN UP' : 'LOG IN';
+  toggle.textContent = isSignup ? 'Log in instead' : 'Sign up instead';
+});
+
+document.getElementById('auth-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  // TODO: real auth call. For now: new signups go through allergen
+  // setup, returning "logins" skip straight to the dashboard.
+  window.location.href = isSignup ? 'onboarding-allergens.html' : 'dashboard.html';
+});
+</script>
+</body>
+</html>
