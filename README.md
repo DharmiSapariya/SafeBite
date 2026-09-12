@@ -1,6 +1,6 @@
 <div align="center">
 
-# SafeBite-DL
+# SafeBite
 
 ### A Deep-Learning-Native Allergen Safety and Craving-Aware Food Recommendation Platform
 
