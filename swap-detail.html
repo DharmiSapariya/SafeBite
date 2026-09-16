@@ -12,13 +12,23 @@
 <style>
 
 /* =========================================================
-   SWAP DETAIL PAGE
+   SWAP DETAIL — ART DIRECTED PAGE
    ========================================================= */
 
-.swap-detail-page {
-  background: var(--cream);
-  color: var(--ink);
-  overflow-x: hidden;
+.swap-detail-page{
+  background:var(--cream);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+
+/* keep original global cursor / trail from script.js */
+.swap-detail-page #trail-canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:9998;
 }
 
 
@@ -26,469 +36,963 @@
    HERO
    ========================================================= */
 
-.swap-detail-hero {
-  min-height: 82vh;
-  background: var(--slate);
-  border-bottom: 4px solid var(--black);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+.swap-detail-hero{
+  min-height:88vh;
+  position:relative;
+  overflow:hidden;
+  background:var(--slate);
+  border-bottom:4px solid var(--black);
+  display:flex;
+  align-items:center;
 }
 
-.swap-detail-hero::before {
-  content: "";
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  right: 5%;
-  top: 8%;
-  background: var(--cream);
-  border: 4px solid var(--black);
-  box-shadow: 18px 18px 0 var(--black);
-  transform: rotate(8deg);
+.swap-detail-hero-inner{
+  width:min(1380px,92%);
+  margin:auto;
+  padding:150px 0 100px;
+  position:relative;
+  z-index:5;
 }
 
-.swap-detail-hero::after {
-  content: "SWAP";
-  position: absolute;
-  right: 7%;
-  top: 24%;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(7rem, 14vw, 14rem);
-  line-height: .7;
-  color: transparent;
-  -webkit-text-stroke: 3px var(--black);
-  transform: rotate(-8deg);
-  pointer-events: none;
+.swap-detail-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  font-family:var(--body);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin:0 0 28px;
 }
 
-.swap-detail-hero-inner {
-  width: min(1380px, 92%);
-  margin: 0 auto;
-  padding: 120px 0 100px;
-  position: relative;
-  z-index: 3;
+.swap-detail-kicker::before{
+  content:"";
+  width:55px;
+  height:4px;
+  background:var(--red);
+  display:block;
 }
 
-.swap-detail-kicker {
-  font-family: var(--body);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  margin-bottom: 25px;
+.swap-detail-title{
+  max-width:900px;
+  margin:0;
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:clamp(5rem,11vw,11rem);
+  line-height:.76;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+  position:relative;
+  z-index:4;
 }
 
-.swap-detail-title {
-  max-width: 1000px;
-  margin: 0;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(5rem, 11vw, 11rem);
-  line-height: .78;
-  letter-spacing: -.05em;
-  text-transform: uppercase;
+.swap-detail-title .yellow{
+  color:var(--yellow);
+  -webkit-text-stroke:2px var(--black);
+  paint-order:stroke fill;
 }
 
-.swap-detail-title .outline {
-  color: transparent;
-  -webkit-text-stroke: 3px var(--black);
+.swap-detail-title .outline{
+  color:transparent;
+  -webkit-text-stroke:3px var(--black);
 }
 
-.swap-detail-intro {
-  max-width: 680px;
-  margin-top: 42px;
-  font-family: var(--body);
-  font-size: 18px;
-  line-height: 1.6;
+.swap-detail-intro{
+  max-width:560px;
+  margin:45px 0 0;
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  position:relative;
+  z-index:5;
 }
 
 
 /* =========================================================
-   SWAP BAR
+   HERO ART
    ========================================================= */
 
-.swap-bar {
-  display: grid;
-  grid-template-columns: 1fr 120px 1fr;
-  border-bottom: 4px solid var(--black);
-  background: var(--black);
-  gap: 4px;
+.swap-hero-art{
+  position:absolute;
+  right:4%;
+  top:50%;
+  width:min(510px,40vw);
+  aspect-ratio:1;
+  transform:translateY(-50%) rotate(7deg);
+  z-index:2;
 }
 
-.swap-food {
-  padding: 45px;
-  min-height: 190px;
-  background: var(--cream);
+.swap-hero-paper{
+  position:absolute;
+  inset:0;
+  background:var(--cream);
+  border:4px solid var(--black);
+  box-shadow:18px 18px 0 var(--black);
 }
 
-.swap-food:last-child {
-  background: var(--green);
+.swap-hero-paper::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:2px dashed var(--black);
 }
 
-.swap-food-label {
-  font-family: var(--body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 25px;
+.swap-hero-food{
+  position:absolute;
+  inset:55px;
+  width:calc(100% - 110px);
+  height:calc(100% - 110px);
+  object-fit:contain;
+  z-index:3;
+  filter:drop-shadow(8px 10px 0 rgba(20,20,20,.16));
+  animation:heroFoodFloat 4s ease-in-out infinite;
 }
 
-.swap-food-name {
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  line-height: .85;
-  text-transform: uppercase;
+@keyframes heroFoodFloat{
+  0%,100%{transform:translateY(0) rotate(-2deg)}
+  50%{transform:translateY(-15px) rotate(2deg)}
 }
 
-.swap-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--yellow);
-  font-family: var(--display-heading);
-  font-size: 45px;
-  font-weight: 800;
+.swap-hero-sticker{
+  position:absolute;
+  left:-55px;
+  bottom:-40px;
+  width:145px;
+  height:145px;
+  background:var(--yellow);
+  border:4px solid var(--black);
+  box-shadow:10px 10px 0 var(--black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(-9deg);
+  z-index:7;
+}
+
+.swap-hero-sticker img{
+  width:105px;
+  height:105px;
+  object-fit:contain;
+  animation:appyBounce 2.8s ease-in-out infinite;
+}
+
+@keyframes appyBounce{
+  0%,100%{transform:translateY(0) rotate(0)}
+  50%{transform:translateY(-9px) rotate(4deg)}
+}
+
+.swap-hero-note{
+  position:absolute;
+  right:-30px;
+  top:-35px;
+  background:var(--red);
+  color:var(--cream);
+  border:4px solid var(--black);
+  padding:15px 20px;
+  font-family:var(--display-heading);
+  font-size:18px;
+  line-height:.9;
+  text-transform:uppercase;
+  transform:rotate(6deg);
+  box-shadow:7px 7px 0 var(--black);
 }
 
 
 /* =========================================================
-   MAIN EXPLANATION
+   SCROLL MARQUEE
    ========================================================= */
 
-.swap-section {
-  padding: 120px 4%;
-  border-bottom: 4px solid var(--black);
+.swap-marquee{
+  background:var(--black);
+  color:var(--cream);
+  border-bottom:4px solid var(--black);
+  overflow:hidden;
+  white-space:nowrap;
 }
 
-.swap-section-inner {
-  width: min(1380px, 100%);
-  margin: 0 auto;
+.swap-marquee-track{
+  display:inline-flex;
+  align-items:center;
+  gap:35px;
+  padding:18px 0;
+  min-width:max-content;
+  animation:marqueeMove 22s linear infinite;
 }
 
-.swap-section.yellow {
-  background: var(--yellow);
+.swap-marquee span{
+  font-family:var(--display-heading);
+  font-size:28px;
+  text-transform:uppercase;
 }
 
-.swap-section.green {
-  background: var(--green);
+.swap-marquee .dot{
+  color:var(--yellow);
+  font-size:35px;
 }
 
-.swap-section.purple {
-  background: var(--purple);
-  color: var(--cream);
-}
-
-.swap-section.cream {
-  background: var(--cream);
-}
-
-.swap-label {
-  font-family: var(--body);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-}
-
-.swap-heading {
-  max-width: 1100px;
-  margin: 0;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(4rem, 8vw, 8rem);
-  line-height: .82;
-  letter-spacing: -.045em;
-  text-transform: uppercase;
-}
-
-.swap-copy {
-  max-width: 750px;
-  margin-top: 35px;
-  font-family: var(--body);
-  font-size: 17px;
-  line-height: 1.65;
+@keyframes marqueeMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
 }
 
 
 /* =========================================================
-   WHY THIS SWAP
+   SWAP COMPARISON
    ========================================================= */
 
-.reason-grid {
-  margin-top: 70px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.swap-bar{
+  display:grid;
+  grid-template-columns:1fr 130px 1fr;
+  background:var(--black);
+  gap:4px;
+  border-bottom:4px solid var(--black);
 }
 
-.reason-card {
-  min-height: 300px;
-  border: 4px solid var(--black);
-  background: var(--cream);
-  padding: 35px;
-  box-shadow: 10px 10px 0 var(--black);
+.swap-food{
+  min-height:300px;
+  padding:50px;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
 }
 
-.reason-card:nth-child(2) {
-  background: var(--slate);
+.swap-food:last-child{
+  background:var(--green);
 }
 
-.reason-card:nth-child(3) {
-  background: var(--red);
-  color: var(--cream);
+.swap-food-label{
+  font-family:var(--body);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:25px;
 }
 
-.reason-number {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: .12em;
+.swap-food-name{
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:clamp(2.8rem,5vw,5.3rem);
+  line-height:.8;
+  text-transform:uppercase;
+  position:relative;
+  z-index:2;
 }
 
-.reason-title {
-  margin: 65px 0 18px;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 36px;
-  line-height: .86;
-  text-transform: uppercase;
+.swap-food-visual{
+  position:absolute;
+  right:40px;
+  bottom:-20px;
+  width:210px;
+  height:210px;
+  object-fit:contain;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
 }
 
-.reason-text {
-  font-family: var(--body);
-  font-size: 14px;
-  line-height: 1.55;
+.swap-food:hover .swap-food-visual{
+  transform:translateY(-15px) rotate(6deg) scale(1.06);
+}
+
+.swap-food-badge{
+  position:absolute;
+  top:28px;
+  right:30px;
+  padding:10px 14px;
+  border:3px solid var(--black);
+  background:var(--yellow);
+  font-family:var(--display-heading);
+  font-size:12px;
+  text-transform:uppercase;
+  box-shadow:5px 5px 0 var(--black);
+  transform:rotate(4deg);
+}
+
+.swap-arrow{
+  background:var(--yellow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--display-heading);
+  font-size:52px;
+  font-weight:800;
+  position:relative;
+}
+
+.swap-arrow::after{
+  content:"";
+  position:absolute;
+  width:48px;
+  height:48px;
+  border:3px solid var(--black);
+  border-radius:50%;
+  animation:pulseRing 1.8s ease-out infinite;
+}
+
+@keyframes pulseRing{
+  0%{transform:scale(.6);opacity:1}
+  100%{transform:scale(1.7);opacity:0}
 }
 
 
 /* =========================================================
-   SAFETY RESULT
+   SECTION BASE
    ========================================================= */
 
-.safety-result {
-  margin-top: 70px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 4px solid var(--black);
-  background: var(--black);
-  gap: 4px;
+.swap-section{
+  padding:110px 4%;
+  border-bottom:4px solid var(--black);
 }
 
-.safety-result-block {
-  padding: 50px;
-  background: var(--cream);
+.swap-section-inner{
+  width:min(1380px,100%);
+  margin:auto;
 }
 
-.safety-result-block:first-child {
-  background: var(--green);
+.swap-section.yellow{background:var(--yellow)}
+.swap-section.green{background:var(--green)}
+.swap-section.purple{
+  background:var(--purple);
+  color:var(--cream);
+}
+.swap-section.cream{background:var(--cream)}
+
+.swap-label{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-family:var(--body);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin:0 0 22px;
 }
 
-.safety-result-label {
-  font-family: var(--body);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 30px;
+.swap-label::before{
+  content:"";
+  width:50px;
+  height:4px;
+  background:var(--red);
 }
 
-.safety-result-value {
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(3.5rem, 7vw, 7rem);
-  line-height: .8;
-  text-transform: uppercase;
+.swap-heading{
+  max-width:1000px;
+  margin:0;
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:clamp(4rem,8vw,8rem);
+  line-height:.8;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
 }
 
-.safety-result-description {
-  margin-top: 25px;
-  font-family: var(--body);
-  font-size: 15px;
-  line-height: 1.55;
+.swap-copy{
+  max-width:720px;
+  margin:32px 0 0;
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.65;
 }
 
 
 /* =========================================================
-   MACRO COMPARISON
+   APPY COMMENT
    ========================================================= */
 
-.macro-table {
-  margin-top: 65px;
-  border: 4px solid var(--black);
-  background: var(--black);
-  display: grid;
-  gap: 3px;
+.appy-comment{
+  margin:70px 0 0;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  max-width:700px;
 }
 
-.macro-row {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr;
-  background: var(--cream);
+.appy-comment-character{
+  flex:0 0 145px;
+  width:145px;
+  height:145px;
+  background:var(--cream);
+  border:4px solid var(--black);
+  box-shadow:9px 9px 0 var(--black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(-5deg);
 }
 
-.macro-row.header {
-  background: var(--black);
-  color: var(--cream);
+.appy-comment-character img{
+  width:115px;
+  height:115px;
+  object-fit:contain;
 }
 
-.macro-cell {
-  padding: 23px 28px;
-  font-family: var(--body);
-  font-size: 14px;
-  border-right: 2px solid var(--black);
+.appy-comment-bubble{
+  position:relative;
+  background:var(--cream);
+  color:var(--black);
+  border:4px solid var(--black);
+  padding:25px 30px;
+  box-shadow:9px 9px 0 var(--black);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.55;
 }
 
-.macro-row.header .macro-cell {
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-size: 11px;
-}
-
-.macro-cell:last-child {
-  border-right: none;
-}
-
-.macro-row:not(.header) .macro-cell:first-child {
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 18px;
-  text-transform: uppercase;
+.appy-comment-bubble::before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:45px;
+  width:30px;
+  height:30px;
+  background:var(--cream);
+  border-left:4px solid var(--black);
+  border-bottom:4px solid var(--black);
+  transform:rotate(45deg);
 }
 
 
 /* =========================================================
-   MATCH EXPLANATION
+   REASON CARDS
    ========================================================= */
 
-.explanation-layout {
-  margin-top: 75px;
-  display: grid;
-  grid-template-columns: .8fr 1.2fr;
-  gap: 70px;
-  align-items: start;
+.reason-grid{
+  margin-top:75px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
 }
 
-.explanation-big {
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(3.5rem, 7vw, 7rem);
-  line-height: .82;
-  letter-spacing: -.04em;
-  text-transform: uppercase;
+.reason-card{
+  min-height:330px;
+  padding:32px;
+  border:4px solid var(--black);
+  background:var(--cream);
+  color:var(--black);
+  box-shadow:10px 10px 0 var(--black);
+  position:relative;
+  overflow:hidden;
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    box-shadow .35s ease;
 }
 
-.explanation-box {
-  border: 4px solid var(--black);
-  background: var(--cream);
-  color: var(--black);
-  box-shadow: 12px 12px 0 var(--black);
+.reason-card:hover{
+  transform:translate(-5px,-8px) rotate(-1deg);
+  box-shadow:15px 16px 0 var(--black);
 }
 
-.explanation-box-head {
-  padding: 25px 30px;
-  border-bottom: 4px solid var(--black);
-  background: var(--yellow);
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 25px;
-  text-transform: uppercase;
+.reason-card:nth-child(2){
+  background:var(--slate);
 }
 
-.explanation-box-body {
-  padding: 35px;
-  font-family: var(--body);
-  font-size: 16px;
-  line-height: 1.65;
+.reason-card:nth-child(3){
+  background:var(--red);
+  color:var(--cream);
+}
+
+.reason-card::after{
+  content:"";
+  position:absolute;
+  width:130px;
+  height:130px;
+  right:-40px;
+  bottom:-40px;
+  border:3px solid currentColor;
+  border-radius:50%;
+  opacity:.18;
+}
+
+.reason-number{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:.12em;
+}
+
+.reason-icon{
+  width:60px;
+  height:60px;
+  margin-top:25px;
+  border:3px solid currentColor;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.reason-title{
+  margin:25px 0 18px;
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:35px;
+  line-height:.86;
+  text-transform:uppercase;
+}
+
+.reason-text{
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.55;
 }
 
 
 /* =========================================================
-   HOW THE SWAP WAS FOUND
+   SAFETY CHECK
    ========================================================= */
 
-.process-grid {
-  margin-top: 70px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 4px solid var(--black);
-  background: var(--black);
-  gap: 3px;
+.safety-layout{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:30px;
+  align-items:stretch;
 }
 
-.process-step {
-  min-height: 260px;
-  padding: 30px;
-  background: var(--cream);
+.safety-card{
+  border:4px solid var(--black);
+  background:var(--cream);
+  color:var(--black);
+  box-shadow:12px 12px 0 var(--black);
+  padding:42px;
 }
 
-.process-step:nth-child(2) {
-  background: var(--yellow);
+.safety-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:3px solid var(--black);
+  padding-bottom:20px;
 }
 
-.process-step:nth-child(3) {
-  background: var(--slate);
+.safety-card-title{
+  font-family:var(--display-heading);
+  font-size:30px;
+  text-transform:uppercase;
 }
 
-.process-step:nth-child(4) {
-  background: var(--green);
+.safety-status{
+  padding:8px 13px;
+  background:var(--green);
+  border:3px solid var(--black);
+  font-family:var(--display-heading);
+  font-size:12px;
+  text-transform:uppercase;
 }
 
-.process-step-number {
-  font-family: var(--display);
-  font-size: 14px;
-  font-weight: 800;
+.safety-meter{
+  margin-top:45px;
 }
 
-.process-step-title {
-  margin-top: 75px;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 31px;
-  line-height: .87;
-  text-transform: uppercase;
+.safety-meter-top{
+  display:flex;
+  justify-content:space-between;
+  font-family:var(--body);
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
 }
 
-.process-step-text {
-  margin-top: 18px;
-  font-family: var(--body);
-  font-size: 13px;
-  line-height: 1.5;
+.safety-meter-track{
+  height:24px;
+  margin-top:12px;
+  background:var(--cream);
+  border:3px solid var(--black);
+  overflow:hidden;
+}
+
+.safety-meter-fill{
+  height:100%;
+  width:0;
+  background:var(--green);
+  border-right:3px solid var(--black);
+  transition:width 1.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.safety-points{
+  margin-top:35px;
+  display:grid;
+  gap:12px;
+}
+
+.safety-point{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:var(--body);
+  font-size:14px;
+}
+
+.safety-point span{
+  width:25px;
+  height:25px;
+  flex:0 0 25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid var(--black);
+  background:var(--green);
+  font-weight:800;
+}
+
+.safety-stamp{
+  min-height:100%;
+  background:var(--black);
+  color:var(--cream);
+  border:4px solid var(--black);
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.safety-stamp::before{
+  content:"SAFE";
+  position:absolute;
+  font-family:var(--display-heading);
+  font-size:12rem;
+  line-height:.7;
+  opacity:.05;
+  transform:rotate(-12deg);
+}
+
+.safety-stamp img{
+  width:140px;
+  height:140px;
+  object-fit:contain;
+  position:relative;
+  z-index:2;
+  animation:appyBounce 3s ease-in-out infinite;
+}
+
+.safety-stamp strong{
+  margin-top:20px;
+  font-family:var(--display-heading);
+  font-size:70px;
+  line-height:.8;
+  color:var(--green);
+  position:relative;
+  z-index:2;
+}
+
+.safety-stamp p{
+  max-width:330px;
+  margin-top:20px;
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.5;
+  position:relative;
+  z-index:2;
 }
 
 
 /* =========================================================
-   IMPORTANT NOTE
+   EXPLANATION
    ========================================================= */
 
-.note-box {
-  margin-top: 70px;
-  padding: 35px;
-  border: 4px solid var(--black);
-  background: var(--cream);
-  color: var(--black);
-  box-shadow: 10px 10px 0 var(--black);
+.explanation-layout{
+  margin-top:75px;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:70px;
+  align-items:start;
 }
 
-.note-title {
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 30px;
-  text-transform: uppercase;
-  margin-bottom: 15px;
+.explanation-big{
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:clamp(4rem,7vw,7rem);
+  line-height:.8;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
 }
 
-.note-text {
-  max-width: 800px;
-  font-family: var(--body);
-  font-size: 14px;
-  line-height: 1.6;
+.explanation-box{
+  border:4px solid var(--black);
+  background:var(--cream);
+  color:var(--black);
+  box-shadow:12px 12px 0 var(--black);
+}
+
+.explanation-box-head{
+  padding:25px 30px;
+  border-bottom:4px solid var(--black);
+  background:var(--yellow);
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:25px;
+  text-transform:uppercase;
+}
+
+.explanation-box-body{
+  padding:35px;
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.65;
+}
+
+.explanation-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px;
+}
+
+.explanation-tag{
+  padding:10px 13px;
+  border:3px solid var(--black);
+  background:var(--slate);
+  font-family:var(--display-heading);
+  font-size:11px;
+  text-transform:uppercase;
+}
+
+
+/* =========================================================
+   MACRO SECTION
+   ========================================================= */
+
+.macro-layout{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
+}
+
+.macro-card{
+  border:4px solid var(--black);
+  background:var(--black);
+  box-shadow:12px 12px 0 var(--black);
+}
+
+.macro-card-head{
+  padding:25px 30px;
+  color:var(--cream);
+  font-family:var(--display-heading);
+  font-size:25px;
+  text-transform:uppercase;
+}
+
+.macro-item{
+  background:var(--cream);
+  border-top:3px solid var(--black);
+  padding:23px 28px;
+}
+
+.macro-item-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:var(--body);
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
+}
+
+.macro-value{
+  font-family:var(--display-heading);
+  font-size:19px;
+}
+
+.macro-bar{
+  height:13px;
+  margin-top:10px;
+  background:var(--slate);
+  border:2px solid var(--black);
+  overflow:hidden;
+}
+
+.macro-bar span{
+  display:block;
+  width:0;
+  height:100%;
+  background:var(--red);
+  transition:width 1.2s ease;
+}
+
+.macro-card.swap .macro-bar span{
+  background:var(--green);
+}
+
+
+/* =========================================================
+   PROCESS
+   ========================================================= */
+
+.process-grid{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:3px;
+  background:var(--black);
+  border:4px solid var(--black);
+}
+
+.process-step{
+  min-height:300px;
+  padding:30px;
+  background:var(--cream);
+  position:relative;
+  overflow:hidden;
+  transition:transform .35s ease;
+}
+
+.process-step:hover{
+  transform:translateY(-10px);
+}
+
+.process-step:nth-child(2){background:var(--yellow)}
+.process-step:nth-child(3){background:var(--slate)}
+.process-step:nth-child(4){background:var(--green)}
+
+.process-step-number{
+  font-family:var(--display);
+  font-size:14px;
+  font-weight:800;
+}
+
+.process-step-symbol{
+  width:55px;
+  height:55px;
+  margin-top:22px;
+  border:3px solid var(--black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--display-heading);
+  font-size:24px;
+}
+
+.process-step-title{
+  margin-top:25px;
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:31px;
+  line-height:.87;
+  text-transform:uppercase;
+}
+
+.process-step-text{
+  margin-top:18px;
+  font-family:var(--body);
+  font-size:13px;
+  line-height:1.5;
+}
+
+
+/* =========================================================
+   VISUAL STRIP
+   ========================================================= */
+
+.swap-visual-strip{
+  padding:90px 4%;
+  background:var(--cream);
+  border-bottom:4px solid var(--black);
+  overflow:hidden;
+}
+
+.visual-strip-inner{
+  width:min(1380px,100%);
+  margin:auto;
+}
+
+.visual-strip-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:30px;
+}
+
+.visual-strip-title{
+  margin:0;
+  font-family:var(--display-heading);
+  font-size:clamp(3rem,6vw,6rem);
+  line-height:.8;
+  text-transform:uppercase;
+}
+
+.visual-strip-copy{
+  max-width:400px;
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.visual-gallery{
+  margin-top:55px;
+  display:grid;
+  grid-template-columns:1.15fr .85fr .9fr;
+  gap:20px;
+}
+
+.visual-card{
+  height:330px;
+  border:4px solid var(--black);
+  background:var(--yellow);
+  box-shadow:10px 10px 0 var(--black);
+  overflow:hidden;
+  position:relative;
+}
+
+.visual-card:nth-child(2){background:var(--slate)}
+.visual-card:nth-child(3){background:var(--green)}
+
+.visual-card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+.visual-card:hover img{
+  transform:scale(1.08) rotate(3deg);
+}
+
+.visual-card-label{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  padding:9px 12px;
+  background:var(--cream);
+  border:3px solid var(--black);
+  font-family:var(--display-heading);
+  font-size:11px;
+  text-transform:uppercase;
+  box-shadow:4px 4px 0 var(--black);
+}
+
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.note-box{
+  margin-top:70px;
+  padding:35px;
+  border:4px solid var(--black);
+  background:var(--cream);
+  color:var(--black);
+  box-shadow:10px 10px 0 var(--black);
+  position:relative;
+}
+
+.note-title{
+  font-family:var(--display-heading);
+  font-size:30px;
+  text-transform:uppercase;
+  margin-bottom:15px;
+}
+
+.note-text{
+  max-width:800px;
+  font-family:var(--body);
+  font-size:14px;
+  line-height:1.6;
 }
 
 
@@ -496,67 +1000,100 @@
    CTA
    ========================================================= */
 
-.swap-cta {
-  padding: 120px 4%;
-  background: var(--red);
-  color: var(--cream);
-  border-bottom: 4px solid var(--black);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.swap-cta{
+  padding:130px 4%;
+  background:var(--red);
+  color:var(--cream);
+  border-bottom:4px solid var(--black);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
 
-.swap-cta::before {
-  content: "BETTER";
-  position: absolute;
-  left: -3%;
-  bottom: -7%;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: 20vw;
-  line-height: .7;
-  opacity: .08;
+.swap-cta::before{
+  content:"SWAP";
+  position:absolute;
+  left:-4%;
+  bottom:-5%;
+  font-family:var(--display-heading);
+  font-size:25vw;
+  line-height:.65;
+  opacity:.08;
 }
 
-.swap-cta-inner {
-  width: min(1000px, 100%);
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
+.swap-cta-inner{
+  width:min(1000px,100%);
+  margin:auto;
+  position:relative;
+  z-index:2;
 }
 
-.swap-cta-title {
-  margin: 0;
-  font-family: var(--display-heading);
-  font-weight: 800;
-  font-size: clamp(4rem, 9vw, 9rem);
-  line-height: .8;
-  letter-spacing: -.045em;
-  text-transform: uppercase;
+.swap-cta-appy{
+  width:150px;
+  height:150px;
+  margin:0 auto 30px;
+  background:var(--yellow);
+  border:4px solid var(--black);
+  box-shadow:10px 10px 0 var(--black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transform:rotate(4deg);
 }
 
-.swap-cta-copy {
-  max-width: 620px;
-  margin: 35px auto 40px;
-  font-family: var(--body);
-  font-size: 17px;
-  line-height: 1.6;
+.swap-cta-appy img{
+  width:120px;
+  height:120px;
+  object-fit:contain;
 }
 
-.swap-cta .brutal-btn {
-  background: var(--cream);
-  color: var(--black);
+.swap-cta-title{
+  margin:0;
+  font-family:var(--display-heading);
+  font-weight:800;
+  font-size:clamp(4rem,9vw,9rem);
+  line-height:.78;
+  letter-spacing:-.045em;
+  text-transform:uppercase;
+}
+
+.swap-cta-copy{
+  max-width:620px;
+  margin:35px auto 40px;
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+}
+
+.swap-cta .brutal-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--cream);
+  color:var(--black);
 }
 
 
 /* =========================================================
-   VISIBILITY
+   REVEALS
    ========================================================= */
 
-.swap-detail-page .reveal {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
+.swap-detail-page .reveal{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+.swap-detail-page .motion-ready .reveal{
+  opacity:0 !important;
+  transform:translateY(35px);
+}
+
+.swap-detail-page .motion-ready .reveal.is-visible{
+  opacity:1 !important;
+  transform:none;
+  transition:
+    opacity .7s ease,
+    transform .7s cubic-bezier(.2,.8,.2,1);
 }
 
 
@@ -564,67 +1101,123 @@
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 950px) {
+@media(max-width:1050px){
 
-  .swap-detail-hero::before,
-  .swap-detail-hero::after {
-    display: none;
+  .swap-hero-art{
+    opacity:.28;
+    right:-10%;
+    width:55vw;
   }
 
-  .reason-grid {
-    grid-template-columns: 1fr;
+  .reason-grid{
+    grid-template-columns:1fr;
   }
 
-  .explanation-layout {
-    grid-template-columns: 1fr;
-    gap: 50px;
+  .safety-layout{
+    grid-template-columns:1fr;
   }
 
-  .process-grid {
-    grid-template-columns: 1fr 1fr;
+  .macro-layout{
+    grid-template-columns:1fr;
   }
 
+  .process-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .visual-gallery{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .visual-card:first-child{
+    grid-column:span 2;
+  }
 }
 
-@media (max-width: 700px) {
+@media(max-width:700px){
 
-  .swap-detail-hero-inner {
-    padding: 90px 0 75px;
+  .swap-detail-hero{
+    min-height:90vh;
   }
 
-  .swap-section {
-    padding: 80px 6%;
+  .swap-detail-hero-inner{
+    padding:120px 0 70px;
   }
 
-  .swap-bar {
-    grid-template-columns: 1fr;
+  .swap-hero-art{
+    width:330px;
+    right:-80px;
+    top:70%;
+    opacity:.35;
   }
 
-  .swap-arrow {
-    min-height: 70px;
+  .swap-detail-title{
+    font-size:clamp(4rem,18vw,7rem);
   }
 
-  .safety-result {
-    grid-template-columns: 1fr;
+  .swap-food{
+    padding:35px 25px;
+    min-height:250px;
   }
 
-  .macro-row {
-    grid-template-columns: 1fr;
+  .swap-food-visual{
+    width:140px;
+    height:140px;
+    right:15px;
+    bottom:0;
+    opacity:.7;
   }
 
-  .macro-row.header {
-    display: none;
+  .swap-bar{
+    grid-template-columns:1fr;
   }
 
-  .macro-cell {
-    border-right: none;
-    border-bottom: 2px solid var(--black);
+  .swap-arrow{
+    min-height:75px;
   }
 
-  .process-grid {
-    grid-template-columns: 1fr;
+  .swap-section{
+    padding:80px 6%;
   }
 
+  .appy-comment{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .appy-comment-bubble::before{
+    display:none;
+  }
+
+  .explanation-layout{
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+
+  .process-grid{
+    grid-template-columns:1fr;
+  }
+
+  .visual-strip{
+    padding:75px 6%;
+  }
+
+  .visual-strip-head{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .visual-gallery{
+    grid-template-columns:1fr;
+  }
+
+  .visual-card:first-child{
+    grid-column:auto;
+  }
+
+  .swap-cta{
+    padding:90px 6%;
+  }
 }
 
 </style>
@@ -633,9 +1226,15 @@
 
 <body class="swap-detail-page">
 
+<!-- =======================================================
+     ORIGINAL SAFEBITE CURSOR / TRAIL
+     ======================================================= -->
+
+<canvas id="trail-canvas"></canvas>
+
 
 <!-- =======================================================
-     NAVBAR
+     ORIGINAL NAVBAR
      ======================================================= -->
 
 <nav class="navbar" id="navbar">
@@ -715,18 +1314,69 @@
     <h1 class="swap-detail-title reveal">
       SAME<br>
       CRAVING.<br>
-      <span class="outline">BETTER</span><br>
-      CHOICE.
+      <span class="yellow">BETTER</span><br>
+      <span class="outline">CHOICE.</span>
     </h1>
 
     <p class="swap-detail-intro reveal">
-      SafeBite found an alternative that aims to preserve what you
-      were looking for while fitting your configured safety profile.
+      SafeBite found an alternative that stays close to what you were
+      looking for while fitting your configured safety profile.
     </p>
 
   </div>
 
+
+  <div class="swap-hero-art">
+
+    <div class="swap-hero-paper"></div>
+
+    <img
+      class="swap-hero-food"
+      src="assets/illustrations/Hand-drawn_Italian_Dinner_Clipart__Wedding_Table_Setting__digital_Download__-_Etsy-removebg-preview.png"
+      alt="Food illustration"
+    >
+
+    <div class="swap-hero-note">
+      SAFE<br>
+      SWAP
+    </div>
+
+    <div class="swap-hero-sticker">
+      <img
+        src="assets/appy/static/read.png"
+        alt="Appy"
+      >
+    </div>
+
+  </div>
+
 </header>
+
+
+<!-- =======================================================
+     MARQUEE
+     ======================================================= -->
+
+<div class="swap-marquee">
+
+  <div class="swap-marquee-track">
+
+    <span>CRAVING FIRST</span>
+    <span class="dot">✦</span>
+    <span>SAFETY ALWAYS</span>
+    <span class="dot">✦</span>
+    <span>USEFUL ALTERNATIVES</span>
+    <span class="dot">✦</span>
+    <span>CRAVING FIRST</span>
+    <span class="dot">✦</span>
+    <span>SAFETY ALWAYS</span>
+    <span class="dot">✦</span>
+    <span>USEFUL ALTERNATIVES</span>
+    <span class="dot">✦</span>
+
+  </div>
+
+</div>
 
 
 <!-- =======================================================
@@ -746,6 +1396,16 @@
       BUTTER<br>
       TOAST
     </div>
+
+    <div class="swap-food-badge">
+      FLAGGED
+    </div>
+
+    <img
+      class="swap-food-visual"
+      src="assets/illustrations/Buongiorno Espresso - Poster _ 50 x 70 cm-Photoroom.png"
+      alt=""
+    >
 
   </div>
 
@@ -767,6 +1427,16 @@
       TOAST
     </div>
 
+    <div class="swap-food-badge">
+      SAFE
+    </div>
+
+    <img
+      class="swap-food-visual"
+      src="assets/illustrations/Hand-drawn Italian Dinner Clipart_ Wedding Table Setting (digital Download) - Etsy-Photoroom.png"
+      alt=""
+    >
+
   </div>
 
 </section>
@@ -786,8 +1456,8 @@
 
     <h2 class="swap-heading reveal">
       NOT JUST<br>
-      “ANOTHER<br>
-      OPTION.”
+      ANOTHER<br>
+      OPTION.
     </h2>
 
     <p class="swap-copy reveal">
@@ -798,6 +1468,30 @@
     </p>
 
 
+    <div class="appy-comment reveal">
+
+      <div class="appy-comment-character">
+
+        <img
+          src="assets/appy/static/think.png"
+          alt="Appy"
+        >
+
+      </div>
+
+      <div class="appy-comment-bubble">
+
+        <strong>APPY'S TAKE</strong><br><br>
+
+        I didn't just look for something that looked similar.
+        I checked the safety constraint first, then looked for
+        something that still made sense for your craving.
+
+      </div>
+
+    </div>
+
+
     <div class="reason-grid">
 
       <article class="reason-card reveal">
@@ -806,14 +1500,18 @@
           01 / CRAVING
         </div>
 
+        <div class="reason-icon">
+          ◉
+        </div>
+
         <h3 class="reason-title">
           SAME<br>
           TEXTURE
         </h3>
 
         <p class="reason-text">
-          The alternative is selected to remain close to the original
-          craving rather than becoming an unrelated recommendation.
+          The alternative stays close to the original craving rather
+          than becoming an unrelated recommendation.
         </p>
 
       </article>
@@ -825,14 +1523,18 @@
           02 / SAFETY
         </div>
 
+        <div class="reason-icon">
+          ✓
+        </div>
+
         <h3 class="reason-title">
           FITS<br>
           YOUR PROFILE
         </h3>
 
         <p class="reason-text">
-          Candidate foods are considered against the allergen profile
-          before being surfaced as a swap.
+          Candidate foods are considered against the active allergen
+          profile before being surfaced.
         </p>
 
       </article>
@@ -842,6 +1544,10 @@
 
         <div class="reason-number">
           03 / CHOICE
+        </div>
+
+        <div class="reason-icon">
+          →
         </div>
 
         <h3 class="reason-title">
@@ -864,7 +1570,7 @@
 
 
 <!-- =======================================================
-     SAFETY RESULT
+     SAFETY
      ======================================================= -->
 
 <section class="swap-section green">
@@ -888,37 +1594,74 @@
     </p>
 
 
-    <div class="safety-result">
+    <div class="safety-layout">
 
-      <div class="safety-result-block reveal">
+      <div class="safety-card reveal">
 
-        <div class="safety-result-label">
-          ORIGINAL
+        <div class="safety-card-head">
+
+          <div class="safety-card-title">
+            Candidate Check
+          </div>
+
+          <div class="safety-status">
+            Passed
+          </div>
+
         </div>
 
-        <div class="safety-result-value">
-          FLAGGED
+
+        <div class="safety-meter">
+
+          <div class="safety-meter-top">
+            <span>Safety screening</span>
+            <span>100%</span>
+          </div>
+
+          <div class="safety-meter-track">
+            <div class="safety-meter-fill"></div>
+          </div>
+
         </div>
 
-        <p class="safety-result-description">
-          The original food conflicts with an allergen configured in
-          the user's safety profile.
-        </p>
+
+        <div class="safety-points">
+
+          <div class="safety-point">
+            <span>✓</span>
+            Allergen profile checked
+          </div>
+
+          <div class="safety-point">
+            <span>✓</span>
+            Candidate filtered
+          </div>
+
+          <div class="safety-point">
+            <span>✓</span>
+            Recommendation constraint applied
+          </div>
+
+          <div class="safety-point">
+            <span>✓</span>
+            Safe result surfaced
+          </div>
+
+        </div>
 
       </div>
 
 
-      <div class="safety-result-block reveal">
+      <div class="safety-stamp reveal">
 
-        <div class="safety-result-label">
-          RECOMMENDED SWAP
-        </div>
+        <img
+          src="assets/appy/static/meditate.png"
+          alt="Appy"
+        >
 
-        <div class="safety-result-value">
-          SAFE
-        </div>
+        <strong>SAFE</strong>
 
-        <p class="safety-result-description">
+        <p>
           The alternative passes the configured deterministic
           allergen-matching stage.
         </p>
@@ -960,14 +1703,38 @@
         </div>
 
         <div class="explanation-box-body">
+
           You were looking for something rich, spreadable and
-          satisfying on toast. The recommended alternative stays close
-          to that craving while avoiding the ingredient conflict found
-          in the original choice.
-          <br><br>
-          The explanation is generated from the recommendation context;
-          the underlying safety verdict remains separate and
-          deterministic.
+          satisfying on toast. The recommended alternative stays
+          close to that craving while avoiding the ingredient
+          conflict found in the original choice.
+
+          <div class="explanation-tags">
+
+            <span class="explanation-tag">
+              TEXTURE
+            </span>
+
+            <span class="explanation-tag">
+              SPREADABLE
+            </span>
+
+            <span class="explanation-tag">
+              CRAVING MATCH
+            </span>
+
+            <span class="explanation-tag">
+              SAFETY FILTERED
+            </span>
+
+          </div>
+
+          <br>
+
+          The explanation is generated from the recommendation
+          context; the underlying safety verdict remains separate
+          and deterministic.
+
         </div>
 
       </div>
@@ -980,7 +1747,7 @@
 
 
 <!-- =======================================================
-     MACRO COMPARISON
+     MACROS
      ======================================================= -->
 
 <section class="swap-section cream">
@@ -1002,88 +1769,129 @@
     </p>
 
 
-    <div class="macro-table reveal">
+    <div class="macro-layout">
 
-      <div class="macro-row header">
+      <!-- ORIGINAL -->
 
-        <div class="macro-cell">
-          PER SERVING
-        </div>
+      <div class="macro-card reveal">
 
-        <div class="macro-cell">
+        <div class="macro-card-head">
           ORIGINAL
         </div>
 
-        <div class="macro-cell">
-          SWAP
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Calories</span>
+            <span class="macro-value">190 kcal</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:76%"></span>
+          </div>
+
+        </div>
+
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Protein</span>
+            <span class="macro-value">8 g</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:80%"></span>
+          </div>
+
+        </div>
+
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Carbs</span>
+            <span class="macro-value">7 g</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:35%"></span>
+          </div>
+
+        </div>
+
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Fat</span>
+            <span class="macro-value">16 g</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:80%"></span>
+          </div>
+
         </div>
 
       </div>
 
 
-      <div class="macro-row">
+      <!-- SWAP -->
 
-        <div class="macro-cell">
-          Calories
+      <div class="macro-card swap reveal">
+
+        <div class="macro-card-head">
+          SAFE SWAP
         </div>
 
-        <div class="macro-cell">
-          190 kcal
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Calories</span>
+            <span class="macro-value">170 kcal</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:68%"></span>
+          </div>
+
         </div>
 
-        <div class="macro-cell">
-          170 kcal
+        <div class="macro-item">
+
+          <div class="macro-item-top">
+            <span>Protein</span>
+            <span class="macro-value">6 g</span>
+          </div>
+
+          <div class="macro-bar">
+            <span style="width:60%"></span>
+          </div>
+
         </div>
 
-      </div>
+        <div class="macro-item">
 
+          <div class="macro-item-top">
+            <span>Carbs</span>
+            <span class="macro-value">9 g</span>
+          </div>
 
-      <div class="macro-row">
+          <div class="macro-bar">
+            <span style="width:45%"></span>
+          </div>
 
-        <div class="macro-cell">
-          Protein
         </div>
 
-        <div class="macro-cell">
-          8 g
-        </div>
+        <div class="macro-item">
 
-        <div class="macro-cell">
-          6 g
-        </div>
+          <div class="macro-item-top">
+            <span>Fat</span>
+            <span class="macro-value">13 g</span>
+          </div>
 
-      </div>
+          <div class="macro-bar">
+            <span style="width:65%"></span>
+          </div>
 
-
-      <div class="macro-row">
-
-        <div class="macro-cell">
-          Carbohydrates
-        </div>
-
-        <div class="macro-cell">
-          7 g
-        </div>
-
-        <div class="macro-cell">
-          9 g
-        </div>
-
-      </div>
-
-
-      <div class="macro-row">
-
-        <div class="macro-cell">
-          Fat
-        </div>
-
-        <div class="macro-cell">
-          16 g
-        </div>
-
-        <div class="macro-cell">
-          13 g
         </div>
 
       </div>
@@ -1096,7 +1904,83 @@
 
 
 <!-- =======================================================
-     HOW THE SWAP WAS FOUND
+     VISUAL FOOD STRIP
+     ======================================================= -->
+
+<section class="swap-visual-strip">
+
+  <div class="visual-strip-inner">
+
+    <div class="visual-strip-head">
+
+      <h2 class="visual-strip-title">
+        FOOD<br>
+        SHOULD<br>
+        STILL<br>
+        FEEL FUN.
+      </h2>
+
+      <p class="visual-strip-copy">
+        SafeBite's recommendation layer is about finding useful
+        alternatives — not turning food choices into a boring
+        checklist.
+      </p>
+
+    </div>
+
+
+    <div class="visual-gallery">
+
+      <div class="visual-card">
+
+        <img
+          src="assets/illustrations/Hand-drawn_Italian_Dinner_Clipart__Wedding_Table_Setting__digital_Download__-_Etsy-removebg-preview.png"
+          alt=""
+        >
+
+        <div class="visual-card-label">
+          CRAVING SPACE
+        </div>
+
+      </div>
+
+
+      <div class="visual-card">
+
+        <img
+          src="assets/illustrations/Chez Marianne Paris-Photoroom.png"
+          alt=""
+        >
+
+        <div class="visual-card-label">
+          SIMILARITY
+        </div>
+
+      </div>
+
+
+      <div class="visual-card">
+
+        <img
+          src="assets/illustrations/Buongiorno Espresso - Poster _ 50 x 70 cm-Photoroom.png"
+          alt=""
+        >
+
+        <div class="visual-card-label">
+          USEFULNESS
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     UNDER THE HOOD
      ======================================================= -->
 
 <section class="swap-section yellow">
@@ -1128,6 +2012,10 @@
           01
         </div>
 
+        <div class="process-step-symbol">
+          ?
+        </div>
+
         <h3 class="process-step-title">
           READ
         </h3>
@@ -1143,6 +2031,10 @@
 
         <div class="process-step-number">
           02
+        </div>
+
+        <div class="process-step-symbol">
+          ◌
         </div>
 
         <h3 class="process-step-title">
@@ -1162,6 +2054,10 @@
           03
         </div>
 
+        <div class="process-step-symbol">
+          ✓
+        </div>
+
         <h3 class="process-step-title">
           FILTER
         </h3>
@@ -1178,6 +2074,10 @@
 
         <div class="process-step-number">
           04
+        </div>
+
+        <div class="process-step-symbol">
+          →
         </div>
 
         <h3 class="process-step-title">
@@ -1221,6 +2121,15 @@
 
   <div class="swap-cta-inner">
 
+    <div class="swap-cta-appy reveal">
+
+      <img
+        src="assets/appy/static/eat.png"
+        alt="Appy"
+      >
+
+    </div>
+
     <h2 class="swap-cta-title reveal">
       KEEP<br>
       THE<br>
@@ -1228,11 +2137,14 @@
     </h2>
 
     <p class="swap-cta-copy reveal">
-      Go back to your alternatives, search for something else, or scan
-      another label.
+      Go back to your alternatives, search for something else, or
+      scan another label.
     </p>
 
-    <a href="swaps.html" class="brutal-btn reveal">
+    <a
+      href="swaps.html"
+      class="brutal-btn reveal"
+    >
       SEE MORE SWAPS →
     </a>
 
@@ -1242,7 +2154,7 @@
 
 
 <!-- =======================================================
-     FOOTER — SHARED VERBATIM
+     FOOTER — SAME SAFEBITE FOOTER
      ======================================================= -->
 
 <footer class="footer" id="footer" data-color="#FFF8E0">
@@ -1425,10 +2337,302 @@
      ======================================================= -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <script src="script.js"></script>
+<script src="base-script.js"></script>
+
+
+<!-- =======================================================
+     PAGE MOTION
+     ======================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const page = document.querySelector(".swap-detail-page");
+
+  /*
+   * Do not create another cursor here.
+   * script.js owns the original SafeBite bee cursor + dashed trail.
+   */
+
+  /* -----------------------------------------
+     Reveal animation
+     ----------------------------------------- */
+
+  if ("IntersectionObserver" in window) {
+
+    page.classList.add("motion-ready");
+
+    const observer = new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if(entry.isIntersecting){
+
+            entry.target.classList.add("is-visible");
+
+            observer.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold:.12,
+        rootMargin:"0px 0px -50px 0px"
+      }
+    );
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(el => observer.observe(el));
+
+  }
+
+
+  /* -----------------------------------------
+     Hero entrance
+     ----------------------------------------- */
+
+  if(window.gsap){
+
+    gsap.from(".swap-detail-title",{
+      y:70,
+      opacity:0,
+      duration:1.1,
+      ease:"power4.out",
+      delay:.15
+    });
+
+    gsap.from(".swap-detail-kicker",{
+      x:-50,
+      opacity:0,
+      duration:.7,
+      ease:"power3.out"
+    });
+
+    gsap.from(".swap-detail-intro",{
+      y:25,
+      opacity:0,
+      duration:.8,
+      ease:"power3.out",
+      delay:.35
+    });
+
+    gsap.from(".swap-hero-paper",{
+      scale:.75,
+      rotation:18,
+      opacity:0,
+      duration:1.2,
+      ease:"back.out(1.5)",
+      delay:.2
+    });
+
+    gsap.from(".swap-hero-food",{
+      scale:.4,
+      rotation:-20,
+      opacity:0,
+      duration:1,
+      ease:"back.out(1.7)",
+      delay:.45
+    });
+
+    gsap.from(".swap-hero-sticker",{
+      scale:0,
+      rotation:-30,
+      duration:.8,
+      ease:"back.out(2)",
+      delay:.7
+    });
+
+
+    /* -----------------------------------------
+       Hero parallax
+       ----------------------------------------- */
+
+    if(window.ScrollTrigger){
+
+      gsap.to(".swap-hero-art",{
+        y:130,
+        rotation:12,
+        ease:"none",
+        scrollTrigger:{
+          trigger:".swap-detail-hero",
+          start:"top top",
+          end:"bottom top",
+          scrub:1
+        }
+      });
+
+      gsap.to(".swap-hero-food",{
+        y:-70,
+        rotation:8,
+        ease:"none",
+        scrollTrigger:{
+          trigger:".swap-detail-hero",
+          start:"top top",
+          end:"bottom top",
+          scrub:1
+        }
+      });
+
+
+      /* -----------------------------------------
+         Macro bars
+         ----------------------------------------- */
+
+      document
+        .querySelectorAll(".macro-card")
+        .forEach(card => {
+
+          ScrollTrigger.create({
+
+            trigger:card,
+
+            start:"top 80%",
+
+            once:true,
+
+            onEnter:() => {
+
+              card
+                .querySelectorAll(".macro-bar span")
+                .forEach(bar => {
+
+                  const width = bar.getAttribute("style");
+
+                  bar.style.width = width
+                    .replace("width:","")
+                    .replace(";","")
+                    .trim();
+
+                });
+
+            }
+
+          });
+
+        });
+
+
+      /* -----------------------------------------
+         Safety meter
+         ----------------------------------------- */
+
+      ScrollTrigger.create({
+
+        trigger:".safety-meter",
+
+        start:"top 80%",
+
+        once:true,
+
+        onEnter:() => {
+
+          const meter =
+            document.querySelector(".safety-meter-fill");
+
+          if(meter){
+            meter.style.width = "100%";
+          }
+
+        }
+
+      });
+
+
+      /* -----------------------------------------
+         Floating process animation
+         ----------------------------------------- */
+
+      gsap.utils.toArray(".process-step").forEach((step,index)=>{
+
+        gsap.from(step,{
+
+          y:50,
+          opacity:0,
+
+          scrollTrigger:{
+            trigger:step,
+            start:"top 85%",
+            once:true
+          },
+
+          duration:.7,
+          delay:index * .08,
+          ease:"power3.out"
+
+        });
+
+      });
+
+    }
+
+  }
+
+
+  /* -----------------------------------------
+     Small interactive Appy reactions
+     ----------------------------------------- */
+
+  document
+    .querySelectorAll(".reason-card")
+    .forEach(card => {
+
+      card.addEventListener("mouseenter",()=>{
+
+        const icon =
+          card.querySelector(".reason-icon");
+
+        if(icon){
+
+          icon.style.transform =
+            "rotate(-8deg) scale(1.1)";
+
+          icon.style.transition =
+            "transform .25s ease";
+
+        }
+
+      });
+
+      card.addEventListener("mouseleave",()=>{
+
+        const icon =
+          card.querySelector(".reason-icon");
+
+        if(icon){
+
+          icon.style.transform =
+            "rotate(0deg) scale(1)";
+
+        }
+
+      });
+
+    });
+
+
+  /* -----------------------------------------
+     Refresh ScrollTrigger
+     ----------------------------------------- */
+
+  setTimeout(()=>{
+
+    if(window.ScrollTrigger){
+      ScrollTrigger.refresh();
+    }
+
+  },500);
+
+});
+
+</script>
 
 </body>
 </html>
